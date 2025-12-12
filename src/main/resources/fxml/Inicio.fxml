@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Pos?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           alignment="CENTER"
+           style="-fx-background-color: #2196F3;">
+    
+    <Label text="Álvaro Zarauza."
+           style="-fx-font-size: 32px; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+</StackPane>
