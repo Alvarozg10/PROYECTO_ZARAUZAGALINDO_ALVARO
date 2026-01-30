@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -154,44 +155,34 @@ public class UserController implements Initializable {
 	@FXML
 	private void saveUser(ActionEvent event) {
 
-		if (validate("First Name", getFirstName(), "[a-zA-Z]+") && validate("Last Name", getLastName(), "[a-zA-Z]+")
-				&& emptyValidation("DOB", dob.getEditor().getText().isEmpty())
-				&& emptyValidation("Role", getRole() == null)) {
+	    if (validate("Nombre", getNombre(), "[a-zA-Z]+")
+	        && validate("Apellidos", getApellidos(), "[a-zA-Z ]+")
+	        && emptyValidation("Fecha nacimiento", dob.getEditor().getText().isEmpty())
+	        && validate("Email", getEmail(), "[a-zA-Z0-9._]+@[a-zA-Z0-9]+([.][a-zA-Z]+)+")
+	        && emptyValidation("Contraseña", getPassword().isEmpty())) {
 
-			if (userId.getText() == null || userId.getText() == "") {
-				if (validate("Email", getEmail(), "[a-zA-Z0-9][a-zA-Z0-9._]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+")
-						&& emptyValidation("Password", getPassword().isEmpty())) {
+	        User user;
 
-					User user = new User();
-					user.setFirstName(getFirstName());
-					user.setLastName(getLastName());
-					user.setDob(getDob());
-					user.setGender(getGender());
-					user.setRole(getRole());
-					user.setEmail(getEmail());
-					user.setPassword(getPassword());
+	        if (userId.getText() == null || userId.getText().isEmpty()) {
+	            user = new User(0, null, null, null, null, null, null);
+	        } else {
+	            user = userService.find(Long.parseLong(userId.getText()));
+	        }
 
-					User newUser = userService.save(user);
+	        user.setNombre(getNombre());
+	        user.setApellidos(getApellidos());
+	        user.setGenero(getGenero());
+	        user.setEmail(getEmail());
+	        user.setContraseña(getPassword());
+	        user.setFechaNacimiento(Date.valueOf(getDob()));
 
-					saveAlert(newUser);
-				}
+	        userService.save(user);
 
-			} else {
-				User user = userService.find(Long.parseLong(userId.getText()));
-				user.setFirstName(getFirstName());
-				user.setLastName(getLastName());
-				user.setDob(getDob());
-				user.setGender(getGender());
-				user.setRole(getRole());
-				User updatedUser = userService.update(user);
-				updateAlert(updatedUser);
-			}
-
-			clearFields();
-			loadUserDetails();
-		}
-
+	        clearFields();
+	        loadUserDetails();
+	    }
 	}
+
 
 	@FXML
 	private void deleteUsers(ActionEvent event) {
@@ -226,8 +217,8 @@ public class UserController implements Initializable {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("User saved successfully.");
 		alert.setHeaderText(null);
-		alert.setContentText("The user " + user.getFirstName() + " " + user.getLastName() + " has been created and \n"
-				+ getGenderTitle(user.getGender()) + " id is " + user.getId() + ".");
+		alert.setContentText("The user " + user.getNombre() + " " + user.getApellidos() + " has been created and \n"
+				+ getGenderTitle(user.getGenero()) + " id is " + user.getIdUsuario() + ".");
 		alert.showAndWait();
 	}
 
@@ -236,7 +227,7 @@ public class UserController implements Initializable {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("User updated successfully.");
 		alert.setHeaderText(null);
-		alert.setContentText("The user " + user.getFirstName() + " " + user.getLastName() + " has been updated.");
+		alert.setContentText("The user " + user.getNombre() + " " + user.getApellidos() + " has been updated.");
 		alert.showAndWait();
 	}
 
@@ -244,33 +235,30 @@ public class UserController implements Initializable {
 		return (gender.equals("Male")) ? "his" : "her";
 	}
 
-	public String getFirstName() {
-		return firstName.getText();
+	public String getNombre() {
+	    return firstName.getText();
 	}
 
-	public String getLastName() {
-		return lastName.getText();
+	public String getApellidos() {
+	    return lastName.getText();
 	}
 
 	public LocalDate getDob() {
-		return dob.getValue();
+	    return dob.getValue();
 	}
 
-	public String getGender() {
-		return rbMale.isSelected() ? "Male" : "Female";
-	}
-
-	public String getRole() {
-		return cbRole.getSelectionModel().getSelectedItem();
+	public String getGenero() {
+	    return rbMale.isSelected() ? "Male" : "Female";
 	}
 
 	public String getEmail() {
-		return email.getText();
+	    return email.getText();
 	}
 
 	public String getPassword() {
-		return password.getText();
+	    return password.getText();
 	}
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -347,15 +335,15 @@ public class UserController implements Initializable {
 				}
 
 				private void updateUser(User user) {
-					userId.setText(Long.toString(user.getId()));
-					firstName.setText(user.getFirstName());
-					lastName.setText(user.getLastName());
-					dob.setValue(user.getDob());
-					if (user.getGender().equals("Male"))
-						rbMale.setSelected(true);
-					else
-						rbFemale.setSelected(true);
-					cbRole.getSelectionModel().select(user.getRole());
+				    userId.setText(Long.toString(user.getIdUsuario()));
+				    firstName.setText(user.getNombre());
+				    lastName.setText(user.getApellidos());
+				    dob.setValue(user.getFechaNacimiento().toLocalDate());
+
+				    if (user.getGenero().equals("Male"))
+				        rbMale.setSelected(true);
+				    else
+				        rbFemale.setSelected(true);
 				}
 			};
 			return cell;

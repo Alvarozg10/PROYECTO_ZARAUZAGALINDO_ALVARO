@@ -1,49 +1,84 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-public class FormacionEmpresa {
-    private long idFormacion;
-    private Date fechaInicio;
-    private Date fechaFin;
-    private Periodo periodo;
-    private Estado estado;
-    private String cursoAcademico;
+public class FormacionEmpresa<TutorEmpresa> {
+	
+	private Long idFormacion;
+	private Date fechaAsignacion;
+	private Estudiante estudiante;
+	private Profesor profesor;
+	private TutorEmpresa tutorEmpresa;
+	private Empresa empresa;
+	private Periodo periodo;
+	private List<Documento> documentos = new ArrayList<>();
 
-    public FormacionEmpresa() {}
+	public FormacionEmpresa(Long idFormacion, Date fechaAsignacion,
+			Estudiante estudiante, Profesor profesor,
+			TutorEmpresa tutorEmpresa, Empresa empresa,
+			Periodo periodo) {
+		this.idFormacion = idFormacion;
+		this.fechaAsignacion = fechaAsignacion;
+		this.estudiante = estudiante;
+		this.profesor = profesor;
+		this.tutorEmpresa = tutorEmpresa;
+		this.empresa = empresa;
+		this.periodo = periodo;
+	}
 
-    public FormacionEmpresa(long idFormacion, Date fechaInicio, Date fechaFin,
-                            Periodo periodo, Estado estado, String cursoAcademico) {
-        this.idFormacion = idFormacion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.periodo = periodo;
-        this.estado = estado;
-        this.cursoAcademico = cursoAcademico;
-    }
+	public void addDocumento(Documento documento) {
+	documentos.add(documento);
+	
+	}
 
-	public long getIdFormacion() {
+	public Long getIdFormacion() {
 		return idFormacion;
 	}
 
-	public void setIdFormacion(long idFormacion) {
+	public void setIdFormacion(Long idFormacion) {
 		this.idFormacion = idFormacion;
 	}
 
-	public Date getFechaInicio() {
-		return fechaInicio;
+	public Date getFechaAsignacion() {
+		return fechaAsignacion;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
+	public void setFechaAsignacion(Date fechaAsignacion) {
+		this.fechaAsignacion = fechaAsignacion;
 	}
 
-	public Date getFechaFin() {
-		return fechaFin;
+	public Estudiante getEstudiante() {
+		return estudiante;
 	}
 
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
+	public void setEstudiante(Estudiante estudiante) {
+		this.estudiante = estudiante;
+	}
+
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
+
+	public TutorEmpresa getTutorEmpresa() {
+		return tutorEmpresa;
+	}
+
+	public void setTutorEmpresa(TutorEmpresa tutorEmpresa) {
+		this.tutorEmpresa = tutorEmpresa;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	public Periodo getPeriodo() {
@@ -54,21 +89,19 @@ public class FormacionEmpresa {
 		this.periodo = periodo;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public List<Documento> getDocumentos() {
+		return documentos;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setDocumentos(List<Documento> documentos) {
+		this.documentos = documentos;
 	}
 
-	public String getCursoAcademico() {
-		return cursoAcademico;
+	@Override
+	public String toString() {
+		return "FormacionEmpresa [idFormacion=" + idFormacion + ", fechaAsignacion=" + fechaAsignacion + ", estudiante="
+				+ estudiante + ", profesor=" + profesor + ", tutorEmpresa=" + tutorEmpresa + ", empresa=" + empresa
+				+ ", periodo=" + periodo + ", documentos=" + documentos + "]";
 	}
-
-	public void setCursoAcademico(String cursoAcademico) {
-		this.cursoAcademico = cursoAcademico;
+		
 	}
-
-    
-}

@@ -43,7 +43,7 @@ public class UserService {
 		if (user == null) {
 			return false;
 		} else {
-			if (password.equals(user.getPassword()))
+			if (password.equals(user.getContraseña()))
 				return true;
 			else
 				return false;

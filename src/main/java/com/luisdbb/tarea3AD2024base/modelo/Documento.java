@@ -1,63 +1,89 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Documento {
-    private long idDocumento;
-    private String nombreArchivo;
-    private String tipo;
-    private String ruta;
-    private LocalDateTime fechaSubida;
+	private Long idDocumento;
+	private String nombre;
+	private TipoDocumento tipo;
+	private String ruta;
+	private Date fechaSubida;
+	private Estado estado;
 
-    public Documento() {}
 
-    public Documento(long idDocumento, String nombreArchivo, String tipo, String ruta, LocalDateTime fechaSubida) {
-        this.idDocumento = idDocumento;
-        this.nombreArchivo = nombreArchivo;
-        this.tipo = tipo;
-        this.ruta = ruta;
-        this.fechaSubida = fechaSubida;
-    }
+	public Documento(Long idDocumento, String nombre, TipoDocumento tipo,
+			String ruta, Date fechaSubida, Estado estado) {
+		this.idDocumento = idDocumento;
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.ruta = ruta;
+		this.fechaSubida = fechaSubida;
+		this.estado = estado;
+		}
 
-	public long getIdDocumento() {
+	public Long getIdDocumento() {
 		return idDocumento;
 	}
 
-	public void setIdDocumento(long idDocumento) {
+
+	public void setIdDocumento(Long idDocumento) {
 		this.idDocumento = idDocumento;
 	}
 
-	public String getNombreArchivo() {
-		return nombreArchivo;
+
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombreArchivo(String nombreArchivo) {
-		this.nombreArchivo = nombreArchivo;
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getTipo() {
+
+	public TipoDocumento getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+
+	public void setTipo(TipoDocumento tipo) {
 		this.tipo = tipo;
 	}
+
 
 	public String getRuta() {
 		return ruta;
 	}
 
+
 	public void setRuta(String ruta) {
 		this.ruta = ruta;
 	}
 
-	public LocalDateTime getFechaSubida() {
+
+	public Date getFechaSubida() {
 		return fechaSubida;
 	}
 
-	public void setFechaSubida(LocalDateTime fechaSubida) {
+
+	public void setFechaSubida(Date fechaSubida) {
 		this.fechaSubida = fechaSubida;
 	}
 
-    
-}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	@Override
+	public String toString() {
+		return "Documento [idDocumento=" + idDocumento + ", nombre=" + nombre + ", tipo=" + tipo + ", ruta=" + ruta
+				+ ", fechaSubida=" + fechaSubida + ", estado=" + estado + "]";
+	}
+	
+	}

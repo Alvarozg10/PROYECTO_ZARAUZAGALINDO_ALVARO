@@ -1,5 +1,6 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -21,69 +22,63 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
-	private long id;
+	private long idUsuario;
 
-	private String firstName;
+	private String nombre;
 
-	private String lastName;
+	private String apellidos;
 
-	private LocalDate dob;
-
-	private String gender;
-
-	private String role;
+	private String genero;
 
 	@Column(unique=true)
 	private String email;
 
-	private String password;
+	private String contraseña;
+	
+	private Date fechaNacimiento;
 
-	public long getId() {
-		return id;
+	public User(long idUsuario, String nombre, String apellidos, String genero, String email, String contraseña,
+			Date fechaNacimiento) {
+		super();
+		this.idUsuario = idUsuario;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.genero = genero;
+		this.email = email;
+		this.contraseña = contraseña;
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public String getApellidos() {
+		return apellidos;
 	}
 
-	public LocalDate getDob() {
-		return dob;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
-	public void setDob(LocalDate dob) {
-		this.dob = dob;
+	public String getGenero() {
+		return genero;
 	}
 
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 
 	public String getEmail() {
@@ -94,18 +89,27 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getContraseña() {
+		return contraseña;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob + ", email="
-				+ email + "]";
+		return "User [idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellidos=" + apellidos + ", genero=" + genero
+				+ ", email=" + email + ", contraseña=" + contraseña + ", fechaNacimiento=" + fechaNacimiento + "]";
 	}
+	
 
 }

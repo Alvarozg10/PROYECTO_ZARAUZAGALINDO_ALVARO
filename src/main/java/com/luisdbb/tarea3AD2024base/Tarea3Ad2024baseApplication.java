@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.application.Application;
 import javafx.animation.FadeTransition;

@@ -1,51 +1,15 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
-public class TutorEmpresa {
-    private long idTutorEmpresa;
-    private String telefono;
-    private String puesto;
-    private Empresa empresa;
+import java.sql.Date;
 
-    public TutorEmpresa() {}
+class TutorEmpresa extends User {
+	private String telefono;
 
-    public TutorEmpresa(long idTutorEmpresa, String telefono, String puesto, Empresa empresa) {
-        this.idTutorEmpresa = idTutorEmpresa;
-        this.telefono = telefono;
-        this.puesto = puesto;
-        this.empresa = empresa;
-    }
 
-	public long getIdTutorEmpresa() {
-		return idTutorEmpresa;
+	public TutorEmpresa(Long idUsuario, String nombre, String apellidos, String genero,
+			String email, String contrasena, Date fechaNacimiento,
+			String telefono) {
+			super(idUsuario, nombre, apellidos, genero, email, contrasena, fechaNacimiento);
+			this.telefono = telefono;
 	}
-
-	public void setIdTutorEmpresa(long idTutorEmpresa) {
-		this.idTutorEmpresa = idTutorEmpresa;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getPuesto() {
-		return puesto;
-	}
-
-	public void setPuesto(String puesto) {
-		this.puesto = puesto;
-	}
-
-	public Empresa getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
-
-    
 }

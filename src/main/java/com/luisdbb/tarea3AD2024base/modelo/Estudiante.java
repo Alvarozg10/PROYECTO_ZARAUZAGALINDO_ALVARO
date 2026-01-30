@@ -1,54 +1,21 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
-public class Estudiante extends User {
-    private long idEstudiante;
-    private int nia;
-    private String telefono;
-    private int curso;
-    private String ciclo;
+import java.sql.Date;
 
-    public Estudiante() {}
+public class Estudiante extends User{
+	
+	private String ciclo;
+	
+	private int curso;
+	
+	private String expediente;
 
-    public Estudiante(long idUsuario, String nombre, String email, String contraseña,
-                      long idEstudiante, int nia, String telefono, int curso, String ciclo) {
-        super();
-        this.idEstudiante = idEstudiante;
-        this.nia = nia;
-        this.telefono = telefono;
-        this.curso = curso;
-        this.ciclo = ciclo;
-    }
-
-	public long getIdEstudiante() {
-		return idEstudiante;
-	}
-
-	public void setIdEstudiante(long idEstudiante) {
-		this.idEstudiante = idEstudiante;
-	}
-
-	public int getNia() {
-		return nia;
-	}
-
-	public void setNia(int nia) {
-		this.nia = nia;
-	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public int getCurso() {
-		return curso;
-	}
-
-	public void setCurso(int curso) {
+	public Estudiante(long idUsuario, String nombre, String apellidos, String genero, String email, String contraseña,
+			Date fechaNacimiento, String ciclo, int curso, String expediente) {
+		super(idUsuario, nombre, apellidos, genero, email, contraseña, fechaNacimiento);
+		this.ciclo = ciclo;
 		this.curso = curso;
+		this.expediente = expediente;
 	}
 
 	public String getCiclo() {
@@ -59,5 +26,25 @@ public class Estudiante extends User {
 		this.ciclo = ciclo;
 	}
 
-    
+	public int getCurso() {
+		return curso;
+	}
+
+	public void setCurso(int curso) {
+		this.curso = curso;
+	}
+
+	public String getExpediente() {
+		return expediente;
+	}
+
+	public void setExpediente(String expediente) {
+		this.expediente = expediente;
+	}
+
+	@Override
+	public String toString() {
+		return "Estudiante [ciclo=" + ciclo + ", curso=" + curso + ", expediente=" + expediente + "]";
+	}
+	
 }
