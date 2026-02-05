@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -47,16 +49,38 @@ public class LoginController implements Initializable{
     @Lazy
     @Autowired
     private StageManager stageManager;
+    
+    @FXML
+    private ChoiceBox<String> eleccionUsuario;
         
-	@FXML
-    private void login(ActionEvent event) throws IOException{
-    	if(userService.authenticate(getUsername(), getPassword())){
-    		    		
-    		stageManager.switchScene(FxmlView.USER);
-    		
-    	}else{
-    		lblLogin.setText("Login Failed.");
-    	}
+    @FXML
+    private void login(ActionEvent event) throws IOException {
+
+    	User user = userService.authenticate(getUsername(), getPassword());
+
+        if (user != null) {
+
+            switch (user.getRol()) {
+
+                case "Profesor":
+                    stageManager.switchScene(FxmlView.PROFESOR);
+                    break;
+
+                case "Estudiante":
+                    stageManager.switchScene(FxmlView.ESTUDIANTE);
+                    break;
+
+                case "Tutor de empresa":
+                    stageManager.switchScene(FxmlView.TUTOR);
+                    break;
+
+                default:
+                    lblLogin.setText("Rol no reconocido.");
+            }
+
+        } else {
+            lblLogin.setText("Login Failed.");
+        }
     }
 	
 	public String getPassword() {
@@ -69,7 +93,14 @@ public class LoginController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
+	    eleccionUsuario.getItems().addAll(
+	            "Profesor",
+	            "Estudiante",
+	            "Tutor de empresa"
+	    );
+
+	    eleccionUsuario.setValue("Estudiante");
 	}
 
 }

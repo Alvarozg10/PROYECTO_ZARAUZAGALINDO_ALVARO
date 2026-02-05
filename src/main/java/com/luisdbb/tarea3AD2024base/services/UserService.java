@@ -38,16 +38,15 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
-	public boolean authenticate(String username, String password) {
-		User user = this.findByEmail(username);
-		if (user == null) {
-			return false;
-		} else {
-			if (password.equals(user.getContraseña()))
-				return true;
-			else
-				return false;
-		}
+	public User authenticate(String email, String password) {
+
+	    User user = userRepository.findByEmail(email);
+
+	    if (user != null && user.getContraseña().equals(password)) {
+	        return user;
+	    }
+
+	    return null;
 	}
 
 	public User findByEmail(String email) {

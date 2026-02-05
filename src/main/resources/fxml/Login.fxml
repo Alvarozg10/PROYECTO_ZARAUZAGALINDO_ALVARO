@@ -1,35 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController">
-   <children>
-      <Rectangle fill="DODGERBLUE" height="250.0" stroke="#ffffff8b" strokeType="INSIDE" width="400.0" />
-      <Label fx:id="lblLogin" layoutX="97.0" layoutY="46.0" text="Login" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="username" layoutX="98.0" layoutY="92.0" prefHeight="36.0" prefWidth="204.0" promptText="Username" />
-      <PasswordField fx:id="password" layoutX="98.0" layoutY="141.0" onAction="#login" prefHeight="36.0" prefWidth="204.0" promptText="Password" />
-      <Button fx:id="btnLogin" layoutX="215.0" layoutY="193.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Sign In" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" />
-         </effect></Button>
-   </children>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController">
+   <top>
+      <Pane prefHeight="77.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="137.0" layoutY="28.0" text="Programa de gestión de formaciones en empresa">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="227.0" layoutY="55.0" text="Por: Álvaro Zarauza Galindo" />
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <Pane fx:id="loginPane" prefHeight="323.0" prefWidth="492.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblLogin" layoutX="231.0" layoutY="25.0" text="Inicio de Sesión">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="password" layoutX="225.0" layoutY="218.0" onAction="#login" promptText="Introduce tu contraseña" /> 
+            <Label layoutX="224.0" layoutY="144.0" text="Usuario" />
+            <TextField fx:id="username" layoutX="224.0" layoutY="161.0" promptText="Introduce tu usuario" />
+            <Label layoutX="224.0" layoutY="201.0" prefHeight="17.0" prefWidth="63.0" text="Contraseña" />
+            <ChoiceBox fx:id="eleccionUsuario" layoutX="224.0" layoutY="106.0" prefWidth="150.0" />
+            <Label layoutX="225.0" layoutY="89.0" text="Tipo de usuario" />
+            <Button fx:id="btnLogin" layoutX="266.0" layoutY="266.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="68.0" text="Entrar" />
+            <Label layoutX="268.0" layoutY="55.0" text="Bienvenido!" />
+            <PasswordField fx:id="password" layoutX="224.0" layoutY="218.0" onAction="#login" promptText="Introduce tu contraseña" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

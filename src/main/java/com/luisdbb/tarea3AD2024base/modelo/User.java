@@ -1,7 +1,6 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,97 +18,118 @@ import jakarta.persistence.Table;
 @Table(name = "User")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", updatable = false, nullable = false)
-	private long idUsuario;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private long idUsuario;
 
-	private String nombre;
+    private String nombre;
 
-	private String apellidos;
+    private String apellidos;
 
-	private String genero;
+    private String genero;
 
-	@Column(unique=true)
-	private String email;
+    @Column(unique = true)
+    private String email;
 
-	private String contraseña;
-	
-	private Date fechaNacimiento;
+    private String contraseña;
 
-	public User(long idUsuario, String nombre, String apellidos, String genero, String email, String contraseña,
-			Date fechaNacimiento) {
-		super();
-		this.idUsuario = idUsuario;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.genero = genero;
-		this.email = email;
-		this.contraseña = contraseña;
-		this.fechaNacimiento = fechaNacimiento;
-	}
+    private Date fechaNacimiento;
 
-	public long getIdUsuario() {
-		return idUsuario;
-	}
+    @Column(name = "rol")
+    private String rol;
 
-	public void setIdUsuario(long idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+    
+    public User() {
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    // Constructor completo
+    public User(long idUsuario, String nombre, String apellidos, String genero,
+                String email, String contraseña, Date fechaNacimiento, String rol) {
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.genero = genero;
+        this.email = email;
+        this.contraseña = contraseña;
+        this.fechaNacimiento = fechaNacimiento;
+        this.rol = rol;
+    }
 
-	public String getApellidos() {
-		return apellidos;
-	}
+    public long getIdUsuario() {
+        return idUsuario;
+    }
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
-	public String getGenero() {
-		return genero;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getApellidos() {
+        return apellidos;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
-	public String getContraseña() {
-		return contraseña;
-	}
+    public String getGenero() {
+        return genero;
+    }
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
-	}
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
 
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public String toString() {
-		return "User [idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellidos=" + apellidos + ", genero=" + genero
-				+ ", email=" + email + ", contraseña=" + contraseña + ", fechaNacimiento=" + fechaNacimiento + "]";
-	}
-	
+    public String getContraseña() {
+        return contraseña;
+    }
 
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    // 🔥 GETTER / SETTER DEL ROL
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    @Override
+    public String toString() {
+        return "User [idUsuario=" + idUsuario +
+               ", nombre=" + nombre +
+               ", apellidos=" + apellidos +
+               ", genero=" + genero +
+               ", email=" + email +
+               ", rol=" + rol +
+               ", fechaNacimiento=" + fechaNacimiento + "]";
+    }
 }

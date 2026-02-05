@@ -3,34 +3,40 @@ package com.luisdbb.tarea3AD2024base.view;
 import java.util.ResourceBundle;
 
 public enum FxmlView {
-	USER {
-		@Override
-		public String getTitle() {
-			return getStringFromResourceBundle("user.title");
-		}
 
-		@Override
-		public String getFxmlFile() {
-			return "/fxml/User.fxml";
-		}
-	},
-	LOGIN {
-		@Override
-		public String getTitle() {
-			return getStringFromResourceBundle("login.title");
-		}
+    LOGIN {
+        @Override
+        public String getTitle() { return "Login"; }
 
-		@Override
-		public String getFxmlFile() {
-			return "/fxml/Login.fxml";
-		}
-	};
+        @Override
+        public String getFxmlFile() { return "/fxml/Login.fxml"; }
+    },
 
-	public abstract String getTitle();
+    PROFESOR {
+        @Override
+        public String getTitle() { return "Profesor"; }
 
-	public abstract String getFxmlFile();
+        @Override
+        public String getFxmlFile() { return "/fxml/Profesor.fxml"; }
+    },
 
-	String getStringFromResourceBundle(String key) {
-		return ResourceBundle.getBundle("Bundle").getString(key);
-	}
+    ESTUDIANTE {
+        @Override
+        public String getTitle() { return "Estudiante"; }
+
+        @Override
+        public String getFxmlFile() { return "/fxml/Estudiante.fxml"; }
+    },
+
+    TUTOR {
+        @Override
+        public String getTitle() { return "Tutor de empresa"; }
+
+        @Override
+        public String getFxmlFile() { return "/fxml/Tutor.fxml"; }
+    };
+
+    public abstract String getTitle();
+    public abstract String getFxmlFile();
 }
+

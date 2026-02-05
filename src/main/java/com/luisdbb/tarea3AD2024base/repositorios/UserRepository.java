@@ -9,5 +9,5 @@ import com.luisdbb.tarea3AD2024base.modelo.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	User findByEmail(String email);
+    User findByEmail(String email);
 }
