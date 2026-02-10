@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-12-2025 a las 17:57:09
+-- Tiempo de generación: 10-02-2026 a las 12:22:55
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,24 +29,30 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
-  `dob` date DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `first_name` varchar(255) DEFAULT NULL,
-  `gender` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL
+  `dtype` varchar(31) NOT NULL,
+  `apellidos` varchar(255) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `genero` varchar(255) DEFAULT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `rol` varchar(255) DEFAULT NULL,
+  `ciclo` varchar(255) DEFAULT NULL,
+  `curso` int(11) DEFAULT NULL,
+  `expediente` varchar(255) DEFAULT NULL,
+  `especialidad` varchar(255) DEFAULT NULL,
+  `telefono` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id`, `dob`, `email`, `first_name`, `gender`, `last_name`, `password`, `role`) VALUES
-(1, '2000-01-01', 'admin', 'Admin', '-', NULL, 'admin', 'Admin'),
-(2, '1984-11-01', 'luis@mail.com', 'Luis', 'Male', 'deBlas', 'luis', 'User'),
-(3, '2005-02-19', 'alvarozg10@educastur.es', 'Alvaro', 'Male', 'Zarauza', 'alvaro', 'User'),
-(4, '1996-11-15', 'admin2@mail.com', 'Administrador', 'Male', 'Secundario', 'admin2', 'Admin');
+INSERT INTO `user` (`id`, `email`, `password`, `dtype`, `apellidos`, `fecha_nacimiento`, `genero`, `nombre`, `rol`, `ciclo`, `curso`, `expediente`, `especialidad`, `telefono`) VALUES
+(3, 'estudiante@demo.com', '1234', 'Estudiante', NULL, NULL, NULL, NULL, 'Estudiante', NULL, 1, NULL, NULL, NULL),
+(4, 'tutor@demo.com', '1234', 'TutorEmpresa', NULL, NULL, NULL, NULL, 'Tutor de empresa', NULL, NULL, NULL, NULL, '600123456'),
+(5, 'profesor@demo.com', '1234', 'Profesor', NULL, NULL, NULL, NULL, 'Profesor', NULL, NULL, NULL, 'Informática', NULL),
+(6, 'admin@demo.com', 'admin', 'Administrador', NULL, NULL, NULL, NULL, 'Administrador', NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -67,7 +73,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
