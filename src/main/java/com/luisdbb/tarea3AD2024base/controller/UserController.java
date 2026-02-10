@@ -15,6 +15,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.Estudiante;
+import com.luisdbb.tarea3AD2024base.modelo.Profesor;
+import com.luisdbb.tarea3AD2024base.modelo.TutorEmpresa;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
@@ -55,7 +58,7 @@ public class UserController implements Initializable {
     @FXML private TableColumn<User, Long> colUserId;
     @FXML private TableColumn<User, String> colFirstName;
     @FXML private TableColumn<User, String> colLastName;
-    @FXML private TableColumn<User, LocalDate> colDOB;
+    @FXML private TableColumn<User, Date> colDOB;
     @FXML private TableColumn<User, String> colGender;
     @FXML private TableColumn<User, String> colRole;
     @FXML private TableColumn<User, String> colEmail;
@@ -75,20 +78,18 @@ public class UserController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         eleccionUsuario.getItems().addAll(
+                "Administrador",
                 "Profesor",
                 "Estudiante",
                 "Tutor de empresa"
         );
+
         eleccionUsuario.setValue("Estudiante");
 
         userTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
         loadUserDetails();
     }
-
-    /* =========================
-       BOTONES
-       ========================= */
 
     @FXML
     private void exit(ActionEvent event) {
@@ -110,7 +111,7 @@ public class UserController implements Initializable {
 
         if (validate("Nombre", getNombre(), "[a-zA-Z]+")
                 && validate("Apellidos", getApellidos(), "[a-zA-Z ]+")
-                && emptyValidation("Fecha nacimiento", dob.getEditor().getText().isEmpty())
+                && emptyValidation("Fecha nacimiento", dob.getValue() == null)
                 && validate("Email", getEmail(), "[a-zA-Z0-9._]+@[a-zA-Z0-9]+([.][a-zA-Z]+)+")
                 && emptyValidation("Contraseña", getPassword().isEmpty())
                 && eleccionUsuario.getValue() != null) {
@@ -118,7 +119,19 @@ public class UserController implements Initializable {
             User user;
 
             if (userId.getText() == null || userId.getText().isEmpty()) {
-                user = new User();
+
+                switch (eleccionUsuario.getValue()) {
+                    case "Profesor":
+                        user = new Profesor();
+                        break;
+                    case "Tutor de empresa":
+                        user = new TutorEmpresa();
+                        break;
+                    default:
+                        user = new Estudiante();
+                        break;
+                }
+
             } else {
                 user = userService.find(Long.parseLong(userId.getText()));
             }
@@ -127,7 +140,7 @@ public class UserController implements Initializable {
             user.setApellidos(getApellidos());
             user.setGenero(getGenero());
             user.setEmail(getEmail());
-            user.setContraseña(getPassword());
+            user.setPassword(getPassword());
             user.setFechaNacimiento(Date.valueOf(getDob()));
             user.setRol(eleccionUsuario.getValue());
 
@@ -155,10 +168,6 @@ public class UserController implements Initializable {
             loadUserDetails();
         }
     }
-
-    /* =========================
-       TABLA
-       ========================= */
 
     private void setColumnProperties() {
 
@@ -219,10 +228,6 @@ public class UserController implements Initializable {
         userTable.setItems(userList);
     }
 
-    /* =========================
-       GETTERS
-       ========================= */
-
     public String getNombre() { return firstName.getText(); }
     public String getApellidos() { return lastName.getText(); }
     public LocalDate getDob() { return dob.getValue(); }
@@ -230,15 +235,11 @@ public class UserController implements Initializable {
     public String getEmail() { return email.getText(); }
     public String getPassword() { return password.getText(); }
 
-    /* =========================
-       UTILIDADES
-       ========================= */
-
     private void clearFields() {
         userId.setText(null);
         firstName.clear();
         lastName.clear();
-        dob.getEditor().clear();
+        dob.setValue(null);
         rbMale.setSelected(true);
         rbFemale.setSelected(false);
         eleccionUsuario.setValue("Estudiante");
@@ -251,7 +252,6 @@ public class UserController implements Initializable {
         if (!value.isEmpty()) {
             Pattern p = Pattern.compile(pattern);
             Matcher m = p.matcher(value);
-
             if (m.matches()) return true;
         }
 
@@ -273,4 +273,5 @@ public class UserController implements Initializable {
         alert.showAndWait();
     }
 }
+
 

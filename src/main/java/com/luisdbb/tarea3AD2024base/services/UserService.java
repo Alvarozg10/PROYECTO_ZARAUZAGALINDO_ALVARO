@@ -11,50 +11,50 @@ import com.luisdbb.tarea3AD2024base.repositorios.UserRepository;
 @Service
 public class UserService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	public User save(User entity) {
-		return userRepository.save(entity);
-	}
+    public User save(User entity) {
+        return userRepository.save(entity);
+    }
 
-	public User update(User entity) {
-		return userRepository.save(entity);
-	}
+    public User update(User entity) {
+        return userRepository.save(entity);
+    }
 
-	public void delete(User entity) {
-		userRepository.delete(entity);
-	}
+    public void delete(User entity) {
+        userRepository.delete(entity);
+    }
 
-	public void delete(Long id) {
-		userRepository.deleteById(id);
-	}
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 
-	public User find(Long id) {
-		return userRepository.findById(id).get();
-	}
+    public User find(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 
-	public List<User> findAll() {
-		return userRepository.findAll();
-	}
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
-	public User authenticate(String email, String password) {
+    public User authenticate(String email, String password) {
 
-	    User user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
 
-	    if (user != null && user.getContraseña().equals(password)) {
-	        return user;
-	    }
+        if (user != null && password.equals(user.getPassword())) {
+            return user;
+        }
 
-	    return null;
-	}
+        return null;
+    }
 
-	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
-	public void deleteInBatch(List<User> users) {
-		userRepository.deleteAll(users);
-	}
-
+    public void deleteInBatch(List<User> users) {
+        userRepository.deleteAll(users);
+    }
 }
+

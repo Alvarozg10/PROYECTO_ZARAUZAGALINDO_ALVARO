@@ -1,69 +1,44 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
-import java.sql.Date;
-
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Estudiante extends User{
-	
-	private String ciclo;
-	
-	private int curso;
-	
-	private String expediente;
+@DiscriminatorValue("Estudiante")
+public class Estudiante extends User {
 
-	public Estudiante() {
-	super();
-	setRol("Estudiante");
-	
-	}
+    private String ciclo;
 
-		public Estudiante(long idUsuario,
-						String nombre,
-						String apellidos,
-						String genero,
-						String email,
-						String contrasena,
-						Date fechaNacimiento,
-						String ciclo,
-						int curso,
-						String expediente) {
+    private Integer curso;   
 
-        	
-		super(idUsuario, nombre, apellidos, genero,
-		              email, contrasena, fechaNacimiento,
-		              "Estudiante");
+    private String expediente;
 
-		        this.ciclo = ciclo;
-		        this.curso = curso;
-		        this.expediente = expediente;
-		    }
+    public Estudiante() {
+        super();
+        setRol("Estudiante");
+    }
 
-		public String getCiclo() {
-			return ciclo;
-		}
+    public String getCiclo() {
+        return ciclo;
+    }
 
-		public void setCiclo(String ciclo) {
-			this.ciclo = ciclo;
-		}
+    public void setCiclo(String ciclo) {
+        this.ciclo = ciclo;
+    }
 
-		public int getCurso() {
-			return curso;
-		}
+    public Integer getCurso() {     
+        return curso;
+    }
 
-		public void setCurso(int curso) {
-			this.curso = curso;
-		}
+    public void setCurso(Integer curso) {  
+        this.curso = curso;
+    }
 
-		public String getExpediente() {
-			return expediente;
-		}
+    public String getExpediente() {
+        return expediente;
+    }
 
-		public void setExpediente(String expediente) {
-			this.expediente = expediente;
-		}
-		
+    public void setExpediente(String expediente) {
+        this.expediente = expediente;
+    }
 }
-
-

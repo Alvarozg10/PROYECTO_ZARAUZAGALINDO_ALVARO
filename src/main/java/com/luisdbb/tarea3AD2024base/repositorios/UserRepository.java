@@ -10,4 +10,6 @@ import com.luisdbb.tarea3AD2024base.modelo.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
+    
+    
 }

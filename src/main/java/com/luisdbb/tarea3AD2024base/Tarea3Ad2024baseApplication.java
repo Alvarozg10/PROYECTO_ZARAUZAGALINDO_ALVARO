@@ -38,13 +38,6 @@ public class Tarea3Ad2024baseApplication extends Application {
         displayInitialScene();
     }
 
-    /**
-     * Useful to override this method by sub-classes wishing to change the first
-     * Scene to be displayed on startup. Example: Functional tests on main window.
-     *
-     * Now shows a splash screen for a short delay and then switches to LOGIN via StageManager.
-     */
-
     protected void displayInitialScene() {
         try {
             Parent splashRoot = FXMLLoader.load(getClass().getResource("/fxml/Inicio.fxml"));

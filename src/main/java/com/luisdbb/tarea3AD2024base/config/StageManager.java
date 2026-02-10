@@ -34,9 +34,7 @@ public class StageManager {
     
     private void show(final Parent rootnode, String title) {
         Scene scene = prepareScene(rootnode);
-        //scene.getStylesheets().add("/styles/Styles.css");
-        
-        //primaryStage.initStyle(StageStyle.TRANSPARENT);
+
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
@@ -59,12 +57,6 @@ public class StageManager {
         return scene;
     }
 
-    /**
-     * Loads the object hierarchy from a FXML document and returns to root node
-     * of that hierarchy.
-     *
-     * @return Parent root node of the FXML document hierarchy
-     */
     private Parent loadViewNodeHierarchy(String fxmlFilePath) {
         Parent rootNode = null;
         try {
@@ -75,8 +67,7 @@ public class StageManager {
         }
         return rootNode;
     }
-    
-    
+       
     private void logAndExit(String errorMsg, Exception exception) {
         LOG.error(errorMsg, exception, exception.getCause());
         Platform.exit();

@@ -2,66 +2,44 @@ package com.luisdbb.tarea3AD2024base.modelo;
 
 import java.sql.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
-/**
- * @author Ram Alapure
- * @since 05-04-2017
- */
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private long idUsuario;
+    private Long idUsuario;
 
     private String nombre;
-
     private String apellidos;
-
     private String genero;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    private String contraseña;
+    // 🔥 PASSWORD UNIFICADO
+    @Column(name = "password", nullable = false)
+    private String password;
 
+    @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
-    @Column(name = "rol")
+    @Column(name = "rol", nullable = false)
     private String rol;
 
-    
     public User() {
     }
 
-    // Constructor completo
-    public User(long idUsuario, String nombre, String apellidos, String genero,
-                String email, String contraseña, Date fechaNacimiento, String rol) {
-
-        this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.genero = genero;
-        this.email = email;
-        this.contraseña = contraseña;
-        this.fechaNacimiento = fechaNacimiento;
-        this.rol = rol;
-    }
-
-    public long getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(long idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -97,12 +75,13 @@ public class User {
         this.email = email;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    // 🔐 PASSWORD
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getFechaNacimiento() {
@@ -113,7 +92,6 @@ public class User {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    // 🔥 GETTER / SETTER DEL ROL
     public String getRol() {
         return rol;
     }
@@ -125,11 +103,11 @@ public class User {
     @Override
     public String toString() {
         return "User [idUsuario=" + idUsuario +
-               ", nombre=" + nombre +
-               ", apellidos=" + apellidos +
-               ", genero=" + genero +
-               ", email=" + email +
-               ", rol=" + rol +
-               ", fechaNacimiento=" + fechaNacimiento + "]";
+                ", nombre=" + nombre +
+                ", apellidos=" + apellidos +
+                ", genero=" + genero +
+                ", email=" + email +
+                ", rol=" + rol +
+                ", fechaNacimiento=" + fechaNacimiento + "]";
     }
 }

@@ -56,30 +56,38 @@ public class LoginController implements Initializable{
     @FXML
     private void login(ActionEvent event) throws IOException {
 
-    	User user = userService.authenticate(getUsername(), getPassword());
+        User user = userService.authenticate(getUsername(), getPassword());
 
-        if (user != null) {
+        if (user == null) {
+            lblLogin.setText("Email o contraseña incorrectos.");
+            return;
+        }
 
-            switch (user.getRol()) {
+        String rolSeleccionado = eleccionUsuario.getValue();
+        String rolUsuario = user.getRol() != null
+                ? user.getRol().trim()
+                : "";
 
-                case "Profesor":
-                    stageManager.switchScene(FxmlView.PROFESOR);
-                    break;
+        switch (rolUsuario) {
 
-                case "Estudiante":
-                    stageManager.switchScene(FxmlView.ESTUDIANTE);
-                    break;
+            case "Administrador":
+                stageManager.switchScene(FxmlView.ADMINISTRADOR1);
+                break;
 
-                case "Tutor de empresa":
-                    stageManager.switchScene(FxmlView.TUTOR);
-                    break;
+            case "Profesor":
+                stageManager.switchScene(FxmlView.PROFESOR1);
+                break;
 
-                default:
-                    lblLogin.setText("Rol no reconocido.");
-            }
+            case "Estudiante":
+                stageManager.switchScene(FxmlView.ESTUDIANTE1);
+                break;
 
-        } else {
-            lblLogin.setText("Login Failed.");
+            case "Tutor de empresa":
+                stageManager.switchScene(FxmlView.TUTOREMPRESA1);
+                break;
+
+            default:
+                lblLogin.setText("Rol no reconocido: " + rolUsuario);
         }
     }
 	
@@ -95,6 +103,7 @@ public class LoginController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 
 	    eleccionUsuario.getItems().addAll(
+	            "Administrador",
 	            "Profesor",
 	            "Estudiante",
 	            "Tutor de empresa"
@@ -102,5 +111,6 @@ public class LoginController implements Initializable{
 
 	    eleccionUsuario.setValue("Estudiante");
 	}
+
 
 }

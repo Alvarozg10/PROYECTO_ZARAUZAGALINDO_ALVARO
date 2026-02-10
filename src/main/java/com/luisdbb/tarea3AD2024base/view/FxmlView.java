@@ -4,39 +4,27 @@ import java.util.ResourceBundle;
 
 public enum FxmlView {
 
-    LOGIN {
-        @Override
-        public String getTitle() { return "Login"; }
+    LOGIN("Login", "login.fxml"),
+    ESTUDIANTE1("Panel Estudiante", "Estudiante1.fxml"),
+    PROFESOR1("Panel Profesor", "Profesor1.fxml"),
+    TUTOREMPRESA1("Panel Tutor Empresa", "TutorEmpresa1.fxml"),
+	ADMINISTRADOR1("Panel Administrador", "Administrador1.fxml");
 
-        @Override
-        public String getFxmlFile() { return "/fxml/Login.fxml"; }
-    },
+    private final String title;
+    private final String fxmlFile;
 
-    PROFESOR {
-        @Override
-        public String getTitle() { return "Profesor"; }
+    FxmlView(String title, String fxmlFile) {
+        this.title = title;
+        this.fxmlFile = fxmlFile;
+    }
 
-        @Override
-        public String getFxmlFile() { return "/fxml/Profesor.fxml"; }
-    },
+    public String getTitle() {
+        return title;
+    }
 
-    ESTUDIANTE {
-        @Override
-        public String getTitle() { return "Estudiante"; }
-
-        @Override
-        public String getFxmlFile() { return "/fxml/Estudiante.fxml"; }
-    },
-
-    TUTOR {
-        @Override
-        public String getTitle() { return "Tutor de empresa"; }
-
-        @Override
-        public String getFxmlFile() { return "/fxml/Tutor.fxml"; }
-    };
-
-    public abstract String getTitle();
-    public abstract String getFxmlFile();
+    public String getFxmlFile() {
+        return fxmlFile;
+    }
 }
+
 

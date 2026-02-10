@@ -8,11 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-/**
- * Will load the FXML hierarchy as specified in the load method and register
- * Spring as the FXML Controller Factory. Allows Spring and Java FX to coexist
- * once the Spring Application context has been bootstrapped.
- */
 @Component
 public class SpringFXMLLoader {
     private final ResourceBundle resourceBundle;
@@ -26,9 +21,14 @@ public class SpringFXMLLoader {
 
     public Parent load(String fxmlPath) throws IOException {      
         FXMLLoader loader = new FXMLLoader();
-        loader.setControllerFactory(context::getBean); //Spring now FXML Controller Factory
+        loader.setControllerFactory(context::getBean);
         loader.setResources(resourceBundle);
-        loader.setLocation(getClass().getResource(fxmlPath));
+
+        loader.setLocation(
+            getClass().getResource("/fxml/" + fxmlPath)
+        );
+
         return loader.load();
     }
+
 }
