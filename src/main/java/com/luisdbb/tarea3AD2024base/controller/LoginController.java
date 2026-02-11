@@ -59,7 +59,8 @@ public class LoginController implements Initializable{
         User user = userService.authenticate(getUsername(), getPassword());
 
         if (user == null) {
-            lblLogin.setText("Email o contraseña incorrectos.");
+            lblLogin.setText("No se ha podido iniciar sesión. Verifique sus credenciales.");
+            lblLogin.setStyle("-fx-text-fill: #d32f2f; -fx-alignment: center;");
             return;
         }
 

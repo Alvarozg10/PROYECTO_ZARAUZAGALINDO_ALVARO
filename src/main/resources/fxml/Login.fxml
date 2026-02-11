@@ -25,7 +25,7 @@
    <center>
       <Pane fx:id="loginPane" prefHeight="323.0" prefWidth="492.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lblLogin" layoutX="231.0" layoutY="25.0" text="Inicio de Sesión">
+            <Label fx:id="lblLogin" alignment="CENTER" layoutX="41.0" layoutY="25.0" prefHeight="30.0" prefWidth="536.0" text="Inicio de Sesión">
                <font>
                   <Font size="20.0" />
                </font>
