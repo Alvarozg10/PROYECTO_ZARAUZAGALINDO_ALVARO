@@ -52,7 +52,7 @@ public class LoginController implements Initializable{
     
     @FXML
     private ChoiceBox<String> eleccionUsuario;
-        
+    
     @FXML
     private void login(ActionEvent event) throws IOException {
 
@@ -63,10 +63,18 @@ public class LoginController implements Initializable{
             return;
         }
 
-        String rolSeleccionado = eleccionUsuario.getValue();
+        String rolSeleccionado = eleccionUsuario.getValue() != null
+                ? eleccionUsuario.getValue().trim()
+                : "";
+
         String rolUsuario = user.getRol() != null
                 ? user.getRol().trim()
                 : "";
+
+        if (!rolUsuario.equals(rolSeleccionado)) {
+            lblLogin.setText("Credenciales correctas pero rol incorrecto.");
+            return;
+        }
 
         switch (rolUsuario) {
 
@@ -90,6 +98,7 @@ public class LoginController implements Initializable{
                 lblLogin.setText("Rol no reconocido: " + rolUsuario);
         }
     }
+
 	
 	public String getPassword() {
 		return password.getText();
