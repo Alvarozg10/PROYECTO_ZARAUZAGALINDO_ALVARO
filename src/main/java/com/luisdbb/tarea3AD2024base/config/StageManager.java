@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.slf4j.Logger;
 
+import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.application.Platform;
@@ -21,6 +22,7 @@ public class StageManager {
     private static final Logger LOG = getLogger(StageManager.class);
     private final Stage primaryStage;
     private final SpringFXMLLoader springFXMLLoader;
+    private User loggedUser;
 
     public StageManager(SpringFXMLLoader springFXMLLoader, Stage stage) {
         this.springFXMLLoader = springFXMLLoader;
@@ -71,6 +73,14 @@ public class StageManager {
     private void logAndExit(String errorMsg, Exception exception) {
         LOG.error(errorMsg, exception, exception.getCause());
         Platform.exit();
+    }
+    
+    public void setLoggedUser(User user) {
+        this.loggedUser = user;
+    }
+
+    public User getLoggedUser() {
+        return loggedUser;
     }
 
 }

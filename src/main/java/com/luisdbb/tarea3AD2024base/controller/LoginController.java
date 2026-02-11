@@ -75,6 +75,8 @@ public class LoginController implements Initializable{
             lblLogin.setText("Credenciales correctas pero rol incorrecto.");
             return;
         }
+        
+        stageManager.setLoggedUser(user);
 
         switch (rolUsuario) {
 
