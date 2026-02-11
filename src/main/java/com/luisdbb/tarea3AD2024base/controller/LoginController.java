@@ -119,7 +119,9 @@ public class LoginController implements Initializable{
 	    );
 
 	    eleccionUsuario.setValue("Estudiante");
+	    username.clear();
+	    password.clear();
+	    lblLogin.setText("");
 	}
-
 
 }

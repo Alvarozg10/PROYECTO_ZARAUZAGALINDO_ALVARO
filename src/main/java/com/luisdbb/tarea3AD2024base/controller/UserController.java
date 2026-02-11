@@ -272,6 +272,7 @@ public class UserController implements Initializable {
         alert.setContentText("Campo incorrecto: " + field);
         alert.showAndWait();
     }
+    
 }
 
 
