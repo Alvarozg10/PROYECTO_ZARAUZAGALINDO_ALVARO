@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luisdbb.tarea3AD2024base.modelo.Estudiante;
+import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
 import com.luisdbb.tarea3AD2024base.modelo.User;
+import com.luisdbb.tarea3AD2024base.repositorios.FormacionEmpresaRepository;
 import com.luisdbb.tarea3AD2024base.repositorios.UserRepository;
 
 @Service
@@ -60,4 +62,12 @@ public class UserService {
     public List<Estudiante> findEstudiantesByTutor(Long tutorId) {
         return userRepository.findByTutorEmpresa_IdUsuario(tutorId);
     }
+    
+    @Autowired
+    private FormacionEmpresaRepository formacionRepository;
+
+    public List<FormacionEmpresa> findAllFormaciones() {
+        return formacionRepository.findAll();
+    }
+
 }

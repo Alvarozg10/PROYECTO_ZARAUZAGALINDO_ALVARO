@@ -18,7 +18,7 @@
             <Label fx:id="lblProfesor" layoutX="286.0" layoutY="52.0" text="Hola," />
             <Label layoutX="224.0" layoutY="112.0" text="¿Que funcion desea realizar?" />
             <Button layoutX="73.0" layoutY="155.0" mnemonicParsing="false" text="Gestionar empresas" />
-            <Button layoutX="251.0" layoutY="155.0" mnemonicParsing="false" text="Consultar FCT's" />
+            <Button layoutX="251.0" layoutY="155.0" mnemonicParsing="false" onAction="#abrirGestionFCT" text="Consultar FCT's" />
             <Button layoutX="406.0" layoutY="155.0" mnemonicParsing="false" text="Gestionar estudiantes" />
             <Label layoutX="204.0" layoutY="234.0" text="¿No desea realizar ninguna función?" />
             <Button layoutX="257.0" layoutY="272.0" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />

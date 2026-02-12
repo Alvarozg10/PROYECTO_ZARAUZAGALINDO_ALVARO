@@ -1,89 +1,90 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
 import java.sql.Date;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "documento")
 public class Documento {
-	private Long idDocumento;
-	private String nombre;
-	private TipoDocumento tipo;
-	private String ruta;
-	private Date fechaSubida;
-	private Estado estado;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_documento")
+    private Long idDocumento;
 
-	public Documento(Long idDocumento, String nombre, TipoDocumento tipo,
-			String ruta, Date fechaSubida, Estado estado) {
-		this.idDocumento = idDocumento;
-		this.nombre = nombre;
-		this.tipo = tipo;
-		this.ruta = ruta;
-		this.fechaSubida = fechaSubida;
-		this.estado = estado;
-		}
+    @Column(nullable = false)
+    private String nombre;
 
-	public Long getIdDocumento() {
-		return idDocumento;
-	}
+    @Enumerated(EnumType.STRING)
+    private TipoDocumento tipo;
 
+    private String ruta;
 
-	public void setIdDocumento(Long idDocumento) {
-		this.idDocumento = idDocumento;
-	}
+    private Date fechaSubida;
 
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
 
-	public String getNombre() {
-		return nombre;
-	}
+    @ManyToOne
+    @JoinColumn(name = "formacion_id")
+    private FormacionEmpresa formacion;
 
+    public Documento() {
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public Long getIdDocumento() {
+        return idDocumento;
+    }
 
+    public void setIdDocumento(Long idDocumento) {
+        this.idDocumento = idDocumento;
+    }
 
-	public TipoDocumento getTipo() {
-		return tipo;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setTipo(TipoDocumento tipo) {
-		this.tipo = tipo;
-	}
+    public TipoDocumento getTipo() {
+        return tipo;
+    }
 
+    public void setTipo(TipoDocumento tipo) {
+        this.tipo = tipo;
+    }
 
-	public String getRuta() {
-		return ruta;
-	}
+    public String getRuta() {
+        return ruta;
+    }
 
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
 
-	public void setRuta(String ruta) {
-		this.ruta = ruta;
-	}
+    public Date getFechaSubida() {
+        return fechaSubida;
+    }
 
+    public void setFechaSubida(Date fechaSubida) {
+        this.fechaSubida = fechaSubida;
+    }
 
-	public Date getFechaSubida() {
-		return fechaSubida;
-	}
+    public Estado getEstado() {
+        return estado;
+    }
 
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
-	public void setFechaSubida(Date fechaSubida) {
-		this.fechaSubida = fechaSubida;
-	}
+    public FormacionEmpresa getFormacion() {
+        return formacion;
+    }
 
-
-	public Estado getEstado() {
-		return estado;
-	}
-
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-
-	@Override
-	public String toString() {
-		return "Documento [idDocumento=" + idDocumento + ", nombre=" + nombre + ", tipo=" + tipo + ", ruta=" + ruta
-				+ ", fechaSubida=" + fechaSubida + ", estado=" + estado + "]";
-	}
-	
-	}
+    public void setFormacion(FormacionEmpresa formacion) {
+        this.formacion = formacion;
+    }
+}

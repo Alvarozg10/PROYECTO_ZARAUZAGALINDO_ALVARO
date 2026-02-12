@@ -38,4 +38,9 @@ public class ProfesorController implements Initializable {
     private void cerrarSesion(ActionEvent event) {
         stageManager.switchScene(FxmlView.LOGIN);
     }
+    
+    @FXML
+    private void abrirGestionFCT() {
+        stageManager.switchScene(FxmlView.GESTIONAR_FCT);
+    }
 }

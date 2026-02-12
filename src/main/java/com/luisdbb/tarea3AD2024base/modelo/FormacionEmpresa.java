@@ -1,107 +1,114 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
-import java.sql.Date;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FormacionEmpresa<TutorEmpresa> {
-	
-	private Long idFormacion;
-	private Date fechaAsignacion;
-	private Estudiante estudiante;
-	private Profesor profesor;
-	private TutorEmpresa tutorEmpresa;
-	private Empresa empresa;
-	private Periodo periodo;
-	private List<Documento> documentos = new ArrayList<>();
+@Entity
+@Table(name = "formacion_empresa")
+public class FormacionEmpresa {
 
-	public FormacionEmpresa(Long idFormacion, Date fechaAsignacion,
-			Estudiante estudiante, Profesor profesor,
-			TutorEmpresa tutorEmpresa, Empresa empresa,
-			Periodo periodo) {
-		this.idFormacion = idFormacion;
-		this.fechaAsignacion = fechaAsignacion;
-		this.estudiante = estudiante;
-		this.profesor = profesor;
-		this.tutorEmpresa = tutorEmpresa;
-		this.empresa = empresa;
-		this.periodo = periodo;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idFormacion;
 
-	public void addDocumento(Documento documento) {
-	documentos.add(documento);
-	
-	}
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
 
-	public Long getIdFormacion() {
-		return idFormacion;
-	}
+    private String estado; // En curso, Finalizada, Pendiente
 
-	public void setIdFormacion(Long idFormacion) {
-		this.idFormacion = idFormacion;
-	}
+    @ManyToOne
+    @JoinColumn(name = "estudiante_id")
+    private Estudiante estudiante;
 
-	public Date getFechaAsignacion() {
-		return fechaAsignacion;
-	}
+    @ManyToOne
+    @JoinColumn(name = "profesor_id")
+    private Profesor profesor;
 
-	public void setFechaAsignacion(Date fechaAsignacion) {
-		this.fechaAsignacion = fechaAsignacion;
-	}
+    @ManyToOne
+    @JoinColumn(name = "tutor_empresa_id")
+    private TutorEmpresa tutorEmpresa;
 
-	public Estudiante getEstudiante() {
-		return estudiante;
-	}
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
 
-	public void setEstudiante(Estudiante estudiante) {
-		this.estudiante = estudiante;
-	}
+    @OneToMany(mappedBy = "formacion", cascade = CascadeType.ALL)
+    private List<Documento> documentos = new ArrayList<>();
 
-	public Profesor getProfesor() {
-		return profesor;
-	}
+    public FormacionEmpresa() {
+    }
+    
+    public Long getIdFormacion() {
+        return idFormacion;
+    }
 
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
-	}
+    public void setIdFormacion(Long idFormacion) {
+        this.idFormacion = idFormacion;
+    }
 
-	public TutorEmpresa getTutorEmpresa() {
-		return tutorEmpresa;
-	}
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
 
-	public void setTutorEmpresa(TutorEmpresa tutorEmpresa) {
-		this.tutorEmpresa = tutorEmpresa;
-	}
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
 
-	public Empresa getEmpresa() {
-		return empresa;
-	}
+    public LocalDate getFechaFin() {
+        return fechaFin;
+    }
 
-	public void setEmpresa(Empresa empresa) {
-		this.empresa = empresa;
-	}
+    public void setFechaFin(LocalDate fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
-	public Periodo getPeriodo() {
-		return periodo;
-	}
+    public String getEstado() {
+        return estado;
+    }
 
-	public void setPeriodo(Periodo periodo) {
-		this.periodo = periodo;
-	}
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-	public List<Documento> getDocumentos() {
-		return documentos;
-	}
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
 
-	public void setDocumentos(List<Documento> documentos) {
-		this.documentos = documentos;
-	}
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
 
-	@Override
-	public String toString() {
-		return "FormacionEmpresa [idFormacion=" + idFormacion + ", fechaAsignacion=" + fechaAsignacion + ", estudiante="
-				+ estudiante + ", profesor=" + profesor + ", tutorEmpresa=" + tutorEmpresa + ", empresa=" + empresa
-				+ ", periodo=" + periodo + ", documentos=" + documentos + "]";
-	}
-		
-	}
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public TutorEmpresa getTutorEmpresa() {
+        return tutorEmpresa;
+    }
+
+    public void setTutorEmpresa(TutorEmpresa tutorEmpresa) {
+        this.tutorEmpresa = tutorEmpresa;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    public List<Documento> getDocumentos() {
+        return documentos;
+    }
+
+    public void setDocumentos(List<Documento> documentos) {
+        this.documentos = documentos;
+    }
+}
