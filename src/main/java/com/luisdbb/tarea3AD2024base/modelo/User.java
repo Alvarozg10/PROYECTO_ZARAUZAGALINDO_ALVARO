@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype")
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 public class User {
 
     @Id
@@ -15,14 +15,18 @@ public class User {
     @Column(name = "id", updatable = false, nullable = false)
     private Long idUsuario;
 
+    @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "apellidos")
     private String apellidos;
+
+    @Column(name = "genero")
     private String genero;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    // 🔥 PASSWORD UNIFICADO
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -75,13 +79,12 @@ public class User {
         this.email = email;
     }
 
-    // 🔐 PASSWORD
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password != null ? password : "";
     }
 
     public Date getFechaNacimiento() {
@@ -102,12 +105,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [idUsuario=" + idUsuario +
+        return "User [id=" + idUsuario +
                 ", nombre=" + nombre +
                 ", apellidos=" + apellidos +
-                ", genero=" + genero +
                 ", email=" + email +
-                ", rol=" + rol +
-                ", fechaNacimiento=" + fechaNacimiento + "]";
+                ", rol=" + rol + "]";
     }
 }

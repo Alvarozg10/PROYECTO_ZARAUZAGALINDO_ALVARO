@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.luisdbb.tarea3AD2024base.modelo.Estudiante;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.repositorios.UserRepository;
 
@@ -39,7 +40,6 @@ public class UserService {
     }
 
     public User authenticate(String email, String password) {
-
         User user = userRepository.findByEmail(email);
 
         if (user != null && password.equals(user.getPassword())) {
@@ -56,5 +56,8 @@ public class UserService {
     public void deleteInBatch(List<User> users) {
         userRepository.deleteAll(users);
     }
-}
 
+    public List<Estudiante> findEstudiantesByTutor(Long tutorId) {
+        return userRepository.findByTutorEmpresa_IdUsuario(tutorId);
+    }
+}
