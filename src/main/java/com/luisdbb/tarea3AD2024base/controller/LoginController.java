@@ -1,7 +1,5 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,6 +8,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.Administrador;
+import com.luisdbb.tarea3AD2024base.modelo.Estudiante;
+import com.luisdbb.tarea3AD2024base.modelo.Profesor;
+import com.luisdbb.tarea3AD2024base.modelo.TutorEmpresa;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
@@ -18,20 +20,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-/**
- * @author Ram Alapure
- * @since 05-04-2017
- */
-
 @Controller
-public class LoginController implements Initializable{
+public class LoginController implements Initializable {
 
-	@FXML
+    @FXML
     private Button btnLogin;
 
     @FXML
@@ -42,89 +38,54 @@ public class LoginController implements Initializable{
 
     @FXML
     private Label lblLogin;
-    
+
     @Autowired
     private UserService userService;
-    
+
     @Lazy
     @Autowired
     private StageManager stageManager;
-    
-    @FXML
-    private ChoiceBox<String> eleccionUsuario;
-    
-    @FXML
-    private void login(ActionEvent event) throws IOException {
 
-        User user = userService.authenticate(getUsername(), getPassword());
-
-        if (user == null) {
-            lblLogin.setText("No se ha podido iniciar sesión. Verifique sus credenciales.");
-            lblLogin.setStyle("-fx-text-fill: #d32f2f; -fx-alignment: center;");
-            return;
-        }
-
-        String rolSeleccionado = eleccionUsuario.getValue() != null
-                ? eleccionUsuario.getValue().trim()
-                : "";
-
-        String rolUsuario = user.getRol() != null
-                ? user.getRol().trim()
-                : "";
-
-        if (!rolUsuario.equals(rolSeleccionado)) {
-            lblLogin.setText("Credenciales correctas pero rol incorrecto.");
-            return;
-        }
-        
-        stageManager.setLoggedUser(user);
-
-        switch (rolUsuario) {
-
-            case "Administrador":
-                stageManager.switchScene(FxmlView.ADMINISTRADOR1);
-                break;
-
-            case "Profesor":
-                stageManager.switchScene(FxmlView.PROFESOR1);
-                break;
-
-            case "Estudiante":
-                stageManager.switchScene(FxmlView.ESTUDIANTE1);
-                break;
-
-            case "Tutor de empresa":
-                stageManager.switchScene(FxmlView.TUTOREMPRESA1);
-                break;
-
-            default:
-                lblLogin.setText("Rol no reconocido: " + rolUsuario);
-        }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        lblLogin.setText("");
     }
 
-	
-	public String getPassword() {
-		return password.getText();
-	}
+    @FXML
+    private void login(ActionEvent event) {
 
-	public String getUsername() {
-		return username.getText();
-	}
+        String email = username.getText();
+        String pass = password.getText();
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+        if (email.isEmpty() || pass.isEmpty()) {
+            lblLogin.setStyle("-fx-text-fill: red;");
+            lblLogin.setText("Introduzca usuario y contraseña.");
+            return;
+        }
 
-	    eleccionUsuario.getItems().addAll(
-	            "Administrador",
-	            "Profesor",
-	            "Estudiante",
-	            "Tutor de empresa"
-	    );
+        User user = userService.authenticate(email, pass);
 
-	    eleccionUsuario.setValue("Estudiante");
-	    username.clear();
-	    password.clear();
-	    lblLogin.setText("");
-	}
+        if (user == null) {
+            lblLogin.setStyle("-fx-text-fill: red;");
+            lblLogin.setText("Credenciales incorrectas. Verifique los datos.");
+            return;
+        }
 
+        // Guardamos usuario en sesión
+        stageManager.setLoggedUser(user);
+
+        // Redirección automática por tipo
+        if (user instanceof Estudiante) {
+            stageManager.switchScene(FxmlView.ESTUDIANTE);
+        } 
+        else if (user instanceof Profesor) {
+            stageManager.switchScene(FxmlView.PROFESOR);
+        } 
+        else if (user instanceof TutorEmpresa) {
+            stageManager.switchScene(FxmlView.TUTOR_EMPRESA);
+        } 
+        else if (user instanceof Administrador) {
+            stageManager.switchScene(FxmlView.ADMIN);
+        }
+    }
 }

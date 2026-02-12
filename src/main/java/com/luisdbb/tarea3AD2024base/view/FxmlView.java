@@ -5,11 +5,11 @@ import java.util.ResourceBundle;
 public enum FxmlView {
 
     LOGIN("Login", "login.fxml"),
-    ESTUDIANTE1("Panel Estudiante", "Estudiante1.fxml"),
-    PROFESOR1("Panel Profesor", "Profesor1.fxml"),
-    TUTOREMPRESA1("Panel Tutor Empresa", "TutorEmpresa1.fxml"),
+    ESTUDIANTE("Panel Estudiante", "Estudiante1.fxml"),
+    PROFESOR("Panel Profesor", "Profesor1.fxml"),
+    TUTOR_EMPRESA("Panel Tutor Empresa", "TutorEmpresa1.fxml"),
     GESTIONAR_FCT("Panel FCT", "GestionarFCT.fxml"),
-	ADMINISTRADOR1("Panel Administrador", "Administrador1.fxml");
+	ADMIN("Panel Administrador", "Administrador1.fxml");
 
     private final String title;
     private final String fxmlFile;

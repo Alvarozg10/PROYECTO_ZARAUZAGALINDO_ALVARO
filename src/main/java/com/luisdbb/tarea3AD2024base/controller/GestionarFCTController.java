@@ -86,6 +86,6 @@ public class GestionarFCTController implements Initializable {
 
     @FXML
     private void volver() {
-        stageManager.switchScene(FxmlView.PROFESOR1);
+        stageManager.switchScene(FxmlView.PROFESOR);
     }
 }
