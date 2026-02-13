@@ -5,3 +5,4 @@ import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
 
 public interface FormacionEmpresaRepository extends JpaRepository<FormacionEmpresa, Long> {
 }
+
