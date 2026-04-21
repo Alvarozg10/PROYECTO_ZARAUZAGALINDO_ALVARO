@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="CENTER"
+      xmlns="http://javafx.com/javafx/23"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.AnadirUsuarioController">
+
+    <Label text="Crear Usuario"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="firstName" promptText="Nombre"/>
+    <TextField fx:id="lastName" promptText="Apellidos"/>
+    <TextField fx:id="email" promptText="Email"/>
+    <PasswordField fx:id="password" promptText="Contraseña"/>
+
+    <ChoiceBox fx:id="eleccionUsuario"/>
+
+    <DatePicker fx:id="dob"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <RadioButton fx:id="rbMale" text="Male"/>
+        <RadioButton fx:id="rbFemale" text="Female"/>
+    </HBox>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Guardar" onAction="#saveUser"/>
+        <Button text="Volver" onAction="#volver"/>
+    </HBox>
+
+</VBox>

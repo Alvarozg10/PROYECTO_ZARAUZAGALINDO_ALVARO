@@ -33,6 +33,11 @@ public class AdminController implements Initializable {
         	lblAdministrador.setText("Hola, " + user.getNombre());
         }
     }
+    
+    @FXML
+    private void anadirUsuario() {
+        stageManager.switchScene(FxmlView.ANADIRUSUARIO);
+    }
 
     @FXML
     private void cerrarSesion(ActionEvent event) {

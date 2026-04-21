@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-import com.luisdbb.tarea3AD2024base.modelo.Estudiante;
+import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-
 
 @Controller
 public class TutorEmpresaController implements Initializable {
@@ -57,26 +56,34 @@ public class TutorEmpresaController implements Initializable {
             return;
         }
 
-        List<Estudiante> alumnos =
-                userService.findEstudiantesByTutor(tutor.getIdUsuario());
+        // 🔥 AHORA usamos formaciones directamente
+        List<FormacionEmpresa> formaciones =
+                userService.findFormacionesByTutor(tutor);
 
-        if (alumnos.isEmpty()) {
+        if (formaciones.isEmpty()) {
             mostrarAlerta("Información", "No tiene alumnos asignados.");
         } else {
 
             StringBuilder mensaje = new StringBuilder();
 
-            for (Estudiante alumno : alumnos) {
-                mensaje.append(alumno.getNombre())
-                       .append(" ")
-                       .append(alumno.getApellidos())
-                       .append("\n");
+            for (FormacionEmpresa f : formaciones) {
+
+                User alumno = f.getEstudiante();
+
+                if (alumno != null) {
+                    mensaje.append(alumno.getNombre())
+                           .append(" ")
+                           .append(alumno.getApellidos())
+                           .append("\n");
+                } else {
+                    mensaje.append("Alumno sin datos\n");
+                }
             }
 
             mostrarAlerta("Alumno(s) asignado(s)", mensaje.toString());
         }
     }
-    
+
     private void mostrarAlerta(String titulo, String contenido) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -85,6 +92,4 @@ public class TutorEmpresaController implements Initializable {
         alert.setContentText(contenido);
         alert.showAndWait();
     }
-
 }
-

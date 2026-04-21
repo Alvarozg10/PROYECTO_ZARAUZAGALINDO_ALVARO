@@ -1,9 +1,7 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
 
 @Entity
 @Table(name = "formacion_empresa")
@@ -11,104 +9,40 @@ public class FormacionEmpresa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idFormacion;
-
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
-
-    private String estado; // En curso, Finalizada, Pendiente
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "estudiante_id")
-    private Estudiante estudiante;
+    private User estudiante;
 
     @ManyToOne
-    @JoinColumn(name = "profesor_id")
-    private Profesor profesor;
+    @JoinColumn(name = "tutor_id")
+    private User tutor;
 
-    @ManyToOne
-    @JoinColumn(name = "tutor_empresa_id")
-    private TutorEmpresa tutorEmpresa;
+    private String empresa;
 
-    @ManyToOne
-    @JoinColumn(name = "empresa_id")
-    private Empresa empresa;
+    private Date fechaInicio;
+    private Date fechaFin;
 
-    @OneToMany(mappedBy = "formacion", cascade = CascadeType.ALL)
-    private List<Documento> documentos = new ArrayList<>();
+    private String estado;
 
-    public FormacionEmpresa() {
-    }
-    
-    public Long getIdFormacion() {
-        return idFormacion;
-    }
+    public Long getId() { return id; }
 
-    public void setIdFormacion(Long idFormacion) {
-        this.idFormacion = idFormacion;
-    }
+    public User getEstudiante() { return estudiante; }
+    public void setEstudiante(User estudiante) { this.estudiante = estudiante; }
 
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
+    public User getTutor() { return tutor; }
+    public void setTutor(User tutor) { this.tutor = tutor; }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
+    public String getEmpresa() { return empresa; }
+    public void setEmpresa(String empresa) { this.empresa = empresa; }
 
-    public LocalDate getFechaFin() {
-        return fechaFin;
-    }
+    public Date getFechaInicio() { return fechaInicio; }
+    public void setFechaInicio(Date fechaInicio) { this.fechaInicio = fechaInicio; }
 
-    public void setFechaFin(LocalDate fechaFin) {
-        this.fechaFin = fechaFin;
-    }
+    public Date getFechaFin() { return fechaFin; }
+    public void setFechaFin(Date fechaFin) { this.fechaFin = fechaFin; }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Estudiante getEstudiante() {
-        return estudiante;
-    }
-
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    public Profesor getProfesor() {
-        return profesor;
-    }
-
-    public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
-    }
-
-    public TutorEmpresa getTutorEmpresa() {
-        return tutorEmpresa;
-    }
-
-    public void setTutorEmpresa(TutorEmpresa tutorEmpresa) {
-        this.tutorEmpresa = tutorEmpresa;
-    }
-
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-
-    public List<Documento> getDocumentos() {
-        return documentos;
-    }
-
-    public void setDocumentos(List<Documento> documentos) {
-        this.documentos = documentos;
-    }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 }

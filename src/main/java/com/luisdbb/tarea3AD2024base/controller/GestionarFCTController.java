@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
+import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
@@ -17,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.beans.property.SimpleStringProperty;
 
 @Controller
 public class GestionarFCTController implements Initializable {
@@ -40,43 +42,52 @@ public class GestionarFCTController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        colAlumno.setCellValueFactory(data ->
-            new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getEstudiante().getNombre() + " " +
-                data.getValue().getEstudiante().getApellidos()
-            )
-        );
+        colAlumno.setCellValueFactory(data -> {
+            User u = data.getValue().getEstudiante();
+            return new SimpleStringProperty(
+                u != null ? u.getNombre() + " " + u.getApellidos() : "Sin alumno"
+            );
+        });
 
-        colTutor.setCellValueFactory(data ->
-            new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getTutorEmpresa().getNombre()
-            )
-        );
+        colTutor.setCellValueFactory(data -> {
+            User u = data.getValue().getTutor();
+            return new SimpleStringProperty(
+                u != null ? u.getNombre() : "Sin tutor"
+            );
+        });
 
-        colEmpresa.setCellValueFactory(data ->
-            new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getEmpresa().getNombre()
-            )
-        );
+        colEmpresa.setCellValueFactory(data -> {
+            String empresa = data.getValue().getEmpresa();
+            return new SimpleStringProperty(
+                empresa != null ? empresa : "Sin empresa"
+            );
+        });
 
-        colInicio.setCellValueFactory(data ->
-            new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getFechaInicio().toString()
-            )
-        );
+        colInicio.setCellValueFactory(data -> {
+            var f = data.getValue();
+            return new SimpleStringProperty(
+                f.getFechaInicio() != null ? f.getFechaInicio().toString() : "-"
+            );
+        });
 
-        colFin.setCellValueFactory(data ->
-            new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getFechaFin().toString()
-            )
-        );
+        colFin.setCellValueFactory(data -> {
+            var f = data.getValue();
+            return new SimpleStringProperty(
+                f.getFechaFin() != null ? f.getFechaFin().toString() : "-"
+            );
+        });
 
-        colEstado.setCellValueFactory(data ->
-            new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getEstado()
-            )
-        );
+        colEstado.setCellValueFactory(data -> {
+            var f = data.getValue();
+            return new SimpleStringProperty(
+                f.getEstado() != null ? f.getEstado() : "Sin estado"
+            );
+        });
 
+        cargarTabla();
+    }
+
+    private void cargarTabla() {
         tablaFCT.setItems(
             FXCollections.observableArrayList(
                 userService.findAllFormaciones()

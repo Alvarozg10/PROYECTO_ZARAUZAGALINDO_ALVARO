@@ -8,8 +8,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-import com.luisdbb.tarea3AD2024base.modelo.Estudiante;
+import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
 import com.luisdbb.tarea3AD2024base.modelo.User;
+import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.event.ActionEvent;
@@ -25,6 +26,9 @@ public class EstudianteController implements Initializable {
     @Autowired
     private StageManager stageManager;
 
+    @Autowired
+    private UserService userService;
+
     @FXML
     private Label lblEstudiante;
 
@@ -32,7 +36,7 @@ public class EstudianteController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         User user = stageManager.getLoggedUser();
         if (user != null) {
-        	lblEstudiante.setText("Hola, " + user.getNombre());
+            lblEstudiante.setText("Hola, " + user.getNombre());
         }
     }
 
@@ -40,32 +44,44 @@ public class EstudianteController implements Initializable {
     private void cerrarSesion(ActionEvent event) {
         stageManager.switchScene(FxmlView.LOGIN);
     }
-    
+
     @FXML
     private void verEmpresaYTutor(ActionEvent event) {
 
         User user = stageManager.getLoggedUser();
 
-        if (user instanceof Estudiante estudiante) {
+        FormacionEmpresa formacion =
+                userService.findFormacionUnicaByEstudiante(user);
 
-            String empresa = estudiante.getEmpresa() != null
-                    ? estudiante.getEmpresa().getNombre()
-                    : "No asignada";
-
-            String tutor = estudiante.getTutorEmpresa() != null
-                    ? estudiante.getTutorEmpresa().getNombre()
-                    : "No asignado";
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Información FCT");
-            alert.setHeaderText("Datos asignados");
-            alert.setContentText(
-                    "Empresa: " + empresa + "\n" +
-                    "Tutor de empresa: " + tutor
-            );
-
-            alert.showAndWait();
+        if (formacion == null) {
+            mostrarError("No tienes FCT asignada.");
+            return;
         }
+
+        String empresa = (formacion.getEmpresa() != null)
+                ? formacion.getEmpresa()
+                : "No asignada";
+
+        String tutor = (formacion.getTutor() != null)
+                ? formacion.getTutor().getNombre()
+                : "No asignado";
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Información FCT");
+        alert.setHeaderText("Datos asignados");
+        alert.setContentText(
+                "Empresa: " + empresa + "\n" +
+                "Tutor de empresa: " + tutor
+        );
+
+        alert.showAndWait();
     }
 
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 }

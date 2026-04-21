@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.luisdbb.tarea3AD2024base.modelo.Estudiante;
 import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.repositorios.FormacionEmpresaRepository;
@@ -17,20 +16,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FormacionEmpresaRepository formacionRepository;
+
     public User save(User entity) {
         return userRepository.save(entity);
-    }
-
-    public User update(User entity) {
-        return userRepository.save(entity);
-    }
-
-    public void delete(User entity) {
-        userRepository.delete(entity);
-    }
-
-    public void delete(Long id) {
-        userRepository.deleteById(id);
     }
 
     public User find(Long id) {
@@ -51,23 +41,22 @@ public class UserService {
         return null;
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    public void deleteInBatch(List<User> users) {
-        userRepository.deleteAll(users);
-    }
-
-    public List<Estudiante> findEstudiantesByTutor(Long tutorId) {
-        return userRepository.findByTutorEmpresa_IdUsuario(tutorId);
-    }
-    
-    @Autowired
-    private FormacionEmpresaRepository formacionRepository;
-
     public List<FormacionEmpresa> findAllFormaciones() {
         return formacionRepository.findAll();
     }
 
+    public List<FormacionEmpresa> findFormacionesByTutor(User tutor) {
+        return formacionRepository.findByTutor(tutor);
+    }
+
+    public List<FormacionEmpresa> findFormacionesByEstudiante(User estudiante) {
+        return formacionRepository.findByEstudiante(estudiante);
+    }
+
+    public FormacionEmpresa findFormacionUnicaByEstudiante(User estudiante) {
+        return formacionRepository.findByEstudiante(estudiante)
+                .stream()
+                .findFirst()
+                .orElse(null);
+    }
 }

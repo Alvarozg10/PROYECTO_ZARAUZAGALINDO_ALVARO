@@ -2,14 +2,17 @@ package com.luisdbb.tarea3AD2024base.config;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SpringFXMLLoader {
+
     private final ResourceBundle resourceBundle;
     private final ApplicationContext context;
 
@@ -19,16 +22,14 @@ public class SpringFXMLLoader {
         this.context = context;
     }
 
-    public Parent load(String fxmlPath) throws IOException {      
-        FXMLLoader loader = new FXMLLoader();
-        loader.setControllerFactory(context::getBean);
-        loader.setResources(resourceBundle);
-
-        loader.setLocation(
-            getClass().getResource("/fxml/" + fxmlPath)
+    public Parent load(String fxmlPath) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/fxml/" + fxmlPath), 
+                resourceBundle
         );
+
+        loader.setControllerFactory(context::getBean); 
 
         return loader.load();
     }
-
 }

@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,43 +13,30 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
-import com.luisdbb.tarea3AD2024base.modelo.Estudiante;
-import com.luisdbb.tarea3AD2024base.modelo.Profesor;
-import com.luisdbb.tarea3AD2024base.modelo.TutorEmpresa;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.util.Callback;
 
 @Controller
 public class UserController implements Initializable {
 
-    @FXML private Button btnLogout;
     @FXML private Label userId;
     @FXML private TextField firstName;
     @FXML private TextField lastName;
     @FXML private DatePicker dob;
     @FXML private RadioButton rbMale;
     @FXML private RadioButton rbFemale;
-    @FXML private ToggleGroup gender;
     @FXML private TextField email;
     @FXML private PasswordField password;
-    @FXML private Button reset;
-    @FXML private Button saveUser;
-
     @FXML private ChoiceBox<String> eleccionUsuario;
 
     @FXML private TableView<User> userTable;
@@ -60,10 +45,8 @@ public class UserController implements Initializable {
     @FXML private TableColumn<User, String> colLastName;
     @FXML private TableColumn<User, Date> colDOB;
     @FXML private TableColumn<User, String> colGender;
-    @FXML private TableColumn<User, String> colRole;
+    @FXML private TableColumn<User, String> colPerfil;
     @FXML private TableColumn<User, String> colEmail;
-    @FXML private TableColumn<User, Boolean> colEdit;
-    @FXML private MenuItem deleteUsers;
 
     @Lazy
     @Autowired
@@ -78,32 +61,21 @@ public class UserController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         eleccionUsuario.getItems().addAll(
-                "Administrador",
-                "Profesor",
-                "Estudiante",
-                "Tutor de empresa"
+                "ADMIN",
+                "PROFESOR",
+                "ESTUDIANTE",
+                "TUTOR_EMPRESA"
         );
 
-        eleccionUsuario.setValue("Estudiante");
+        eleccionUsuario.setValue("ESTUDIANTE");
 
-        userTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setColumnProperties();
         loadUserDetails();
     }
 
     @FXML
-    private void exit(ActionEvent event) {
-        Platform.exit();
-    }
-
-    @FXML
     private void logout(ActionEvent event) throws IOException {
         stageManager.switchScene(FxmlView.LOGIN);
-    }
-
-    @FXML
-    private void reset(ActionEvent event) {
-        clearFields();
     }
 
     @FXML
@@ -119,19 +91,7 @@ public class UserController implements Initializable {
             User user;
 
             if (userId.getText() == null || userId.getText().isEmpty()) {
-
-                switch (eleccionUsuario.getValue()) {
-                    case "Profesor":
-                        user = new Profesor();
-                        break;
-                    case "Tutor de empresa":
-                        user = new TutorEmpresa();
-                        break;
-                    default:
-                        user = new Estudiante();
-                        break;
-                }
-
+                user = new User();
             } else {
                 user = userService.find(Long.parseLong(userId.getText()));
             }
@@ -142,29 +102,13 @@ public class UserController implements Initializable {
             user.setEmail(getEmail());
             user.setPassword(getPassword());
             user.setFechaNacimiento(Date.valueOf(getDob()));
-            user.setRol(eleccionUsuario.getValue());
+
+            // 🔥 CLAVE
+            user.setPerfil(eleccionUsuario.getValue());
 
             userService.save(user);
 
             clearFields();
-            loadUserDetails();
-        }
-    }
-
-    @FXML
-    private void deleteUsers(ActionEvent event) {
-
-        List<User> users = userTable.getSelectionModel().getSelectedItems();
-
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
-        alert.setHeaderText(null);
-        alert.setContentText("¿Eliminar usuarios seleccionados?");
-
-        Optional<ButtonType> action = alert.showAndWait();
-
-        if (action.isPresent() && action.get() == ButtonType.OK) {
-            userService.deleteInBatch(users);
             loadUserDetails();
         }
     }
@@ -176,56 +120,30 @@ public class UserController implements Initializable {
         colLastName.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
         colDOB.setCellValueFactory(new PropertyValueFactory<>("fechaNacimiento"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("genero"));
-        colRole.setCellValueFactory(new PropertyValueFactory<>("rol"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colEdit.setCellFactory(cellFactory);
-    }
-
-    Callback<TableColumn<User, Boolean>, TableCell<User, Boolean>> cellFactory = param -> new TableCell<>() {
-
-        Image imgEdit = new Image(getClass().getResourceAsStream("/images/edit.png"));
-        final Button btnEdit = new Button();
-
-        @Override
-        protected void updateItem(Boolean empty, boolean isEmpty) {
-            super.updateItem(empty, isEmpty);
-
-            if (isEmpty) {
-                setGraphic(null);
-            } else {
-                btnEdit.setOnAction(e -> updateUser(getTableView().getItems().get(getIndex())));
-                btnEdit.setStyle("-fx-background-color: transparent;");
-
-                ImageView iv = new ImageView(imgEdit);
-                iv.setPreserveRatio(true);
-                iv.setFitHeight(16);
-
-                btnEdit.setGraphic(iv);
-                setGraphic(btnEdit);
-                setAlignment(Pos.CENTER);
-            }
-        }
-    };
-
-    private void updateUser(User user) {
-
-        userId.setText(String.valueOf(user.getIdUsuario()));
-        firstName.setText(user.getNombre());
-        lastName.setText(user.getApellidos());
-        dob.setValue(user.getFechaNacimiento().toLocalDate());
-
-        if ("Male".equals(user.getGenero()))
-            rbMale.setSelected(true);
-        else
-            rbFemale.setSelected(true);
-
-        eleccionUsuario.setValue(user.getRol());
+        colPerfil.setCellValueFactory(new PropertyValueFactory<>("perfil"));
     }
 
     private void loadUserDetails() {
         userList.clear();
         userList.addAll(userService.findAll());
         userTable.setItems(userList);
+    }
+
+    private void updateUser(User user) {
+        userId.setText(String.valueOf(user.getIdUsuario()));
+        firstName.setText(user.getNombre());
+        lastName.setText(user.getApellidos());
+        dob.setValue(user.getFechaNacimiento().toLocalDate());
+        email.setText(user.getEmail());
+        password.setText(user.getPassword());
+
+        if ("Male".equals(user.getGenero()))
+            rbMale.setSelected(true);
+        else
+            rbFemale.setSelected(true);
+
+        eleccionUsuario.setValue(user.getPerfil());
     }
 
     public String getNombre() { return firstName.getText(); }
@@ -241,20 +159,17 @@ public class UserController implements Initializable {
         lastName.clear();
         dob.setValue(null);
         rbMale.setSelected(true);
-        rbFemale.setSelected(false);
-        eleccionUsuario.setValue("Estudiante");
+        eleccionUsuario.setValue("ESTUDIANTE");
         email.clear();
         password.clear();
     }
 
     private boolean validate(String field, String value, String pattern) {
-
         if (!value.isEmpty()) {
             Pattern p = Pattern.compile(pattern);
             Matcher m = p.matcher(value);
             if (m.matches()) return true;
         }
-
         validationAlert(field);
         return false;
     }
@@ -267,12 +182,9 @@ public class UserController implements Initializable {
 
     private void validationAlert(String field) {
         Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Error de validación");
+        alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText("Campo incorrecto: " + field);
         alert.showAndWait();
     }
-    
 }
-
-
