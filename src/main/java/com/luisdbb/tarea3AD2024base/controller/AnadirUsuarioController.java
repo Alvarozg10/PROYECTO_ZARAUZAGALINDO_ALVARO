@@ -40,7 +40,6 @@ public class AnadirUsuarioController {
     public void initialize() {
 
         eleccionUsuario.getItems().addAll(
-                "ADMIN",
                 "PROFESOR",
                 "ESTUDIANTE",
                 "TUTOR_EMPRESA"
@@ -83,7 +82,6 @@ public class AnadirUsuarioController {
         user.setFechaNacimiento(Date.valueOf(dob.getValue()));
         user.setGenero(rbMale.isSelected() ? "Male" : "Female");
 
-        // 🔥 PERFIL
         user.setPerfil(eleccionUsuario.getValue());
 
         userService.save(user);
