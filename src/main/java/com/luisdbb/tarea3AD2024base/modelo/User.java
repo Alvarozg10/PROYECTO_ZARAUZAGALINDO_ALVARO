@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 @Table(name = "user")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long idUsuario;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long idUsuario;
 
     private String nombre;
     private String apellidos;
@@ -21,8 +21,11 @@ public class User {
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
-    private String perfil; 
+    private String perfil;
 
+    @Column(name = "telefono")
+    private String telefono;
+    
     public Long getIdUsuario() { return idUsuario; }
     public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
 
@@ -46,4 +49,7 @@ public class User {
 
     public String getPerfil() { return perfil; }
     public void setPerfil(String perfil) { this.perfil = perfil; }
+
+    public String getTelefono() { return telefono; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 }

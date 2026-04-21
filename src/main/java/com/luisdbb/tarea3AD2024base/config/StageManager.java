@@ -14,9 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Manages switching Scenes on the Primary Stage
- */
 public class StageManager {
 
     private static final Logger LOG = getLogger(StageManager.class);
@@ -30,51 +27,45 @@ public class StageManager {
     }
 
     public void switchScene(final FxmlView view) {
-        Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.getFxmlFile());
-        show(viewRootNodeHierarchy, view.getTitle());
+        Parent root = loadViewNodeHierarchy(view.getFxmlFile());
+        show(root, view.getTitle());
     }
-    
-    private void show(final Parent rootnode, String title) {
-        Scene scene = prepareScene(rootnode);
+
+    private void show(final Parent root, String title) {
+
+        Scene scene = new Scene(root);
+
+        scene.getStylesheets().add(
+            getClass().getResource("/styles/app.css").toExternalForm()
+        );
 
         primaryStage.setTitle(title);
         primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
-        primaryStage.centerOnScreen();
-        
-        try {
-            primaryStage.show();
-        } catch (Exception exception) {
-            logAndExit ("Unable to show scene for title" + title,  exception);
-        }
-    }
-    
-    private Scene prepareScene(Parent rootnode){
-        Scene scene = primaryStage.getScene();
 
-        if (scene == null) {
-            scene = new Scene(rootnode);
-        }
-        scene.setRoot(rootnode);
-        return scene;
+        primaryStage.setWidth(600);
+        primaryStage.setHeight(500);
+        primaryStage.setResizable(false);
+
+        primaryStage.centerOnScreen();
+        primaryStage.show();
     }
 
     private Parent loadViewNodeHierarchy(String fxmlFilePath) {
         Parent rootNode = null;
         try {
             rootNode = springFXMLLoader.load(fxmlFilePath);
-            Objects.requireNonNull(rootNode, "A Root FXML node must not be null");
+            Objects.requireNonNull(rootNode, "Root FXML no puede ser null");
         } catch (Exception exception) {
-            logAndExit("Unable to load FXML view" + fxmlFilePath, exception);
+            logAndExit("Error cargando FXML: " + fxmlFilePath, exception);
         }
         return rootNode;
     }
-       
+
     private void logAndExit(String errorMsg, Exception exception) {
         LOG.error(errorMsg, exception, exception.getCause());
         Platform.exit();
     }
-    
+
     public void setLoggedUser(User user) {
         this.loggedUser = user;
     }
@@ -82,5 +73,4 @@ public class StageManager {
     public User getLoggedUser() {
         return loggedUser;
     }
-
 }

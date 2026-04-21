@@ -15,6 +15,7 @@
     <TextField fx:id="lastName" promptText="Apellidos"/>
     <TextField fx:id="email" promptText="Email"/>
     <PasswordField fx:id="password" promptText="Contraseña"/>
+    <TextField fx:id="telefono" promptText="Teléfono"/>
 
     <ChoiceBox fx:id="eleccionUsuario"/>
 

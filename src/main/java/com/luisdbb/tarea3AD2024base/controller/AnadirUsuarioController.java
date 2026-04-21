@@ -20,6 +20,7 @@ public class AnadirUsuarioController {
     @FXML private TextField firstName;
     @FXML private TextField lastName;
     @FXML private TextField email;
+    @FXML private TextField telefono;
     @FXML private PasswordField password;
     @FXML private ChoiceBox<String> eleccionUsuario;
     @FXML private DatePicker dob;
@@ -51,6 +52,12 @@ public class AnadirUsuarioController {
         rbMale.setToggleGroup(gender);
         rbFemale.setToggleGroup(gender);
         rbMale.setSelected(true);
+
+        telefono.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.matches("\\d*")) {
+                telefono.setText(newVal.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     @FXML
@@ -59,6 +66,7 @@ public class AnadirUsuarioController {
         if (firstName.getText().isEmpty() ||
             lastName.getText().isEmpty() ||
             email.getText().isEmpty() ||
+            telefono.getText().isEmpty() ||
             password.getText().isEmpty() ||
             dob.getValue() == null) {
 
@@ -70,11 +78,12 @@ public class AnadirUsuarioController {
         user.setNombre(firstName.getText());
         user.setApellidos(lastName.getText());
         user.setEmail(email.getText());
+        user.setTelefono(telefono.getText());
         user.setPassword(password.getText());
         user.setFechaNacimiento(Date.valueOf(dob.getValue()));
         user.setGenero(rbMale.isSelected() ? "Male" : "Female");
 
-        // 🔥 CLAVE
+        // 🔥 PERFIL
         user.setPerfil(eleccionUsuario.getValue());
 
         userService.save(user);
@@ -92,6 +101,7 @@ public class AnadirUsuarioController {
         firstName.clear();
         lastName.clear();
         email.clear();
+        telefono.clear();
         password.clear();
         dob.setValue(null);
         rbMale.setSelected(true);

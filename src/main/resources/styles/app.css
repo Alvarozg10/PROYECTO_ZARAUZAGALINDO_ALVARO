@@ -45,3 +45,15 @@
 .label.error {
     -fx-text-fill: #DC2626;
 }
+
+.choice-box {
+    -fx-background-color: white;
+}
+
+.choice-box .label {
+    -fx-text-fill: black;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
+}
