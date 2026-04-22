@@ -10,7 +10,8 @@ public enum FxmlView {
     TUTOR_EMPRESA("Panel Tutor Empresa", "TutorEmpresa1.fxml"),
     GESTIONAR_FCT("Panel FCT", "GestionarFCT.fxml"),
 	ADMIN("Panel Administrador", "Administrador1.fxml"),
-	ANADIRUSUARIO("Añadir Usuario", "AnadirUsuario.fxml");
+	ANADIRUSUARIO("Añadir Usuario", "AnadirUsuario.fxml"),
+	MODIFICARUSUARIO("Modificar Usuario", "ModificarUsuario.fxml");
 
     private final String title;
     private final String fxmlFile;

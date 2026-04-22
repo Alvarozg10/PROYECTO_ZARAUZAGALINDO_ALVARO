@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarUsuarioController"
+            fitToWidth="true">
+
+    <VBox spacing="20" alignment="TOP_CENTER" styleClass="card" prefWidth="600">
+
+        <!-- 🔥 TABLA -->
+        <Label text="Selecciona un usuario" styleClass="title"/>
+
+        <TableView fx:id="tablaUsuarios" prefHeight="200">
+            <columns>
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+                <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
+                <TableColumn fx:id="colPerfil" text="Perfil" prefWidth="150"/>
+            </columns>
+        </TableView>
+
+        <Button text="Cargar usuario" onAction="#cargarUsuario"/>
+
+        <!-- 🔥 FORMULARIO -->
+        <Label text="Modificar datos" styleClass="title"/>
+
+        <TextField fx:id="firstName" promptText="Nombre"/>
+        <TextField fx:id="lastName" promptText="Apellidos"/>
+        <TextField fx:id="email" promptText="Email"/>
+        <TextField fx:id="telefono" promptText="Teléfono"/>
+        <PasswordField fx:id="password" promptText="Contraseña"/>
+
+        <ChoiceBox fx:id="eleccionUsuario"/>
+        <DatePicker fx:id="dob"/>
+
+        <HBox spacing="10" alignment="CENTER">
+            <RadioButton fx:id="rbMale" text="Male"/>
+            <RadioButton fx:id="rbFemale" text="Female"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Guardar cambios" onAction="#updateUser"/>
+            <Button text="Volver" onAction="#volver"/>
+        </HBox>
+
+    </VBox>
+</ScrollPane>

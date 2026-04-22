@@ -38,6 +38,16 @@ public class AdminController implements Initializable {
     private void anadirUsuario() {
         stageManager.switchScene(FxmlView.ANADIRUSUARIO);
     }
+    
+    @FXML
+    private void editarUsuario() {
+
+        User usuario = stageManager.getLoggedUser();
+
+        stageManager.setUsuarioSeleccionado(usuario);
+
+        stageManager.switchScene(FxmlView.MODIFICARUSUARIO);
+    }
 
     @FXML
     private void cerrarSesion(ActionEvent event) {

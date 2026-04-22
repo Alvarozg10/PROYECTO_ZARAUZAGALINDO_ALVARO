@@ -20,6 +20,7 @@ public class StageManager {
     private final Stage primaryStage;
     private final SpringFXMLLoader springFXMLLoader;
     private User loggedUser;
+    private User usuarioSeleccionado;
 
     public StageManager(SpringFXMLLoader springFXMLLoader, Stage stage) {
         this.springFXMLLoader = springFXMLLoader;
@@ -72,5 +73,13 @@ public class StageManager {
 
     public User getLoggedUser() {
         return loggedUser;
+    }
+
+    public void setUsuarioSeleccionado(User user) {
+        this.usuarioSeleccionado = user;
+    }
+
+    public User getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
     }
 }
