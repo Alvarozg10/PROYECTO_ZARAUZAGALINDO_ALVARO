@@ -23,7 +23,7 @@
 
             <Button layoutX="80.0" layoutY="155.0" text="Añadir usuario" onAction="#anadirUsuario"/>
 			<Button layoutX="256.0" layoutY="155.0" text="Editar usuario" onAction="#editarUsuario"/>
-			<Button layoutX="426.0" layoutY="155.0" text="Eliminar usuario" />
+			<Button layoutX="426.0" layoutY="155.0" text="Eliminar usuario" onAction="#eliminarUsuario"/>
 
             <Label layoutX="204.0" layoutY="234.0" text="¿No desea realizar ninguna función?" />
 

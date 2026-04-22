@@ -59,4 +59,8 @@ public class UserService {
                 .findFirst()
                 .orElse(null);
     }
+    
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 }

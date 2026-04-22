@@ -48,6 +48,11 @@ public class AdminController implements Initializable {
 
         stageManager.switchScene(FxmlView.MODIFICARUSUARIO);
     }
+    
+    @FXML
+    private void eliminarUsuario() {
+        stageManager.switchScene(FxmlView.ELIMINARUSUARIO);
+    }
 
     @FXML
     private void cerrarSesion(ActionEvent event) {
