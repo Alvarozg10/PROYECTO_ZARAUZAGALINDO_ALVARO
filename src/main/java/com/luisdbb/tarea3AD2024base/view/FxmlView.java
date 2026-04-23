@@ -12,7 +12,8 @@ public enum FxmlView {
 	ADMIN("Panel Administrador", "Administrador1.fxml"),
 	ANADIRUSUARIO("Añadir Usuario", "AnadirUsuario.fxml"),
 	MODIFICARUSUARIO("Modificar Usuario", "ModificarUsuario.fxml"),
-	ELIMINARUSUARIO("Eliminar Usuario", "EliminarUsuario.fxml");
+	ELIMINARUSUARIO("Eliminar Usuario", "EliminarUsuario.fxml"),
+	CREARFCT("Crear FCT", "CrearFCT.fxml");
 
     private final String title;
     private final String fxmlFile;

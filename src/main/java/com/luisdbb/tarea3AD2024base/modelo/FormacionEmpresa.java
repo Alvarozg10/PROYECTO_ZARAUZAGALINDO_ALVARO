@@ -12,18 +12,23 @@ public class FormacionEmpresa {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "estudiante_id")
+    @JoinColumn(name = "estudiante_id", nullable = false)
     private User estudiante;
 
     @ManyToOne
-    @JoinColumn(name = "tutor_id")
+    @JoinColumn(name = "tutor_id", nullable = false)
     private User tutor;
 
+    @Column(nullable = false)
     private String empresa;
 
+    @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
+
+    @Column(name = "fecha_fin", nullable = false)
     private Date fechaFin;
 
+    @Column(nullable = false)
     private String estado;
 
     public Long getId() { return id; }

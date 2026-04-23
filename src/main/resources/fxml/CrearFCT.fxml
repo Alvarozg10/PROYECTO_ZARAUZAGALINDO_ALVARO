@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.CrearFCTController"
+            fitToWidth="true">
+
+    <content>
+        <StackPane alignment="CENTER">
+
+            <VBox spacing="15"
+                  alignment="CENTER"
+                  styleClass="card"
+                  maxWidth="400">
+
+                <Label text="Crear FCT" styleClass="title"/>
+
+                <Label text="Alumno"/>
+                <ChoiceBox fx:id="cbAlumno"/>
+
+                <Label text="Tutor Empresa"/>
+                <ChoiceBox fx:id="cbTutor"/>
+
+                <TextField fx:id="txtEmpresa" promptText="Nombre empresa"/>
+
+				<Label text="Fecha inicio"/>
+                <DatePicker fx:id="fechaInicio"/>
+                
+                <Label text="Fecha fin"/>
+                <DatePicker fx:id="fechaFin"/>
+
+				<Label text="Estado"/>
+                <ChoiceBox fx:id="cbEstado"/>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Guardar" onAction="#guardarFCT"/>
+                    <Button text="Volver" onAction="#volver"/>
+                </HBox>
+
+            </VBox>
+
+        </StackPane>
+    </content>
+
+</ScrollPane>
