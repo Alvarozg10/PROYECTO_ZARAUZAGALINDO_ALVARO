@@ -40,12 +40,18 @@ public class ProfesorController implements Initializable {
     }
     
     @FXML
-    private void abrirGestionFCT() {
-        stageManager.switchScene(FxmlView.GESTIONAR_FCT);
-    }
-    
-    @FXML
     private void crearFCT() {
         stageManager.switchScene(FxmlView.CREARFCT);
     }
+    
+    @FXML
+    private void abrirGestionFCT() {
+        stageManager.switchScene(FxmlView.CONSULTARFCT);
+    }
+    
+    @FXML
+    private void gestionarEstudiantes() {
+        stageManager.switchScene(FxmlView.GESTIONAR_ESTUDIANTES);
+    }
+    
 }

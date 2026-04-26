@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.ConsultarFCTController">
+
+    <top>
+        <Label text="Listado de FCT" styleClass="title" BorderPane.alignment="CENTER"/>
+    </top>
+
+<center>
+    <StackPane alignment="CENTER">
+
+        <TableView fx:id="tablaFCT"
+                   prefWidth="500"
+                   maxWidth="500">
+
+            <columns>
+                <TableColumn fx:id="colAlumno" text="Alumno"/>
+                <TableColumn fx:id="colTutor" text="Tutor"/>
+                <TableColumn fx:id="colEmpresa" text="Empresa"/>
+                <TableColumn fx:id="colInicio" text="Inicio"/>
+                <TableColumn fx:id="colFin" text="Fin"/>
+                <TableColumn fx:id="colEstado" text="Estado"/>
+            </columns>
+
+        </TableView>
+
+    </StackPane>
+</center>
+
+    <bottom>
+        <Button text="Volver" onAction="#volver"/>
+    </bottom>
+
+</BorderPane>

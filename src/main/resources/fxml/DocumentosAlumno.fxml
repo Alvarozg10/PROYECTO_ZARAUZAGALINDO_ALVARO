@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.DocumentosAlumnoController">
+
+    <top>
+        <Label text="Mis Documentos" styleClass="title" BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <StackPane alignment="CENTER">
+
+            <TableView fx:id="tablaDocs" prefWidth="400">
+
+                <columns>
+                    <TableColumn fx:id="colNombre" text="Nombre"/>
+                </columns>
+
+            </TableView>
+
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER">
+    <Button text="Descargar" onAction="#descargarDocumento"/>
+    <Button text="Volver" onAction="#volver"/>
+		</HBox>
+    </bottom>
+
+</BorderPane>

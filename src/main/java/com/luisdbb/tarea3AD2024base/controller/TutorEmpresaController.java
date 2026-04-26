@@ -40,56 +40,20 @@ public class TutorEmpresaController implements Initializable {
             lblTutorEmpresa.setText("Hola, " + user.getNombre());
         }
     }
+    
+    @FXML
+    private void verAlumnoAsignado(ActionEvent event) {
+        stageManager.switchScene(FxmlView.ALUMNOS_TUTOR);
+    }
+    
+    @FXML
+    private void subirDocumento() {
+        stageManager.switchScene(FxmlView.SUBIR_DOCUMENTO);
+    }
 
     @FXML
     private void cerrarSesion(ActionEvent event) {
         stageManager.switchScene(FxmlView.LOGIN);
     }
 
-    @FXML
-    private void verAlumnoAsignado(ActionEvent event) {
-
-        User tutor = stageManager.getLoggedUser();
-
-        if (tutor == null) {
-            mostrarAlerta("Error", "No se pudo obtener el tutor logueado.");
-            return;
-        }
-
-        // 🔥 AHORA usamos formaciones directamente
-        List<FormacionEmpresa> formaciones =
-                userService.findFormacionesByTutor(tutor);
-
-        if (formaciones.isEmpty()) {
-            mostrarAlerta("Información", "No tiene alumnos asignados.");
-        } else {
-
-            StringBuilder mensaje = new StringBuilder();
-
-            for (FormacionEmpresa f : formaciones) {
-
-                User alumno = f.getEstudiante();
-
-                if (alumno != null) {
-                    mensaje.append(alumno.getNombre())
-                           .append(" ")
-                           .append(alumno.getApellidos())
-                           .append("\n");
-                } else {
-                    mensaje.append("Alumno sin datos\n");
-                }
-            }
-
-            mostrarAlerta("Alumno(s) asignado(s)", mensaje.toString());
-        }
-    }
-
-    private void mostrarAlerta(String titulo, String contenido) {
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(contenido);
-        alert.showAndWait();
-    }
 }

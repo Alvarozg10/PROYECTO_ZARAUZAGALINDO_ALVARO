@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-02-2026 a las 12:06:07
+-- Tiempo de generación: 26-04-2026 a las 17:40:32
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -28,14 +28,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `documento` (
-  `id_documento` bigint(20) NOT NULL,
-  `estado` enum('EN_CURSO','FINALIZADO','PENDIENTE') DEFAULT NULL,
-  `fecha_subida` date DEFAULT NULL,
-  `nombre` varchar(255) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
   `ruta` varchar(255) DEFAULT NULL,
-  `tipo` enum('CONTRATO','INFORME','MEMORIA','OTRO') DEFAULT NULL,
-  `formacion_id` bigint(20) DEFAULT NULL
+  `estudiante_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `documento`
+--
+
+INSERT INTO `documento` (`id`, `nombre`, `ruta`, `estudiante_id`) VALUES
+(1, 'Ejemplo-de-descarga-pdf.pdf', 'C:\\Users\\Usuario\\Desktop\\proyect\\PROYECTO_ZARAUZAGALINDO_ALVARO\\documentos\\Ejemplo-de-descarga-pdf.pdf', 10);
 
 -- --------------------------------------------------------
 
@@ -45,17 +49,12 @@ CREATE TABLE `documento` (
 
 CREATE TABLE `empresa` (
   `id` bigint(20) NOT NULL,
-  `direccion` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
-  `telefono` varchar(255) DEFAULT NULL
+  `direccion` varchar(255) DEFAULT NULL,
+  `telefono` varchar(255) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `cif` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `empresa`
---
-
-INSERT INTO `empresa` (`id`, `direccion`, `nombre`, `telefono`) VALUES
-(1, 'Calle Innovación 12', 'Mecalux', '987654321');
 
 -- --------------------------------------------------------
 
@@ -64,22 +63,21 @@ INSERT INTO `empresa` (`id`, `direccion`, `nombre`, `telefono`) VALUES
 --
 
 CREATE TABLE `formacion_empresa` (
-  `id_formacion` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `estudiante_id` bigint(20) DEFAULT NULL,
+  `tutor_id` bigint(20) DEFAULT NULL,
+  `empresa` varchar(255) DEFAULT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
-  `estado` varchar(255) DEFAULT NULL,
-  `estudiante_id` bigint(20) DEFAULT NULL,
-  `profesor_id` bigint(20) DEFAULT NULL,
-  `tutor_empresa_id` bigint(20) DEFAULT NULL,
-  `empresa_id` bigint(20) DEFAULT NULL
+  `estado` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `formacion_empresa`
 --
 
-INSERT INTO `formacion_empresa` (`id_formacion`, `fecha_inicio`, `fecha_fin`, `estado`, `estudiante_id`, `profesor_id`, `tutor_empresa_id`, `empresa_id`) VALUES
-(2, '2026-01-25', '2026-05-15', 'ACTIVA', 3, 5, 4, 1);
+INSERT INTO `formacion_empresa` (`id`, `estudiante_id`, `tutor_id`, `empresa`, `fecha_inicio`, `fecha_fin`, `estado`) VALUES
+(1, 10, 11, 'Mecalux', '2026-01-06', '2026-04-20', 'FINALIZADA');
 
 -- --------------------------------------------------------
 
@@ -89,32 +87,25 @@ INSERT INTO `formacion_empresa` (`id_formacion`, `fecha_inicio`, `fecha_fin`, `e
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `dtype` varchar(31) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
   `apellidos` varchar(255) DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
   `genero` varchar(255) DEFAULT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `rol` varchar(255) DEFAULT NULL,
-  `ciclo` varchar(255) DEFAULT NULL,
-  `curso` int(11) DEFAULT NULL,
-  `expediente` varchar(255) DEFAULT NULL,
-  `especialidad` varchar(255) DEFAULT NULL,
   `telefono` varchar(255) DEFAULT NULL,
-  `empresa_id` bigint(20) DEFAULT NULL,
-  `tutor_empresa_id` bigint(20) DEFAULT NULL
+  `perfil` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `dtype`, `apellidos`, `fecha_nacimiento`, `genero`, `nombre`, `rol`, `ciclo`, `curso`, `expediente`, `especialidad`, `telefono`, `empresa_id`, `tutor_empresa_id`) VALUES
-(3, 'estudiante@demo.com', '1234', 'Estudiante', 'Zarauza Galindo', NULL, NULL, 'Álvaro', 'Estudiante', NULL, 1, NULL, NULL, NULL, 1, 4),
-(4, 'tutor@demo.com', '1234', 'TutorEmpresa', NULL, NULL, NULL, 'María', 'Tutor de empresa', NULL, NULL, NULL, NULL, '600123456', NULL, NULL),
-(5, 'profesor@demo.com', '1234', 'Profesor', NULL, NULL, NULL, 'Luis', 'Profesor', NULL, NULL, NULL, 'Informática', NULL, NULL, NULL),
-(6, 'admin@demo.com', 'admin', 'Administrador', NULL, NULL, NULL, 'Administrador', 'Administrador', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `user` (`id`, `email`, `password`, `nombre`, `apellidos`, `fecha_nacimiento`, `genero`, `telefono`, `perfil`) VALUES
+(6, 'admin@admin.com', 'admin', 'Admin', 'Principal', '2000-01-01', 'Male', NULL, 'ADMIN'),
+(10, 'alvarozg10@educastur.es', 'alvaro', 'Alvaro', 'Zarauza Galindo', '2005-02-19', 'Male', '650954189', 'ESTUDIANTE'),
+(11, 'marta@educastur.org', 'marta', 'Marta', 'Lopez Garcia', '2000-08-17', 'Female', '694020452', 'TUTOR_EMPRESA'),
+(12, 'luisdbb@educastur.org', 'luis', 'Luis', 'de Blas', '1993-07-29', 'Male', '602946134', 'PROFESOR');
 
 --
 -- Índices para tablas volcadas
@@ -124,8 +115,8 @@ INSERT INTO `user` (`id`, `email`, `password`, `dtype`, `apellidos`, `fecha_naci
 -- Indices de la tabla `documento`
 --
 ALTER TABLE `documento`
-  ADD PRIMARY KEY (`id_documento`),
-  ADD KEY `FKjbdnufhx516lmr7nfac3auque` (`formacion_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `estudiante_id` (`estudiante_id`);
 
 --
 -- Indices de la tabla `empresa`
@@ -137,20 +128,16 @@ ALTER TABLE `empresa`
 -- Indices de la tabla `formacion_empresa`
 --
 ALTER TABLE `formacion_empresa`
-  ADD PRIMARY KEY (`id_formacion`),
-  ADD KEY `FKkg87u9i7xyof1ytqo88kxq3n1` (`empresa_id`),
-  ADD KEY `FKn61ctm5rctaxc7wk9rfmwrcb5` (`estudiante_id`),
-  ADD KEY `FKa5xxccmd7b6abyggy3vf5e4tg` (`profesor_id`),
-  ADD KEY `FKao3p37k2yhkdh345v5tdg808m` (`tutor_empresa_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_estudiante` (`estudiante_id`),
+  ADD KEY `fk_tutor` (`tutor_id`);
 
 --
 -- Indices de la tabla `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UKob8kqyqqgmefl0aco34akdtpe` (`email`),
-  ADD KEY `FKm21n0rvmqditlvvor5ew330gr` (`empresa_id`),
-  ADD KEY `FKs2tulds3s360io0aoevij65iv` (`tutor_empresa_id`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -160,25 +147,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `documento`
 --
 ALTER TABLE `documento`
-  MODIFY `id_documento` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `formacion_empresa`
 --
 ALTER TABLE `formacion_empresa`
-  MODIFY `id_formacion` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
@@ -188,23 +175,14 @@ ALTER TABLE `user`
 -- Filtros para la tabla `documento`
 --
 ALTER TABLE `documento`
-  ADD CONSTRAINT `FKjbdnufhx516lmr7nfac3auque` FOREIGN KEY (`formacion_id`) REFERENCES `formacion_empresa` (`id_formacion`);
+  ADD CONSTRAINT `documento_ibfk_1` FOREIGN KEY (`estudiante_id`) REFERENCES `user` (`id`);
 
 --
 -- Filtros para la tabla `formacion_empresa`
 --
 ALTER TABLE `formacion_empresa`
-  ADD CONSTRAINT `FKa5xxccmd7b6abyggy3vf5e4tg` FOREIGN KEY (`profesor_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `FKao3p37k2yhkdh345v5tdg808m` FOREIGN KEY (`tutor_empresa_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `FKkg87u9i7xyof1ytqo88kxq3n1` FOREIGN KEY (`empresa_id`) REFERENCES `empresa` (`id`),
-  ADD CONSTRAINT `FKn61ctm5rctaxc7wk9rfmwrcb5` FOREIGN KEY (`estudiante_id`) REFERENCES `user` (`id`);
-
---
--- Filtros para la tabla `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `FKm21n0rvmqditlvvor5ew330gr` FOREIGN KEY (`empresa_id`) REFERENCES `empresa` (`id`),
-  ADD CONSTRAINT `FKs2tulds3s360io0aoevij65iv` FOREIGN KEY (`tutor_empresa_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `fk_estudiante` FOREIGN KEY (`estudiante_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `fk_tutor` FOREIGN KEY (`tutor_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

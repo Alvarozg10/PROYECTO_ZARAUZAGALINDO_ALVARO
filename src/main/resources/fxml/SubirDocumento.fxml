@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/23"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.luisdbb.tarea3AD2024base.controller.SubirDocumentoController">
+
+    <VBox spacing="15" alignment="CENTER" styleClass="card" prefWidth="400">
+
+        <Label text="Subir Documento" styleClass="title"/>
+
+        <ChoiceBox fx:id="cbAlumno"/>
+
+        <Button text="Seleccionar PDF" onAction="#seleccionarArchivo"/>
+
+        <Label fx:id="lblArchivo" text="Ningún archivo seleccionado"/>
+
+        <Button text="Subir" onAction="#subirDocumento"/>
+
+        <Button text="Volver" onAction="#volver"/>
+
+    </VBox>
+</StackPane>

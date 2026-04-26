@@ -39,49 +39,20 @@ public class EstudianteController implements Initializable {
             lblEstudiante.setText("Hola, " + user.getNombre());
         }
     }
+   
+    @FXML
+    private void verEmpresaYTutor(ActionEvent event) {
+        stageManager.switchScene(FxmlView.DATOS_FCT_ALUMNO);
+    }
+    
+    @FXML
+    private void verDocumentos() {
+        stageManager.switchScene(FxmlView.DOCUMENTOS_ALUMNO);
+    }
 
     @FXML
     private void cerrarSesion(ActionEvent event) {
         stageManager.switchScene(FxmlView.LOGIN);
     }
 
-    @FXML
-    private void verEmpresaYTutor(ActionEvent event) {
-
-        User user = stageManager.getLoggedUser();
-
-        FormacionEmpresa formacion =
-                userService.findFormacionUnicaByEstudiante(user);
-
-        if (formacion == null) {
-            mostrarError("No tienes FCT asignada.");
-            return;
-        }
-
-        String empresa = (formacion.getEmpresa() != null)
-                ? formacion.getEmpresa()
-                : "No asignada";
-
-        String tutor = (formacion.getTutor() != null)
-                ? formacion.getTutor().getNombre()
-                : "No asignado";
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Información FCT");
-        alert.setHeaderText("Datos asignados");
-        alert.setContentText(
-                "Empresa: " + empresa + "\n" +
-                "Tutor de empresa: " + tutor
-        );
-
-        alert.showAndWait();
-    }
-
-    private void mostrarError(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
 }

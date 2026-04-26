@@ -4,40 +4,25 @@ import java.sql.Date;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "documento")
 public class Documento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_documento")
-    private Long idDocumento;
+    private Long id;
 
-    @Column(nullable = false)
     private String nombre;
-
-    @Enumerated(EnumType.STRING)
-    private TipoDocumento tipo;
-
     private String ruta;
 
-    private Date fechaSubida;
-
-    @Enumerated(EnumType.STRING)
-    private Estado estado;
-
     @ManyToOne
-    @JoinColumn(name = "formacion_id")
-    private FormacionEmpresa formacion;
+    @JoinColumn(name = "estudiante_id")
+    private User estudiante;
 
-    public Documento() {
+    public Long getId() {
+        return id;
     }
 
-    public Long getIdDocumento() {
-        return idDocumento;
-    }
-
-    public void setIdDocumento(Long idDocumento) {
-        this.idDocumento = idDocumento;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -48,14 +33,6 @@ public class Documento {
         this.nombre = nombre;
     }
 
-    public TipoDocumento getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoDocumento tipo) {
-        this.tipo = tipo;
-    }
-
     public String getRuta() {
         return ruta;
     }
@@ -64,27 +41,11 @@ public class Documento {
         this.ruta = ruta;
     }
 
-    public Date getFechaSubida() {
-        return fechaSubida;
+    public User getEstudiante() {
+        return estudiante;
     }
 
-    public void setFechaSubida(Date fechaSubida) {
-        this.fechaSubida = fechaSubida;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-
-    public FormacionEmpresa getFormacion() {
-        return formacion;
-    }
-
-    public void setFormacion(FormacionEmpresa formacion) {
-        this.formacion = formacion;
+    public void setEstudiante(User estudiante) {
+        this.estudiante = estudiante;
     }
 }

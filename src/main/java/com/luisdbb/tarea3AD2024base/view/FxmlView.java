@@ -13,7 +13,13 @@ public enum FxmlView {
 	ANADIRUSUARIO("Añadir Usuario", "AnadirUsuario.fxml"),
 	MODIFICARUSUARIO("Modificar Usuario", "ModificarUsuario.fxml"),
 	ELIMINARUSUARIO("Eliminar Usuario", "EliminarUsuario.fxml"),
-	CREARFCT("Crear FCT", "CrearFCT.fxml");
+	CREARFCT("Crear FCT", "CrearFCT.fxml"),
+	CONSULTARFCT("Consultar FCT", "ConsultarFCT.fxml"),
+	GESTIONAR_ESTUDIANTES("Gestionar Estudiantes", "GestionarEstudiantes.fxml"),
+	ALUMNOS_TUTOR("Alumnos Tutor", "AlumnosTutor.fxml"),
+	DATOS_FCT_ALUMNO("Mi FCT", "DatosFCTAlumno.fxml"),
+	SUBIR_DOCUMENTO("Subir Documento", "SubirDocumento.fxml"),
+	DOCUMENTOS_ALUMNO("Documentos", "DocumentosAlumno.fxml");
 
     private final String title;
     private final String fxmlFile;

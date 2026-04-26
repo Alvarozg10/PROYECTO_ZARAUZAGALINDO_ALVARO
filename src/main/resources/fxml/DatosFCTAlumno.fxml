@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/23"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.luisdbb.tarea3AD2024base.controller.DatosFCTAlumnoController">
+
+    <VBox spacing="15" alignment="CENTER" styleClass="card" prefWidth="400">
+
+        <Label text="Mi FCT" styleClass="title"/>
+
+        <Label fx:id="lblEmpresa"/>
+        <Label fx:id="lblTutor"/>
+        <Label fx:id="lblEmailTutor"/>
+        <Label fx:id="lblTelefonoTutor"/>
+
+        <Button text="Volver" onAction="#volver"/>
+
+    </VBox>
+
+</StackPane>
