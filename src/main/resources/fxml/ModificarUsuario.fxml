@@ -10,7 +10,6 @@
 
     <VBox spacing="20" alignment="TOP_CENTER" styleClass="card" prefWidth="600">
 
-        <!-- 🔥 TABLA -->
         <Label text="Selecciona un usuario" styleClass="title"/>
 
         <TableView fx:id="tablaUsuarios" prefHeight="200">
@@ -23,7 +22,6 @@
 
         <Button text="Cargar usuario" onAction="#cargarUsuario"/>
 
-        <!-- 🔥 FORMULARIO -->
         <Label text="Modificar datos" styleClass="title"/>
 
         <TextField fx:id="firstName" promptText="Nombre"/>
