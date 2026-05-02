@@ -2,24 +2,52 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<StackPane xmlns="http://javafx.com/javafx/23"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.luisdbb.tarea3AD2024base.controller.SubirDocumentoController">
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.SubirDocumentoController"
+            stylesheets="@/styles/app.css">
 
-    <VBox spacing="15" alignment="CENTER" styleClass="card" prefWidth="400">
+    <center>
+        <StackPane alignment="CENTER">
 
-        <Label text="Subir Documento" styleClass="title"/>
+            <VBox alignment="CENTER"
+                  spacing="15"
+                  prefWidth="350"
+                  maxWidth="350"
+                  maxHeight="300"
+                  styleClass="card">
 
-        <ChoiceBox fx:id="cbAlumno"/>
+                <Label text="Subir Documento">
+                    <font>
+                        <Font size="18"/>
+                    </font>
+                </Label>
 
-        <Button text="Seleccionar PDF" onAction="#seleccionarArchivo"/>
+                <ChoiceBox fx:id="cbAlumno" prefWidth="250"/>
 
-        <Label fx:id="lblArchivo" text="Ningún archivo seleccionado"/>
+                <Button text="Seleccionar PDF"
+                        prefWidth="200"
+                        onAction="#seleccionarArchivo"/>
 
-        <Button text="Subir" onAction="#subirDocumento"/>
+                <Label fx:id="lblArchivo"
+                       text="Ningún archivo seleccionado"
+                       wrapText="true"
+                       maxWidth="250"/>
 
-        <Button text="Volver" onAction="#volver"/>
+                <Button text="Subir"
+                        prefWidth="200"
+                        onAction="#subirDocumento"/>
 
-    </VBox>
-</StackPane>
+                <Button text="Volver"
+                        prefWidth="200"
+                        onAction="#volver"/>
+
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

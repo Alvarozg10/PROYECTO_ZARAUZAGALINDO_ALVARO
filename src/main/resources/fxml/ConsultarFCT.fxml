@@ -2,38 +2,50 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23"
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.luisdbb.tarea3AD2024base.controller.ConsultarFCTController">
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.ConsultarFCTController"
+            stylesheets="@/styles/app.css">
 
-    <top>
-        <Label text="Listado de FCT" styleClass="title" BorderPane.alignment="CENTER"/>
-    </top>
+    <center>
+        <StackPane alignment="CENTER">
 
-<center>
-    <StackPane alignment="CENTER">
+            <VBox alignment="CENTER"
+                  spacing="15"
+                  prefWidth="520"
+                  maxWidth="520"
+                  maxHeight="400"
+                  styleClass="card">
 
-        <TableView fx:id="tablaFCT"
-                   prefWidth="500"
-                   maxWidth="500">
+                <Label text="Listado de FCT">
+                    <font>
+                        <Font size="18"/>
+                    </font>
+                </Label>
 
-            <columns>
-                <TableColumn fx:id="colAlumno" text="Alumno"/>
-                <TableColumn fx:id="colTutor" text="Tutor"/>
-                <TableColumn fx:id="colEmpresa" text="Empresa"/>
-                <TableColumn fx:id="colInicio" text="Inicio"/>
-                <TableColumn fx:id="colFin" text="Fin"/>
-                <TableColumn fx:id="colEstado" text="Estado"/>
-            </columns>
+                <TableView fx:id="tablaFCT"
+                           prefHeight="250"
+                           prefWidth="500">
 
-        </TableView>
+                    <columns>
+                        <TableColumn fx:id="colAlumno" text="Alumno"/>
+                        <TableColumn fx:id="colTutor" text="Tutor"/>
+                        <TableColumn fx:id="colEmpresa" text="Empresa"/>
+                        <TableColumn fx:id="colInicio" text="Inicio"/>
+                        <TableColumn fx:id="colFin" text="Fin"/>
+                        <TableColumn fx:id="colEstado" text="Estado"/>
+                    </columns>
 
-    </StackPane>
-</center>
+                </TableView>
 
-    <bottom>
-        <Button text="Volver" onAction="#volver"/>
-    </bottom>
+                <Button text="Volver" onAction="#volver"/>
+
+            </VBox>
+
+        </StackPane>
+    </center>
 
 </BorderPane>

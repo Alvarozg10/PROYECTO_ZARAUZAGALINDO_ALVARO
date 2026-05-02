@@ -2,36 +2,50 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23"
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.luisdbb.tarea3AD2024base.controller.AlumnosTutorController">
-
-    <top>
-        <Label text="Alumnos asignados" styleClass="title" BorderPane.alignment="CENTER"/>
-    </top>
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.AlumnosTutorController"
+            stylesheets="@/styles/app.css">
 
     <center>
         <StackPane alignment="CENTER">
 
-            <TableView fx:id="tablaAlumnos" prefWidth="600" maxWidth="600">
+            <VBox alignment="CENTER"
+                  spacing="15"
+                  prefWidth="620"
+                  maxWidth="620"
+                  maxHeight="420"
+                  styleClass="card">
 
-                <columns>
-                    <TableColumn fx:id="colNombre" text="Nombre"/>
-                    <TableColumn fx:id="colApellidos" text="Apellidos"/>
-                    <TableColumn fx:id="colEmail" text="Email"/>
-                    <TableColumn fx:id="colTelefono" text="Teléfono"/>
-                    <TableColumn fx:id="colFecha" text="Nacimiento"/>
-                    <TableColumn fx:id="colGenero" text="Género"/>
-                </columns>
+                <Label text="Alumnos asignados">
+                    <font>
+                        <Font size="18"/>
+                    </font>
+                </Label>
 
-            </TableView>
+                <TableView fx:id="tablaAlumnos"
+                           prefHeight="260"
+                           prefWidth="600">
+
+                    <columns>
+                        <TableColumn fx:id="colNombre" text="Nombre"/>
+                        <TableColumn fx:id="colApellidos" text="Apellidos"/>
+                        <TableColumn fx:id="colEmail" text="Email"/>
+                        <TableColumn fx:id="colTelefono" text="Teléfono"/>
+                        <TableColumn fx:id="colFecha" text="Nacimiento"/>
+                        <TableColumn fx:id="colGenero" text="Género"/>
+                    </columns>
+
+                </TableView>
+
+                <Button text="Volver" onAction="#volver"/>
+
+            </VBox>
 
         </StackPane>
     </center>
-
-    <bottom>
-        <Button text="Volver" onAction="#volver"/>
-    </bottom>
 
 </BorderPane>

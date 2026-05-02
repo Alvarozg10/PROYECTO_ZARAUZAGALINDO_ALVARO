@@ -3,25 +3,51 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.TutorEmpresaController" stylesheets="@/styles/app.css">
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.TutorEmpresaController"
+            stylesheets="@/styles/app.css">
+
    <center>
-      <Pane prefHeight="334.0" prefWidth="501.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label layoutX="161.0" layoutY="27.0" text="Sesión iniciada como Tutor de empresa">
+      <StackPane alignment="CENTER">
+
+         <VBox alignment="CENTER"
+               spacing="15"
+               prefWidth="350"
+               maxWidth="350"
+               maxHeight="300"
+               styleClass="card">
+
+            <Label text="Panel Tutor Empresa">
                <font>
-                  <Font size="16.0" />
+                  <Font size="18"/>
                </font>
             </Label>
-            <Label fx:id="lblTutorEmpresa" alignment="CENTER" layoutX="162.0" layoutY="52.0" prefHeight="17.0" prefWidth="279.0" text="Hola," />
-            <Label layoutX="224.0" layoutY="112.0" text="¿Que funcion desea realizar?" />
-            <Button layoutX="76.0" layoutY="155.0" mnemonicParsing="false" onAction="#verAlumnoAsignado" text="Consultar alumno/s asignado/s" />
-            <Button layoutX="343.0" layoutY="155.0" mnemonicParsing="false" onAction="#subirDocumento" text="Subir documentación" />
-            <Label layoutX="204.0" layoutY="234.0" text="¿No desea realizar ninguna función?" />
-            <Button layoutX="257.0" layoutY="272.0" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
-         </children>
-      </Pane>
+
+            <Label fx:id="lblTutorEmpresa" text="Hola,"/>
+
+            <Label text="¿Qué desea hacer?"/>
+
+            <Button text="Consultar alumnos asignados"
+                    prefWidth="250"
+                    onAction="#verAlumnoAsignado"/>
+
+            <Button text="Subir documentación"
+                    prefWidth="250"
+                    onAction="#subirDocumento"/>
+
+            <Button text="Cerrar sesión"
+                    prefWidth="250"
+                    onAction="#cerrarSesion"/>
+
+         </VBox>
+
+      </StackPane>
    </center>
+
 </BorderPane>

@@ -2,32 +2,45 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23"
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.luisdbb.tarea3AD2024base.controller.EliminarUsuarioController">
-
-    <top>
-        <VBox alignment="CENTER" spacing="10">
-            <Label text="Eliminar Usuario" styleClass="title"/>
-        </VBox>
-    </top>
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.EliminarUsuarioController"
+            stylesheets="@/styles/app.css">
 
     <center>
-        <TableView fx:id="tablaUsuarios">
-            <columns>
-                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
-                <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
-                <TableColumn fx:id="colPerfil" text="Perfil" prefWidth="150"/>
-            </columns>
-        </TableView>
-    </center>
+        <StackPane>
 
-    <bottom>
-        <HBox spacing="15" alignment="CENTER">
-            <Button text="Eliminar" onAction="#eliminarUsuario"/>
-            <Button text="Volver" onAction="#volver"/>
-        </HBox>
-    </bottom>
+            <VBox alignment="CENTER"
+                  spacing="15"
+                  maxWidth="500"
+                  maxHeight="500"
+                  styleClass="card">
+
+                <Label text="Eliminar Usuario">
+                    <font>
+                        <Font size="18"/>
+                    </font>
+                </Label>
+
+                <TableView fx:id="tablaUsuarios" prefHeight="250" prefWidth="380">
+                    <columns>
+                        <TableColumn fx:id="colNombre" text="Nombre" prefWidth="130"/>
+                        <TableColumn fx:id="colEmail" text="Email" prefWidth="180"/>
+                        <TableColumn fx:id="colPerfil" text="Perfil" prefWidth="90"/>
+                    </columns>
+                </TableView>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <Button text="Eliminar" onAction="#eliminarUsuario"/>
+                    <Button text="Volver" onAction="#volver"/>
+                </HBox>
+
+            </VBox>
+
+        </StackPane>
+    </center>
 
 </BorderPane>

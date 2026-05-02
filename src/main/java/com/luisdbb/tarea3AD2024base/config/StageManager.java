@@ -17,8 +17,10 @@ import javafx.stage.Stage;
 public class StageManager {
 
     private static final Logger LOG = getLogger(StageManager.class);
+
     private final Stage primaryStage;
     private final SpringFXMLLoader springFXMLLoader;
+
     private User loggedUser;
     private User usuarioSeleccionado;
 
@@ -29,10 +31,10 @@ public class StageManager {
 
     public void switchScene(final FxmlView view) {
         Parent root = loadViewNodeHierarchy(view.getFxmlFile());
-        show(root, view.getTitle());
+        show(root, view);
     }
 
-    private void show(final Parent root, String title) {
+    private void show(final Parent root, FxmlView view) {
 
         Scene scene = new Scene(root);
 
@@ -40,13 +42,18 @@ public class StageManager {
             getClass().getResource("/styles/app.css").toExternalForm()
         );
 
-        primaryStage.setTitle(title);
+        primaryStage.setTitle(view.getTitle());
         primaryStage.setScene(scene);
 
-        primaryStage.setWidth(600);
-        primaryStage.setHeight(500);
-        primaryStage.setResizable(false);
+        if (view == FxmlView.LOGIN) {
+            primaryStage.setWidth(600);
+            primaryStage.setHeight(500);
+        } else {
+            primaryStage.setWidth(700);
+            primaryStage.setHeight(600);
+        }
 
+        primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
         primaryStage.show();
     }

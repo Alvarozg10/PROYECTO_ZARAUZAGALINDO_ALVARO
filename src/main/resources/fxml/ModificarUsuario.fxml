@@ -2,46 +2,74 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<ScrollPane xmlns="http://javafx.com/javafx/23"
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarUsuarioController"
-            fitToWidth="true">
+            stylesheets="@/styles/app.css">
 
-    <VBox spacing="20" alignment="TOP_CENTER" styleClass="card" prefWidth="600">
+    <center>
+        <StackPane>
 
-        <Label text="Selecciona un usuario" styleClass="title"/>
+            <VBox alignment="CENTER"
+                  spacing="15"
+                  maxWidth="500"
+                  maxHeight="550"
+                  styleClass="card">
 
-        <TableView fx:id="tablaUsuarios" prefHeight="200">
-            <columns>
-                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
-                <TableColumn fx:id="colEmail" text="Email" prefWidth="200"/>
-                <TableColumn fx:id="colPerfil" text="Perfil" prefWidth="150"/>
-            </columns>
-        </TableView>
+                <ScrollPane fitToWidth="true"
+                            prefHeight="420"
+                            hbarPolicy="NEVER"
+                            style="-fx-background-color: transparent;">
 
-        <Button text="Cargar usuario" onAction="#cargarUsuario"/>
+                    <VBox spacing="15" alignment="CENTER">
 
-        <Label text="Modificar datos" styleClass="title"/>
+                        <Label text="Modificar Usuario">
+                            <font>
+                                <Font size="18"/>
+                            </font>
+                        </Label>
 
-        <TextField fx:id="firstName" promptText="Nombre"/>
-        <TextField fx:id="lastName" promptText="Apellidos"/>
-        <TextField fx:id="email" promptText="Email"/>
-        <TextField fx:id="telefono" promptText="Teléfono"/>
-        <PasswordField fx:id="password" promptText="Contraseña"/>
+                        <TableView fx:id="tablaUsuarios" prefHeight="150" prefWidth="380">
+                            <columns>
+                                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="130"/>
+                                <TableColumn fx:id="colEmail" text="Email" prefWidth="180"/>
+                                <TableColumn fx:id="colPerfil" text="Perfil" prefWidth="90"/>
+                            </columns>
+                        </TableView>
 
-        <ChoiceBox fx:id="eleccionUsuario"/>
-        <DatePicker fx:id="dob"/>
+                        <Button text="Cargar usuario" onAction="#cargarUsuario"/>
 
-        <HBox spacing="10" alignment="CENTER">
-            <RadioButton fx:id="rbMale" text="Male"/>
-            <RadioButton fx:id="rbFemale" text="Female"/>
-        </HBox>
+                        <Separator prefWidth="250"/>
 
-        <HBox spacing="10" alignment="CENTER">
-            <Button text="Guardar cambios" onAction="#updateUser"/>
-            <Button text="Volver" onAction="#volver"/>
-        </HBox>
+                        <TextField fx:id="firstName" promptText="Nombre" prefWidth="250"/>
+                        <TextField fx:id="lastName" promptText="Apellidos" prefWidth="250"/>
+                        <TextField fx:id="email" promptText="Email" prefWidth="250"/>
+                        <TextField fx:id="telefono" promptText="Teléfono" prefWidth="250"/>
+                        <PasswordField fx:id="password" promptText="Contraseña" prefWidth="250"/>
 
-    </VBox>
-</ScrollPane>
+                        <ChoiceBox fx:id="eleccionUsuario" prefWidth="250"/>
+                        <DatePicker fx:id="dob" prefWidth="250"/>
+
+                        <HBox spacing="15" alignment="CENTER">
+                            <RadioButton fx:id="rbMale" text="Male"/>
+                            <RadioButton fx:id="rbFemale" text="Female"/>
+                        </HBox>
+
+                        <HBox spacing="15" alignment="CENTER">
+                            <Button text="Guardar cambios" onAction="#updateUser"/>
+                            <Button text="Volver" onAction="#volver"/>
+                        </HBox>
+
+                    </VBox>
+
+                </ScrollPane>
+
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>

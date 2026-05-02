@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23"
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.luisdbb.tarea3AD2024base.controller.DocumentosAlumnoController">
-
-    <top>
-        <Label text="Mis Documentos" styleClass="title" BorderPane.alignment="CENTER"/>
-    </top>
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.DocumentosAlumnoController"
+            stylesheets="@/styles/app.css">
 
     <center>
-        <StackPane alignment="CENTER">
+        <StackPane>
 
-            <TableView fx:id="tablaDocs" prefWidth="400">
+		<VBox alignment="CENTER"
+		      spacing="15"
+		      maxWidth="400"
+		      maxHeight="350"
+		      styleClass="card">
 
-                <columns>
-                    <TableColumn fx:id="colNombre" text="Nombre"/>
-                </columns>
+                <Label text="Mis Documentos">
+                    <font>
+                        <Font size="18"/>
+                    </font>
+                </Label>
 
-            </TableView>
+                <TableView fx:id="tablaDocs" prefHeight="250" prefWidth="350">
+                    <columns>
+                        <TableColumn fx:id="colNombre" text="Nombre"/>
+                    </columns>
+                </TableView>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <Button text="Descargar" onAction="#descargarDocumento"/>
+                    <Button text="Volver" onAction="#volver"/>
+                </HBox>
+
+            </VBox>
 
         </StackPane>
     </center>
-
-    <bottom>
-        <HBox spacing="10" alignment="CENTER">
-    <Button text="Descargar" onAction="#descargarDocumento"/>
-    <Button text="Volver" onAction="#volver"/>
-		</HBox>
-    </bottom>
 
 </BorderPane>

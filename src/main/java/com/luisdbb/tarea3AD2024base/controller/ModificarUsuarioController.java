@@ -47,6 +47,7 @@ public class ModificarUsuarioController {
     @FXML
     public void initialize() {
 
+    	tablaUsuarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPerfil.setCellValueFactory(new PropertyValueFactory<>("perfil"));
