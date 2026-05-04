@@ -85,3 +85,15 @@
 .table-view .column-header .label {
     -fx-text-fill: black;
 }
+
+.menu-bar {
+    -fx-background-color: #f4f4f4;
+}
+
+.menu-bar .label {
+    -fx-text-fill: black;
+}
+
+.menu-item .label {
+    -fx-text-fill: black;
+}

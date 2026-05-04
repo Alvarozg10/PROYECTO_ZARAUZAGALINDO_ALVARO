@@ -14,29 +14,45 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
 
+/**
+ * Clase de configuración de Spring para la aplicación.
+ * 
+ * Define los beans necesarios para la integración entre Spring y JavaFX,
+ * incluyendo la carga de recursos y la gestión de escenas.
+ */
 @Configuration
 public class AppJavaConfig {
 	
+    /** Loader personalizado para cargar vistas FXML con Spring */
     @Autowired 
     SpringFXMLLoader springFXMLLoader;
 
-//    /**
-//     * Useful when dumping stack trace to a string for logging.
-//     * @return ExceptionWriter contains logging utility methods
-//     */
-//    @Bean
-//    @Scope("prototype")
-//    public ExceptionWriter exceptionWriter() {
-//        return new ExceptionWriter(new StringWriter());
-//    }
-
+    /**
+     * Proporciona el ResourceBundle de la aplicación.
+     * 
+     * Se utiliza para la internacionalización y gestión de recursos.
+     * 
+     * @return ResourceBundle cargado
+     */
     @Bean
     public ResourceBundle resourceBundle() {
         return ResourceBundle.getBundle("Bundle");
     }
     
+    /**
+     * Crea el StageManager de la aplicación.
+     * 
+     * Se encarga de gestionar la navegación entre escenas JavaFX.
+     * 
+     * Se inicializa de forma lazy para asegurar que el contexto de Spring
+     * esté completamente cargado antes de crear el Stage.
+     * 
+     * @param stage escenario principal de JavaFX
+     * @return instancia de StageManager
+     * @throws IOException en caso de error al cargar vistas
+     */
     @Bean
-    @Lazy(value = true) //Stage only created after Spring context bootstap
+    @Lazy(value = true)
     public StageManager stageManager(Stage stage) throws IOException {
         return new StageManager(springFXMLLoader, stage);
     }

@@ -21,9 +21,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * Controlador encargado de mostrar los alumnos asignados
+ * a un tutor de empresa.
+ * 
+ * Obtiene las formaciones (FCT) del tutor logueado y
+ * muestra los estudiantes asociados en una tabla.
+ */
 @Controller
 public class AlumnosTutorController implements Initializable {
 
+    /** Tabla que muestra los alumnos asignados */
     @FXML private TableView<User> tablaAlumnos;
 
     @FXML private TableColumn<User, String> colNombre;
@@ -33,13 +41,19 @@ public class AlumnosTutorController implements Initializable {
     @FXML private TableColumn<User, String> colFecha;
     @FXML private TableColumn<User, String> colGenero;
 
+    /** Repositorio de formaciones FCT */
     @Autowired
     private FormacionEmpresaRepository formacionRepo;
 
+    /** Gestor de escenas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /**
+     * Inicializa la tabla configurando las columnas
+     * y cargando los datos correspondientes.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -78,6 +92,12 @@ public class AlumnosTutorController implements Initializable {
         cargarDatos();
     }
 
+    /**
+     * Carga los alumnos asignados al tutor logueado.
+     * 
+     * Filtra las FCT por tutor y obtiene los estudiantes asociados,
+     * eliminando duplicados.
+     */
     private void cargarDatos() {
 
         User tutor = stageManager.getLoggedUser();
@@ -87,7 +107,7 @@ public class AlumnosTutorController implements Initializable {
                 .filter(f -> f.getTutor() != null &&
                              f.getTutor().getIdUsuario().equals(tutor.getIdUsuario()))
                 .map(FormacionEmpresa::getEstudiante)
-                .distinct() // 🔥 evita duplicados
+                .distinct()
                 .toList();
 
         tablaAlumnos.setItems(
@@ -95,6 +115,9 @@ public class AlumnosTutorController implements Initializable {
         );
     }
 
+    /**
+     * Vuelve al panel principal del tutor de empresa.
+     */
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.TUTOR_EMPRESA);

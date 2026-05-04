@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ayuda - Gestión FCT</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+}
+
+/* Menú lateral */
+nav {
+    width: 250px;
+    background: #2f6fb3;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+}
+
+nav h2 {
+    margin-top: 0;
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Contenido */
+main {
+    padding: 30px;
+    flex: 1;
+}
+
+h1 {
+    color: #2f6fb3;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+    <h2>Ayuda</h2>
+    <a href="#general">Inicio</a>
+    <a href="#admin">Administrador</a>
+    <a href="#profesor">Profesor</a>
+    <a href="#estudiante">Estudiante</a>
+    <a href="#tutor">Tutor Empresa</a>
+    <a href="#errores">Errores comunes</a>
+</nav>
+
+<main>
+
+<h1 id="general">Sistema de Gestión FCT</h1>
+<p>
+Esta aplicación permite gestionar las prácticas en empresa (FCT), incluyendo
+usuarios, asignaciones y documentación.
+</p>
+
+<div class="section" id="admin">
+<h2>Administrador</h2>
+<p>El administrador puede gestionar los usuarios del sistema:</p>
+<ul>
+    <li>Crear nuevos usuarios</li>
+    <li>Modificar datos existentes</li>
+    <li>Eliminar usuarios</li>
+</ul>
+<p>Debe asegurarse de que los datos introducidos son correctos.</p>
+</div>
+
+<div class="section" id="profesor">
+<h2>Profesor</h2>
+<p>El profesor puede:</p>
+<ul>
+    <li>Crear nuevas FCT</li>
+    <li>Consultar FCT existentes</li>
+    <li>Gestionar estudiantes</li>
+</ul>
+<p>Las fechas de inicio y fin deben ser coherentes.</p>
+</div>
+
+<div class="section" id="estudiante">
+<h2>Estudiante</h2>
+<p>El estudiante puede:</p>
+<ul>
+    <li>Consultar su empresa asignada</li>
+    <li>Ver datos del tutor</li>
+    <li>Descargar documentos</li>
+</ul>
+<p>Debe seleccionar un documento antes de descargarlo.</p>
+</div>
+
+<div class="section" id="tutor">
+<h2>Tutor Empresa</h2>
+<p>El tutor puede:</p>
+<ul>
+    <li>Ver alumnos asignados</li>
+    <li>Subir documentación en formato PDF</li>
+</ul>
+<p>Solo se permiten archivos PDF.</p>
+</div>
+
+<div class="section" id="errores">
+<h2>Errores comunes</h2>
+<ul>
+    <li>No rellenar todos los campos</li>
+    <li>No seleccionar elementos en tablas</li>
+    <li>Subir archivos no válidos</li>
+</ul>
+<p>El sistema mostrará mensajes de error en estos casos.</p>
+</div>
+
+</main>
+
+</body>
+</html>

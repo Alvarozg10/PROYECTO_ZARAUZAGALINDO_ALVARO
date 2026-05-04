@@ -16,14 +16,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Controlador encargado de gestionar la modificación de usuarios.
+ * 
+ * Permite visualizar los usuarios en una tabla, seleccionar uno
+ * y editar sus datos personales, guardando los cambios en el sistema.
+ */
 @Controller
 public class ModificarUsuarioController {
 
+    /** Tabla que muestra los usuarios */
     @FXML private TableView<User> tablaUsuarios;
+
     @FXML private TableColumn<User, String> colNombre;
     @FXML private TableColumn<User, String> colEmail;
     @FXML private TableColumn<User, String> colPerfil;
 
+    /** Campos del formulario de edición */
     @FXML private TextField firstName;
     @FXML private TextField lastName;
     @FXML private TextField email;
@@ -34,20 +43,31 @@ public class ModificarUsuarioController {
     @FXML private RadioButton rbMale;
     @FXML private RadioButton rbFemale;
 
+    /** Grupo de selección para el género */
     private ToggleGroup gender;
+
+    /** Usuario actualmente seleccionado para modificar */
     private User usuario;
 
+    /** Servicio de gestión de usuarios */
     @Autowired
     private UserService userService;
 
+    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /**
+     * Inicializa la tabla y configura los eventos de selección.
+     * 
+     * Permite seleccionar un usuario haciendo doble clic en la tabla.
+     */
     @FXML
     public void initialize() {
 
-    	tablaUsuarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tablaUsuarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPerfil.setCellValueFactory(new PropertyValueFactory<>("perfil"));
@@ -64,6 +84,7 @@ public class ModificarUsuarioController {
         rbMale.setToggleGroup(gender);
         rbFemale.setToggleGroup(gender);
 
+        // Permite cargar el usuario con doble clic en la tabla
         tablaUsuarios.setRowFactory(tv -> {
             TableRow<User> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -76,6 +97,9 @@ public class ModificarUsuarioController {
         });
     }
 
+    /**
+     * Carga el usuario seleccionado desde la tabla.
+     */
     @FXML
     private void cargarUsuario() {
 
@@ -89,6 +113,11 @@ public class ModificarUsuarioController {
         cargarDatos(usuario);
     }
 
+    /**
+     * Rellena el formulario con los datos del usuario seleccionado.
+     * 
+     * @param user usuario cuyos datos se van a mostrar
+     */
     private void cargarDatos(User user) {
 
         firstName.setText(user.getNombre());
@@ -110,6 +139,9 @@ public class ModificarUsuarioController {
         }
     }
 
+    /**
+     * Valida los datos introducidos y actualiza el usuario seleccionado.
+     */
     @FXML
     private void updateUser() {
 
@@ -147,11 +179,20 @@ public class ModificarUsuarioController {
         );
     }
 
+    /**
+     * Vuelve al panel de administrador.
+     */
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.ADMIN);
     }
 
+    /**
+     * Muestra una alerta informativa al usuario.
+     * 
+     * @param t título de la alerta
+     * @param m mensaje a mostrar
+     */
     private void alerta(String t, String m) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(t);

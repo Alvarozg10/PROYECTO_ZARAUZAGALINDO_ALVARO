@@ -22,21 +22,42 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
+/**
+ * Controlador encargado de gestionar la subida de documentos por parte del tutor de empresa.
+ * 
+ * Permite seleccionar un alumno asignado, elegir un archivo PDF desde el sistema
+ * y almacenarlo en el servidor, asociándolo al estudiante correspondiente.
+ */
 @Controller
 public class SubirDocumentoController {
 
+    /** Selector de alumnos asignados al tutor */
     @FXML private ChoiceBox<User> cbAlumno;
+
+    /** Etiqueta que muestra el nombre del archivo seleccionado */
     @FXML private Label lblArchivo;
 
+    /** Archivo seleccionado para subir */
     private File archivoSeleccionado;
 
+    /** Repositorio de documentos */
     @Autowired private DocumentoRepository documentoRepo;
+
+    /** Repositorio de formaciones FCT */
     @Autowired private FormacionEmpresaRepository formacionRepo;
 
+    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /**
+     * Inicializa la vista cargando los alumnos asignados
+     * al tutor logueado.
+     * 
+     * Filtra las FCT para obtener únicamente los estudiantes
+     * asociados al tutor y evita duplicados.
+     */
     @FXML
     public void initialize() {
 
@@ -52,6 +73,7 @@ public class SubirDocumentoController {
 
         cbAlumno.setItems(FXCollections.observableArrayList(alumnos));
 
+        // Conversor para mostrar el nombre del alumno
         cbAlumno.setConverter(new javafx.util.StringConverter<>() {
             @Override
             public String toString(User u) {
@@ -65,6 +87,9 @@ public class SubirDocumentoController {
         });
     }
 
+    /**
+     * Abre un selector de archivos para elegir un documento PDF.
+     */
     @FXML
     private void seleccionarArchivo() {
 
@@ -80,6 +105,12 @@ public class SubirDocumentoController {
         }
     }
 
+    /**
+     * Sube el documento seleccionado al sistema.
+     * 
+     * Copia el archivo a una carpeta local y guarda la información
+     * en la base de datos asociándolo al alumno seleccionado.
+     */
     @FXML
     private void subirDocumento() {
 
@@ -115,11 +146,20 @@ public class SubirDocumentoController {
         }
     }
 
+    /**
+     * Vuelve al panel del tutor de empresa.
+     */
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.TUTOR_EMPRESA);
     }
 
+    /**
+     * Muestra una alerta informativa al usuario.
+     * 
+     * @param t título de la alerta
+     * @param m mensaje a mostrar
+     */
     private void alerta(String t, String m) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(t);

@@ -2,6 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -13,6 +16,18 @@
             fx:controller="com.luisdbb.tarea3AD2024base.controller.TutorEmpresaController"
             stylesheets="@/styles/app.css">
 
+   <top>
+       <MenuBar>
+           <menus>
+               <Menu text="Sistema de ayuda">
+                   <items>
+                       <MenuItem text="Ayuda" onAction="#handleAyuda"/>
+                   </items>
+               </Menu>
+           </menus>
+       </MenuBar>
+   </top>
+   
    <center>
       <StackPane alignment="CENTER">
 

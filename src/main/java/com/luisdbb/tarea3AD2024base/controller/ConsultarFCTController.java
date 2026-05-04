@@ -19,9 +19,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * Controlador encargado de mostrar las formaciones en centro de trabajo (FE).
+ * 
+ * Permite visualizar en una tabla la información de cada FE, incluyendo
+ * estudiante, tutor, empresa, fechas y estado.
+ */
 @Controller
 public class ConsultarFCTController implements Initializable {
 
+    /** Tabla que contiene las FE */
     @FXML private TableView<FormacionEmpresa> tablaFCT;
 
     @FXML private TableColumn<FormacionEmpresa, String> colAlumno;
@@ -31,17 +38,24 @@ public class ConsultarFCTController implements Initializable {
     @FXML private TableColumn<FormacionEmpresa, String> colFin;
     @FXML private TableColumn<FormacionEmpresa, String> colEstado;
 
+    /** Repositorio para acceder a los datos de FE */
     @Autowired
     private FormacionEmpresaRepository formacionRepo;
 
+    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /**
+     * Inicializa la tabla configurando las columnas
+     * y cargando los datos desde la base de datos.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	tablaFCT.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-    	
+
+        tablaFCT.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         colAlumno.setCellValueFactory(data ->
             new SimpleStringProperty(
                 data.getValue().getEstudiante().getNombre()
@@ -71,12 +85,18 @@ public class ConsultarFCTController implements Initializable {
         );
 
         colEstado.setCellValueFactory(data ->
-            new SimpleStringProperty(data.getValue().getEstado())
+            new SimpleStringProperty(
+                data.getValue().getEstado().toString()
+            )
         );
 
         cargarDatos();
     }
 
+    /**
+     * Carga todas las FE almacenadas en la base de datos
+     * y las muestra en la tabla.
+     */
     private void cargarDatos() {
         tablaFCT.setItems(
             FXCollections.observableArrayList(
@@ -85,6 +105,9 @@ public class ConsultarFCTController implements Initializable {
         );
     }
 
+    /**
+     * Vuelve al panel principal del profesor.
+     */
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.PROFESOR);

@@ -20,9 +20,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * Controlador encargado de mostrar y gestionar el listado de estudiantes.
+ * 
+ * Permite visualizar en una tabla los usuarios con perfil de estudiante,
+ * mostrando su información básica como nombre, apellidos, fecha de nacimiento,
+ * género y teléfono.
+ */
 @Controller
 public class GestionarEstudiantesController implements Initializable {
 
+    /** Tabla que muestra los estudiantes */
     @FXML private TableView<User> tablaEstudiantes;
 
     @FXML private TableColumn<User, String> colNombre;
@@ -31,13 +39,19 @@ public class GestionarEstudiantesController implements Initializable {
     @FXML private TableColumn<User, String> colGenero;
     @FXML private TableColumn<User, String> colTelefono;
 
+    /** Servicio de gestión de usuarios */
     @Autowired
     private UserService userService;
 
+    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /**
+     * Inicializa la tabla configurando las columnas
+     * y cargando los datos de los estudiantes.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -67,12 +81,17 @@ public class GestionarEstudiantesController implements Initializable {
             )
         );
 
-        // 🔥 EVITA COLUMNA VACÍA
         tablaEstudiantes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         cargarDatos();
     }
 
+    /**
+     * Carga los usuarios con perfil de estudiante desde la base de datos.
+     * 
+     * Filtra la lista de usuarios para obtener únicamente aquellos
+     * cuyo perfil es "ESTUDIANTE".
+     */
     private void cargarDatos() {
 
         List<User> estudiantes = userService.findAll()
@@ -85,6 +104,9 @@ public class GestionarEstudiantesController implements Initializable {
         );
     }
 
+    /**
+     * Vuelve al panel principal del profesor.
+     */
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.PROFESOR);

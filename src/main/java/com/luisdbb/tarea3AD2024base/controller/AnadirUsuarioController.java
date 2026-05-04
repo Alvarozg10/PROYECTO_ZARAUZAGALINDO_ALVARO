@@ -14,6 +14,12 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+/**
+ * Controlador encargado de gestionar la creación de nuevos usuarios.
+ * 
+ * Permite introducir los datos personales del usuario, validar la información
+ * y guardarla en el sistema.
+ */
 @Controller
 public class AnadirUsuarioController {
 
@@ -27,15 +33,22 @@ public class AnadirUsuarioController {
     @FXML private RadioButton rbMale;
     @FXML private RadioButton rbFemale;
 
+    /** Servicio encargado de la gestión de usuarios */
     @Autowired
     private UserService userService;
 
+    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /** Grupo de selección para el género */
     private ToggleGroup gender;
 
+    /**
+     * Inicializa la vista configurando los valores por defecto
+     * y las validaciones de los campos.
+     */
     @FXML
     public void initialize() {
 
@@ -52,6 +65,7 @@ public class AnadirUsuarioController {
         rbFemale.setToggleGroup(gender);
         rbMale.setSelected(true);
 
+        // Solo permite números en el campo teléfono
         telefono.textProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal.matches("\\d*")) {
                 telefono.setText(newVal.replaceAll("[^\\d]", ""));
@@ -59,6 +73,9 @@ public class AnadirUsuarioController {
         });
     }
 
+    /**
+     * Valida los datos introducidos y guarda un nuevo usuario en el sistema.
+     */
     @FXML
     private void saveUser() {
 
@@ -90,11 +107,17 @@ public class AnadirUsuarioController {
         limpiar();
     }
 
+    /**
+     * Vuelve al panel de administrador.
+     */
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.ADMIN);
     }
 
+    /**
+     * Limpia los campos del formulario tras crear un usuario.
+     */
     private void limpiar() {
         firstName.clear();
         lastName.clear();
@@ -106,6 +129,12 @@ public class AnadirUsuarioController {
         eleccionUsuario.setValue("ESTUDIANTE");
     }
 
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * 
+     * @param t título de la alerta
+     * @param m mensaje a mostrar
+     */
     private void alerta(String t, String m) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(t);

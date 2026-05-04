@@ -19,23 +19,52 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
+/**
+ * Controlador encargado de gestionar la creación de una
+ * Formación en Centro de Trabajo (FE).
+ * 
+ * Permite seleccionar un estudiante, un tutor de empresa,
+ * introducir los datos de la empresa, fechas y estado,
+ * y guardar la FE en el sistema.
+ */
 @Controller
 public class CrearFCTController {
 
+    /** Selector de estudiantes */
     @FXML private ChoiceBox<User> cbAlumno;
-    @FXML private ChoiceBox<User> cbTutor;
-    @FXML private TextField txtEmpresa;
-    @FXML private DatePicker fechaInicio;
-    @FXML private DatePicker fechaFin;
-    @FXML private ChoiceBox<String> cbEstado;
 
+    /** Selector de tutores de empresa */
+    @FXML private ChoiceBox<User> cbTutor;
+
+    /** Campo de texto para el nombre de la empresa */
+    @FXML private TextField txtEmpresa;
+
+    /** Fecha de inicio de la FE */
+    @FXML private DatePicker fechaInicio;
+
+    /** Fecha de fin de la FE */
+    @FXML private DatePicker fechaFin;
+
+    /** Selector del estado de la FE */
+    @FXML private ChoiceBox<Estado> cbEstado;
+
+    /** Servicio de gestión de usuarios */
     @Autowired private UserService userService;
+
+    /** Repositorio de FE */
     @Autowired private FormacionEmpresaRepository formacionRepo;
 
+    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /**
+     * Inicializa la vista cargando los datos necesarios en los selectores.
+     * 
+     * Filtra los usuarios para obtener estudiantes y tutores de empresa,
+     * y configura la visualización de los ChoiceBox.
+     */
     @FXML
     public void initialize() {
 
@@ -53,6 +82,7 @@ public class CrearFCTController {
 
         cbTutor.setItems(FXCollections.observableArrayList(tutores));
 
+        // Conversor para mostrar el nombre del usuario en los ChoiceBox
         cbAlumno.setConverter(new StringConverter<>() {
             @Override
             public String toString(User u) {
@@ -71,9 +101,16 @@ public class CrearFCTController {
             public User fromString(String s) { return null; }
         });
 
-        cbEstado.getItems().addAll("PENDIENTE", "EN_CURSO", "FINALIZADA");
+        // Carga los valores del enum Estado
+        cbEstado.getItems().addAll(Estado.values());
     }
 
+    /**
+     * Valida los datos introducidos y crea una nueva FE.
+     * 
+     * Si los datos son correctos, se guarda en la base de datos
+     * y se muestra un mensaje de confirmación.
+     */
     @FXML
     private void guardarFCT() {
 
@@ -105,11 +142,20 @@ public class CrearFCTController {
         alerta("OK", "FCT creada correctamente");
     }
 
+    /**
+     * Vuelve al panel del profesor.
+     */
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.PROFESOR);
     }
 
+    /**
+     * Muestra un mensaje emergente al usuario.
+     * 
+     * @param t título de la alerta
+     * @param m mensaje a mostrar
+     */
     private void alerta(String t, String m) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(t);

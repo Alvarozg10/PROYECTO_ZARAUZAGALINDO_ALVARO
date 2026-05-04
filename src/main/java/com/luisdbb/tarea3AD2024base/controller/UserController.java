@@ -26,10 +26,19 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Controlador encargado de la gestión completa de usuarios.
+ * 
+ * Permite crear, modificar y visualizar usuarios en una tabla,
+ * incluyendo validación de datos antes de guardarlos en el sistema.
+ */
 @Controller
 public class UserController implements Initializable {
 
+    /** Identificador del usuario seleccionado */
     @FXML private Label userId;
+
+    /** Campos del formulario */
     @FXML private TextField firstName;
     @FXML private TextField lastName;
     @FXML private DatePicker dob;
@@ -39,6 +48,7 @@ public class UserController implements Initializable {
     @FXML private PasswordField password;
     @FXML private ChoiceBox<String> eleccionUsuario;
 
+    /** Tabla de usuarios */
     @FXML private TableView<User> userTable;
     @FXML private TableColumn<User, Long> colUserId;
     @FXML private TableColumn<User, String> colFirstName;
@@ -48,15 +58,22 @@ public class UserController implements Initializable {
     @FXML private TableColumn<User, String> colPerfil;
     @FXML private TableColumn<User, String> colEmail;
 
+    /** Gestor de navegación */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /** Servicio de usuarios */
     @Autowired
     private UserService userService;
 
+    /** Lista observable de usuarios */
     private ObservableList<User> userList = FXCollections.observableArrayList();
 
+    /**
+     * Inicializa la vista configurando los valores iniciales
+     * y cargando los datos en la tabla.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -73,11 +90,17 @@ public class UserController implements Initializable {
         loadUserDetails();
     }
 
+    /**
+     * Cierra la sesión del usuario y vuelve al login.
+     */
     @FXML
     private void logout(ActionEvent event) throws IOException {
         stageManager.switchScene(FxmlView.LOGIN);
     }
 
+    /**
+     * Guarda o actualiza un usuario tras validar los datos introducidos.
+     */
     @FXML
     private void saveUser(ActionEvent event) {
 
@@ -90,6 +113,7 @@ public class UserController implements Initializable {
 
             User user;
 
+            // Si no hay ID, se crea un nuevo usuario
             if (userId.getText() == null || userId.getText().isEmpty()) {
                 user = new User();
             } else {
@@ -103,7 +127,7 @@ public class UserController implements Initializable {
             user.setPassword(getPassword());
             user.setFechaNacimiento(Date.valueOf(getDob()));
 
-            // 🔥 CLAVE
+            // Asignación del perfil
             user.setPerfil(eleccionUsuario.getValue());
 
             userService.save(user);
@@ -113,6 +137,9 @@ public class UserController implements Initializable {
         }
     }
 
+    /**
+     * Configura las columnas de la tabla de usuarios.
+     */
     private void setColumnProperties() {
 
         colUserId.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
@@ -124,12 +151,20 @@ public class UserController implements Initializable {
         colPerfil.setCellValueFactory(new PropertyValueFactory<>("perfil"));
     }
 
+    /**
+     * Carga los usuarios desde la base de datos en la tabla.
+     */
     private void loadUserDetails() {
         userList.clear();
         userList.addAll(userService.findAll());
         userTable.setItems(userList);
     }
 
+    /**
+     * Carga los datos de un usuario en el formulario para su edición.
+     * 
+     * @param user usuario seleccionado
+     */
     private void updateUser(User user) {
         userId.setText(String.valueOf(user.getIdUsuario()));
         firstName.setText(user.getNombre());
@@ -146,6 +181,8 @@ public class UserController implements Initializable {
         eleccionUsuario.setValue(user.getPerfil());
     }
 
+    // Getters de los campos del formulario
+
     public String getNombre() { return firstName.getText(); }
     public String getApellidos() { return lastName.getText(); }
     public LocalDate getDob() { return dob.getValue(); }
@@ -153,6 +190,9 @@ public class UserController implements Initializable {
     public String getEmail() { return email.getText(); }
     public String getPassword() { return password.getText(); }
 
+    /**
+     * Limpia los campos del formulario.
+     */
     private void clearFields() {
         userId.setText(null);
         firstName.clear();
@@ -164,6 +204,9 @@ public class UserController implements Initializable {
         password.clear();
     }
 
+    /**
+     * Valida un campo mediante una expresión regular.
+     */
     private boolean validate(String field, String value, String pattern) {
         if (!value.isEmpty()) {
             Pattern p = Pattern.compile(pattern);
@@ -174,12 +217,18 @@ public class UserController implements Initializable {
         return false;
     }
 
+    /**
+     * Valida que un campo no esté vacío.
+     */
     private boolean emptyValidation(String field, boolean empty) {
         if (!empty) return true;
         validationAlert(field);
         return false;
     }
 
+    /**
+     * Muestra una alerta de validación.
+     */
     private void validationAlert(String field) {
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("Error");

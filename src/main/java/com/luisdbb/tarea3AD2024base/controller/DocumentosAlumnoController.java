@@ -24,19 +24,34 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
+/**
+ * Controlador encargado de gestionar los documentos del alumno.
+ * 
+ * Permite visualizar los documentos asociados al estudiante logueado
+ * y descargarlos al sistema local.
+ */
 @Controller
 public class DocumentosAlumnoController implements Initializable {
 
+    /** Tabla que muestra los documentos del alumno */
     @FXML private TableView<Documento> tablaDocs;
+
+    /** Columna que muestra el nombre del documento */
     @FXML private TableColumn<Documento, String> colNombre;
 
+    /** Repositorio de documentos */
     @Autowired
     private DocumentoRepository documentoRepo;
 
+    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
+    /**
+     * Inicializa la tabla configurando las columnas
+     * y cargando los documentos del alumno.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -49,6 +64,10 @@ public class DocumentosAlumnoController implements Initializable {
         cargarDatos();
     }
 
+    /**
+     * Carga los documentos asociados al alumno logueado
+     * desde la base de datos.
+     */
     private void cargarDatos() {
 
         User alumno = stageManager.getLoggedUser();
@@ -58,6 +77,13 @@ public class DocumentosAlumnoController implements Initializable {
         tablaDocs.setItems(FXCollections.observableArrayList(docs));
     }
 
+    /**
+     * Permite descargar el documento seleccionado
+     * al sistema local del usuario.
+     * 
+     * Abre un selector de archivos para elegir la ubicación
+     * y copia el archivo desde su ruta original.
+     */
     @FXML
     private void descargarDocumento() {
 
@@ -90,11 +116,20 @@ public class DocumentosAlumnoController implements Initializable {
         }
     }
 
+    /**
+     * Vuelve al panel principal del estudiante.
+     */
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.ESTUDIANTE);
     }
 
+    /**
+     * Muestra una alerta informativa al usuario.
+     * 
+     * @param t título de la alerta
+     * @param m mensaje a mostrar
+     */
     private void alerta(String t, String m) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(t);

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.AyudaController">
+
+    <top>
+        <Label text="Sistema de Ayuda"
+               styleClass="title"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <center>
+        <WebView fx:id="webView"/>
+    </center>
+
+</BorderPane>
