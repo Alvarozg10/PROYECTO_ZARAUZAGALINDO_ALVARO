@@ -57,16 +57,20 @@ public class ConsultarFCTController implements Initializable {
         tablaFCT.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         colAlumno.setCellValueFactory(data ->
-            new SimpleStringProperty(
-                data.getValue().getEstudiante().getNombre()
-            )
-        );
+        new SimpleStringProperty(
+            data.getValue().getEstudiante() != null
+                ? data.getValue().getEstudiante().getNombre()
+                : "Sin alumno"
+        )
+    );
 
         colTutor.setCellValueFactory(data ->
-            new SimpleStringProperty(
-                data.getValue().getTutor().getNombre()
-            )
-        );
+        new SimpleStringProperty(
+            data.getValue().getTutor() != null
+                ? data.getValue().getTutor().getNombre()
+                : "Sin tutor"
+        )
+    );
 
         colEmpresa.setCellValueFactory(data ->
             new SimpleStringProperty(data.getValue().getEmpresa())

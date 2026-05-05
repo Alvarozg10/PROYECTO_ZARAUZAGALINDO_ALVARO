@@ -120,14 +120,16 @@ public class ModificarUsuarioController {
      */
     private void cargarDatos(User user) {
 
-        firstName.setText(user.getNombre());
-        lastName.setText(user.getApellidos());
-        email.setText(user.getEmail());
-        telefono.setText(user.getTelefono());
-        password.setText(user.getPassword());
+        firstName.setText(user.getNombre() != null ? user.getNombre() : "");
+        lastName.setText(user.getApellidos() != null ? user.getApellidos() : "");
+        email.setText(user.getEmail() != null ? user.getEmail() : "");
+        telefono.setText(user.getTelefono() != null ? user.getTelefono() : "");
+        password.setText(user.getPassword() != null ? user.getPassword() : "");
 
         if (user.getFechaNacimiento() != null) {
             dob.setValue(user.getFechaNacimiento().toLocalDate());
+        } else {
+            dob.setValue(null);
         }
 
         eleccionUsuario.setValue(user.getPerfil());

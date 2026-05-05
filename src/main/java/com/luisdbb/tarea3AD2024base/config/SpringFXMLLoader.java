@@ -1,6 +1,7 @@
 package com.luisdbb.tarea3AD2024base.config;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXMLLoader;
@@ -50,14 +51,25 @@ public class SpringFXMLLoader {
      * @throws IOException si ocurre un error al cargar el archivo
      */
     public Parent load(String fxmlPath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/fxml/" + fxmlPath), 
-                resourceBundle
-        );
 
-        // Permite que Spring gestione los controladores
-        loader.setControllerFactory(context::getBean); 
+        URL url = getClass().getResource("/fxml/" + fxmlPath);
 
-        return loader.load();
+        System.out.println("🔍 Cargando: " + fxmlPath + " → " + url);
+
+        if (url == null) {
+            throw new RuntimeException("❌ FXML NO ENCONTRADO: " + fxmlPath);
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(url, resourceBundle);
+            loader.setControllerFactory(context::getBean);
+
+            return loader.load();
+
+        } catch (Exception e) {
+            System.out.println("💥 ERROR REAL AL CARGAR: " + fxmlPath);
+            e.printStackTrace(); // 🔥 ESTO ES LO IMPORTANTE
+            throw e;
+        }
     }
 }
