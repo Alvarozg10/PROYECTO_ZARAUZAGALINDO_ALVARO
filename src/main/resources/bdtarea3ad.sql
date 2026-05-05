@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2026 a las 17:40:32
+-- Tiempo de generación: 05-05-2026 a las 17:11:42
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,21 +44,6 @@ INSERT INTO `documento` (`id`, `nombre`, `ruta`, `estudiante_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empresa`
---
-
-CREATE TABLE `empresa` (
-  `id` bigint(20) NOT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `direccion` varchar(255) DEFAULT NULL,
-  `telefono` varchar(255) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `cif` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `formacion_empresa`
 --
 
@@ -77,7 +62,7 @@ CREATE TABLE `formacion_empresa` (
 --
 
 INSERT INTO `formacion_empresa` (`id`, `estudiante_id`, `tutor_id`, `empresa`, `fecha_inicio`, `fecha_fin`, `estado`) VALUES
-(1, 10, 11, 'Mecalux', '2026-01-06', '2026-04-20', 'FINALIZADA');
+(1, 10, 11, 'Mecalux', '2026-01-06', '2026-04-20', 'FINALIZADO');
 
 -- --------------------------------------------------------
 
@@ -102,7 +87,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `password`, `nombre`, `apellidos`, `fecha_nacimiento`, `genero`, `telefono`, `perfil`) VALUES
-(6, 'admin@admin.com', 'admin', 'Admin', 'Principal', '2000-01-01', 'Male', NULL, 'ADMIN'),
+(6, 'admin', 'admin', 'Admin', 'Principal', '2000-01-01', 'Male', '123456789', 'ADMIN'),
 (10, 'alvarozg10@educastur.es', 'alvaro', 'Alvaro', 'Zarauza Galindo', '2005-02-19', 'Male', '650954189', 'ESTUDIANTE'),
 (11, 'marta@educastur.org', 'marta', 'Marta', 'Lopez Garcia', '2000-08-17', 'Female', '694020452', 'TUTOR_EMPRESA'),
 (12, 'luisdbb@educastur.org', 'luis', 'Luis', 'de Blas', '1993-07-29', 'Male', '602946134', 'PROFESOR');
@@ -117,12 +102,6 @@ INSERT INTO `user` (`id`, `email`, `password`, `nombre`, `apellidos`, `fecha_nac
 ALTER TABLE `documento`
   ADD PRIMARY KEY (`id`),
   ADD KEY `estudiante_id` (`estudiante_id`);
-
---
--- Indices de la tabla `empresa`
---
-ALTER TABLE `empresa`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `formacion_empresa`
@@ -148,12 +127,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `documento`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `empresa`
---
-ALTER TABLE `empresa`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `formacion_empresa`
