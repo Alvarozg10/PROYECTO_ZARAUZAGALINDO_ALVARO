@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebView;
 
 /**
@@ -27,7 +29,19 @@ public class AyudaController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         cargarAyuda();
+
+        // Detecta la tecla F1
+        webView.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.F1) {
+
+                // Recarga la ayuda
+                cargarAyuda();
+
+                event.consume();
+            }
+        });
     }
 
     /**
@@ -35,6 +49,7 @@ public class AyudaController implements Initializable {
      */
     private void cargarAyuda() {
         try {
+
             String url = getClass()
                     .getResource("/ayuda/help.html")
                     .toExternalForm();

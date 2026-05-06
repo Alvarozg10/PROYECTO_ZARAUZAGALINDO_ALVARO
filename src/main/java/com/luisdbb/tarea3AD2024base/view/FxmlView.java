@@ -1,7 +1,5 @@
 package com.luisdbb.tarea3AD2024base.view;
 
-import java.util.ResourceBundle;
-
 /**
  * Enumeración que define las vistas de la aplicación.
  * 

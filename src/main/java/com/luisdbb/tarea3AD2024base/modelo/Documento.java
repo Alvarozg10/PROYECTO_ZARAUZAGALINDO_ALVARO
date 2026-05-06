@@ -1,7 +1,11 @@
 package com.luisdbb.tarea3AD2024base.modelo;
 
-import java.sql.Date;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 /**
  * Entidad que representa un documento dentro del sistema.

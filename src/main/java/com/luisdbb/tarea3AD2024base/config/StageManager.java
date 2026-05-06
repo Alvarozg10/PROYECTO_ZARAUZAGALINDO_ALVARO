@@ -73,6 +73,33 @@ public class StageManager {
             getClass().getResource("/styles/app.css").toExternalForm()
         );
 
+        scene.setOnKeyPressed(event -> {
+
+            if (event.getCode() == javafx.scene.input.KeyCode.F1) {
+
+                try {
+
+                    Parent ayudaRoot =
+                        springFXMLLoader.load("Ayuda.fxml");
+
+                    Stage helpStage = new Stage();
+
+                    helpStage.setTitle("Sistema de Ayuda");
+
+                    helpStage.setScene(
+                        new Scene(ayudaRoot, 800, 600)
+                    );
+
+                    helpStage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                event.consume();
+            }
+        });
+
         primaryStage.setTitle(view.getTitle());
         primaryStage.setScene(scene);
 
@@ -89,7 +116,7 @@ public class StageManager {
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
-
+    
     /**
      * Carga el nodo raíz de una vista FXML.
      */
