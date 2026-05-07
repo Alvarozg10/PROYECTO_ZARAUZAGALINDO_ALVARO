@@ -108,8 +108,8 @@ public class StageManager {
             primaryStage.setWidth(600);
             primaryStage.setHeight(500);
         } else {
-            primaryStage.setWidth(700);
-            primaryStage.setHeight(600);
+            primaryStage.setWidth(900);
+            primaryStage.setHeight(750);
         }
 
         primaryStage.setResizable(true);
