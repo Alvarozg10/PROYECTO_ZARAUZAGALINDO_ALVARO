@@ -56,6 +56,12 @@
     <version>21</version>
 </dependency>
 
+<dependency>
+    <groupId>ComponentesJavaFX</groupId>
+    <artifactId>ComponentesJavaFX</artifactId>
+    <version>1.0</version>
+</dependency>
+
 	</dependencies>
 
 	<build>

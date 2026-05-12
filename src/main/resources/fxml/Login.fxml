@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
+<?import componentes.BotonPersonalizado?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController" stylesheets="@/styles/app.css">
    <top>
@@ -32,7 +33,7 @@
             <Label layoutX="224.0" layoutY="93.0" text="Usuario" />
             <TextField fx:id="username" layoutX="224.0" layoutY="110.0" promptText="Introduce tu usuario" />
             <Label layoutX="224.0" layoutY="153.0" prefHeight="17.0" prefWidth="63.0" text="Contraseña" />
-            <Button fx:id="btnLogin" layoutX="266.0" layoutY="225.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="68.0" text="Entrar" />
+            <BotonPersonalizado fx:id="btnLogin" layoutX="240.0" layoutY="230.0" prefWidth="120" prefHeight="35" onAction="#login" text="Entrar"/>
             <Label layoutX="268.0" layoutY="55.0" text="Bienvenido!" />
             <PasswordField fx:id="password" layoutX="224.0" layoutY="170.0" onAction="#login" promptText="Introduce tu contraseña" />
          </children>

@@ -121,16 +121,23 @@ public class StageManager {
      * Carga el nodo raíz de una vista FXML.
      */
     private Parent loadViewNodeHierarchy(String fxmlFilePath) {
-        Parent rootNode = null;
-        try {
-            rootNode = springFXMLLoader.load(fxmlFilePath);
-            Objects.requireNonNull(rootNode, "Root FXML no puede ser null");
-        } catch (Exception exception) {
-            logAndExit("Error cargando FXML: " + fxmlFilePath, exception);
-        }
-        return rootNode;
-    }
 
+        try {
+
+            Parent rootNode = springFXMLLoader.load(fxmlFilePath);
+
+            Objects.requireNonNull(rootNode, "Root FXML no puede ser null");
+
+            return rootNode;
+
+        } catch (Exception e) {
+
+            System.out.println("ERROR REAL:");
+            e.printStackTrace();
+
+            throw new RuntimeException(e);
+        }
+    }
     /**
      * Registra el error y finaliza la aplicación.
      */

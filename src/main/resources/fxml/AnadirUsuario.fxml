@@ -37,8 +37,8 @@
                   <DatePicker fx:id="dob" prefWidth="250"/>
 
                   <HBox spacing="15" alignment="CENTER">
-                      <RadioButton fx:id="rbMale" text="Male"/>
-                      <RadioButton fx:id="rbFemale" text="Female"/>
+                      <RadioButton fx:id="rbMale" text="Hombre"/>
+                      <RadioButton fx:id="rbFemale" text="Mujer"/>
                   </HBox>
 
                   <HBox spacing="15" alignment="CENTER">
