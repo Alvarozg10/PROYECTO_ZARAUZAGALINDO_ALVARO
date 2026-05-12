@@ -20,97 +20,154 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * Controlador encargado de mostrar las formaciones en centro de trabajo (FE).
- * 
- * Permite visualizar en una tabla la información de cada FE, incluyendo
- * estudiante, tutor, empresa, fechas y estado.
+ * Controlador encargado de mostrar las formaciones en empresa (FCT).
  */
 @Controller
 public class ConsultarFCTController implements Initializable {
 
-    /** Tabla que contiene las FE */
-    @FXML private TableView<FormacionEmpresa> tablaFCT;
+    /** Tabla principal */
+    @FXML
+    private TableView<FormacionEmpresa> tablaFCT;
 
-    @FXML private TableColumn<FormacionEmpresa, String> colAlumno;
-    @FXML private TableColumn<FormacionEmpresa, String> colTutor;
-    @FXML private TableColumn<FormacionEmpresa, String> colEmpresa;
-    @FXML private TableColumn<FormacionEmpresa, String> colInicio;
-    @FXML private TableColumn<FormacionEmpresa, String> colFin;
-    @FXML private TableColumn<FormacionEmpresa, String> colEstado;
+    @FXML
+    private TableColumn<FormacionEmpresa, String> colAlumno;
 
-    /** Repositorio para acceder a los datos de FE */
+    @FXML
+    private TableColumn<FormacionEmpresa, String> colTutor;
+
+    @FXML
+    private TableColumn<FormacionEmpresa, String> colEmpresa;
+
+    @FXML
+    private TableColumn<FormacionEmpresa, String> colInicio;
+
+    @FXML
+    private TableColumn<FormacionEmpresa, String> colFin;
+
+    @FXML
+    private TableColumn<FormacionEmpresa, String> colEstado;
+    
+    @FXML private TableColumn<FormacionEmpresa, String> colCurso;
+    @FXML private TableColumn<FormacionEmpresa, String> colCiclo;
+
+    /** Repositorio FCT */
     @Autowired
     private FormacionEmpresaRepository formacionRepo;
 
-    /** Gestor de navegación entre vistas */
+    /** Navegación */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
     /**
-     * Inicializa la tabla configurando las columnas
-     * y cargando los datos desde la base de datos.
+     * Inicializa la tabla.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        tablaFCT.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tablaFCT.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY
+        );
 
-        colAlumno.setCellValueFactory(data ->
-        new SimpleStringProperty(
-            data.getValue().getEstudiante() != null
-                ? data.getValue().getEstudiante().getNombre()
-                : "Sin alumno"
-        )
-    );
+        // Alumno
+        colAlumno.setCellValueFactory(data -> {
 
-        colTutor.setCellValueFactory(data ->
-        new SimpleStringProperty(
-            data.getValue().getTutor() != null
-                ? data.getValue().getTutor().getNombre()
-                : "Sin tutor"
-        )
-    );
+            if (data.getValue().getEstudiante() == null) {
+                return new SimpleStringProperty("Sin alumno");
+            }
 
+            var alumno = data.getValue().getEstudiante();
+
+            String texto = alumno.getNombre()
+                    + " "
+                    + alumno.getApellidos()
+                    + " - "
+                    + alumno.getCiclo()
+                    + " "
+                    + alumno.getCurso();
+
+            return new SimpleStringProperty(texto);
+        });
+
+        // Tutor
+        colTutor.setCellValueFactory(data -> {
+
+            if (data.getValue().getTutor() == null) {
+                return new SimpleStringProperty("Sin tutor");
+            }
+
+            var tutor = data.getValue().getTutor();
+
+            return new SimpleStringProperty(
+                    tutor.getNombre() + " " + tutor.getApellidos()
+            );
+        });
+
+        // Empresa
         colEmpresa.setCellValueFactory(data ->
-            new SimpleStringProperty(data.getValue().getEmpresa())
+                new SimpleStringProperty(
+                        data.getValue().getEmpresa()
+                )
         );
 
+        // Fecha inicio
         colInicio.setCellValueFactory(data ->
-            new SimpleStringProperty(
-                data.getValue().getFechaInicio().toString()
-            )
+                new SimpleStringProperty(
+                        data.getValue().getFechaInicio().toString()
+                )
         );
 
+        // Fecha fin
         colFin.setCellValueFactory(data ->
-            new SimpleStringProperty(
-                data.getValue().getFechaFin().toString()
-            )
+                new SimpleStringProperty(
+                        data.getValue().getFechaFin().toString()
+                )
         );
 
+        // Estado
         colEstado.setCellValueFactory(data ->
-            new SimpleStringProperty(
-                data.getValue().getEstado().toString()
-            )
+                new SimpleStringProperty(
+                        data.getValue().getEstado().toString()
+                )
         );
+        
+        // Curso
+        colCurso.setCellValueFactory(data ->
+        new SimpleStringProperty(
+            data.getValue().getEstudiante() != null &&
+            data.getValue().getEstudiante().getCurso() != null
+                ? data.getValue().getEstudiante().getCurso().toString()
+                : "-"
+        )
+    );
+        
+        // Ciclo
+	    colCiclo.setCellValueFactory(data ->
+	        new SimpleStringProperty(
+	            data.getValue().getEstudiante() != null &&
+	            data.getValue().getEstudiante().getCiclo() != null
+	                ? data.getValue().getEstudiante().getCiclo().toString()
+	                : "-"
+	        )
+	    );
 
         cargarDatos();
     }
 
     /**
-     * Carga todas las FE almacenadas en la base de datos
-     * y las muestra en la tabla.
+     * Carga las FCT en la tabla.
      */
     private void cargarDatos() {
+
         tablaFCT.setItems(
-            FXCollections.observableArrayList(
-                formacionRepo.findAll()
-            )
+                FXCollections.observableArrayList(
+                        formacionRepo.findAll()
+                )
         );
     }
 
     /**
-     * Vuelve al panel principal del profesor.
+     * Vuelve al menú del profesor.
      */
     @FXML
     private void volver() {

@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -54,6 +56,20 @@ public class User {
     /** Teléfono de contacto del usuario */
     @Column(name = "telefono")
     private String telefono;
+    
+    /**
+     * Curso del usuario dentro del sistema
+     * (PRIMERO, SEGUNDO)
+     */
+    @Enumerated(EnumType.STRING)
+    private Curso curso;
+    
+    /**
+     * Ciclo del usuario dentro del sistema
+     * (DAM, DAW)
+     */
+    @Enumerated(EnumType.STRING)
+    private Ciclo ciclo;
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -126,5 +142,22 @@ public class User {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
+	public Ciclo getCiclo() {
+		return ciclo;
+	}
+
+	public void setCiclo(Ciclo ciclo) {
+		this.ciclo = ciclo;
+	}
+
  
 }

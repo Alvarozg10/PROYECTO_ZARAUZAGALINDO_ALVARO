@@ -25,40 +25,29 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * Controlador encargado de gestionar los documentos del alumno.
- * 
- * Permite visualizar los documentos asociados al estudiante logueado
- * y descargarlos al sistema local.
  */
 @Controller
 public class DocumentosAlumnoController implements Initializable {
 
-    /** Tabla que muestra los documentos del alumno */
     @FXML private TableView<Documento> tablaDocs;
-
-    /** Columna que muestra el nombre del documento */
     @FXML private TableColumn<Documento, String> colNombre;
 
-    /** Repositorio de documentos */
     @Autowired
     private DocumentoRepository documentoRepo;
 
-    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
-    /**
-     * Inicializa la tabla configurando las columnas
-     * y cargando los documentos del alumno.
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         colNombre.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().getNombre())
+            new SimpleStringProperty(data.getValue().getNombre())
         );
 
         tablaDocs.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -67,8 +56,7 @@ public class DocumentosAlumnoController implements Initializable {
     }
 
     /**
-     * Carga los documentos asociados al alumno logueado
-     * desde la base de datos.
+     * Carga los documentos del alumno logueado.
      */
     private void cargarDatos() {
 
@@ -76,15 +64,13 @@ public class DocumentosAlumnoController implements Initializable {
 
         List<Documento> docs = documentoRepo.findByEstudiante(alumno);
 
-        tablaDocs.setItems(FXCollections.observableArrayList(docs));
+        tablaDocs.setItems(
+            FXCollections.observableArrayList(docs)
+        );
     }
 
     /**
-     * Permite descargar el documento seleccionado
-     * al sistema local del usuario.
-     * 
-     * Abre un selector de archivos para elegir la ubicación
-     * y copia el archivo desde su ruta original.
+     * Descarga el documento seleccionado.
      */
     @FXML
     private void descargarDocumento() {
@@ -96,30 +82,43 @@ public class DocumentosAlumnoController implements Initializable {
             return;
         }
 
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialFileName(doc.getNombre());
+        try {
 
-        File destino = fileChooser.showSaveDialog(null);
+            File archivoOriginal = new File(doc.getRuta());
 
-        if (destino != null) {
-            try {
+            if (!archivoOriginal.exists()) {
+                alerta("Error", "El archivo original no existe");
+                return;
+            }
+
+            FileChooser fileChooser = new FileChooser();
+
+            fileChooser.setTitle("Guardar documento");
+            fileChooser.setInitialFileName(doc.getNombre());
+
+            Stage stage = (Stage) tablaDocs.getScene().getWindow();
+
+            File destino = fileChooser.showSaveDialog(stage);
+
+            if (destino != null) {
+
                 Files.copy(
-                    new File(doc.getRuta()).toPath(),
+                    archivoOriginal.toPath(),
                     destino.toPath(),
                     StandardCopyOption.REPLACE_EXISTING
                 );
 
                 alerta("OK", "Documento descargado correctamente");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                alerta("Error", "No se pudo descargar");
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            alerta("Error", "No se pudo descargar el documento");
         }
     }
 
     /**
-     * Vuelve al panel principal del estudiante.
+     * Vuelve al panel del estudiante.
      */
     @FXML
     private void volver() {
@@ -127,16 +126,16 @@ public class DocumentosAlumnoController implements Initializable {
     }
 
     /**
-     * Muestra una alerta informativa al usuario.
-     * 
-     * @param t título de la alerta
-     * @param m mensaje a mostrar
+     * Muestra una alerta.
      */
     private void alerta(String t, String m) {
+
         Alert a = new Alert(Alert.AlertType.INFORMATION);
+
         a.setTitle(t);
         a.setHeaderText(null);
         a.setContentText(m);
+
         a.showAndWait();
     }
 }

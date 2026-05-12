@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0"
-            prefWidth="850.0"
+<BorderPane prefHeight="760.0"
+            prefWidth="950.0"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.luisdbb.tarea3AD2024base.controller.CrearFCTController"
@@ -16,43 +16,110 @@
         <StackPane alignment="CENTER">
 
             <VBox alignment="CENTER"
-                  spacing="18"
-                  prefWidth="500"
-                  prefHeight="560"
-                  maxWidth="500"
-                  maxHeight="560"
+                  spacing="20"
+                  prefWidth="650"
+                  prefHeight="680"
+                  maxWidth="650"
+                  maxHeight="680"
                   styleClass="card">
 
                 <Label text="Crear FE">
                     <font>
-                        <Font size="24"/>
+                        <Font size="26"/>
                     </font>
                 </Label>
 
-                <Label text="Alumno"/>
-                <ChoiceBox fx:id="cbAlumno"
-                           prefWidth="320"/>
+                <GridPane hgap="20"
+                          vgap="18"
+                          alignment="CENTER">
 
-                <Label text="Tutor Empresa"/>
-                <ChoiceBox fx:id="cbTutor"
-                           prefWidth="320"/>
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT"
+                                           prefWidth="170"/>
+                        <ColumnConstraints prefWidth="340"/>
+                    </columnConstraints>
 
-                <Label text="Empresa"/>
-                <TextField fx:id="txtEmpresa"
-                           promptText="Nombre empresa"
-                           prefWidth="320"/>
+                    <!-- Alumno -->
+                    <Label text="Alumno:"
+                           GridPane.rowIndex="0"
+                           GridPane.columnIndex="0"/>
 
-                <Label text="Fecha inicio"/>
-                <DatePicker fx:id="fechaInicio"
-                            prefWidth="320"/>
+                    <ChoiceBox fx:id="cbAlumno"
+                               prefWidth="340"
+                               GridPane.rowIndex="0"
+                               GridPane.columnIndex="1"/>
 
-                <Label text="Fecha fin"/>
-                <DatePicker fx:id="fechaFin"
-                            prefWidth="320"/>
+                    <Label text="Curso:"
+       				GridPane.rowIndex="1"
+       				GridPane.columnIndex="0"/>
 
-                <Label text="Estado"/>
-                <ChoiceBox fx:id="cbEstado"
-                           prefWidth="320"/>
+					<ChoiceBox fx:id="cbCurso"
+			           prefWidth="340"
+			           GridPane.rowIndex="1"
+			           GridPane.columnIndex="1"/>
+
+
+					<Label text="Ciclo:"
+				       GridPane.rowIndex="2"
+				       GridPane.columnIndex="0"/>
+
+					<ChoiceBox fx:id="cbCiclo"
+			           prefWidth="340"
+			           GridPane.rowIndex="2"
+			           GridPane.columnIndex="1"/>
+
+                    <!-- Tutor -->
+                    <Label text="Tutor Empresa:"
+                           GridPane.rowIndex="3"
+                           GridPane.columnIndex="0"/>
+
+                    <ChoiceBox fx:id="cbTutor"
+                               prefWidth="340"
+                               GridPane.rowIndex="3"
+                               GridPane.columnIndex="1"/>
+
+                    <!-- Empresa -->
+                    <Label text="Empresa:"
+                           GridPane.rowIndex="4"
+                           GridPane.columnIndex="0"/>
+
+                    <TextField fx:id="txtEmpresa"
+                               promptText="Nombre empresa"
+                               prefWidth="340"
+                               GridPane.rowIndex="4"
+                               GridPane.columnIndex="1"/>
+
+                    <!-- Fecha inicio -->
+                    <Label text="Fecha inicio:"
+                           GridPane.rowIndex="5"
+                           GridPane.columnIndex="0"/>
+
+                    <DatePicker fx:id="fechaInicio"
+                                prefWidth="340"
+                                GridPane.rowIndex="5"
+                                GridPane.columnIndex="1"/>
+
+                    <!-- Fecha fin -->
+                    <Label text="Fecha fin:"
+                           GridPane.rowIndex="6"
+                           GridPane.columnIndex="0"/>
+
+                    <DatePicker fx:id="fechaFin"
+                                prefWidth="340"
+                                GridPane.rowIndex="6"
+                                GridPane.columnIndex="1"/>
+
+                    <!-- Estado -->
+                    <Label text="Estado:"
+                           GridPane.rowIndex="7"
+                           GridPane.columnIndex="0"/>
+
+                    <ChoiceBox fx:id="cbEstado"
+                               prefWidth="340"
+                               GridPane.rowIndex="7"
+                               GridPane.columnIndex="1"/>
+
+                </GridPane>
 
                 <HBox alignment="CENTER"
                       spacing="20">

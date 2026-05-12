@@ -26,96 +26,120 @@ import javafx.util.StringConverter;
 
 /**
  * Controlador encargado de gestionar la creación de una
- * Formación en Centro de Trabajo (FE).
- * 
- * Permite seleccionar un estudiante, un tutor de empresa,
- * introducir los datos de la empresa, fechas y estado,
- * y guardar la FE en el sistema.
+ * Formación en Centro de Trabajo (FCT).
  */
 @Controller
 public class CrearFCTController {
 
-    /** Selector de estudiantes */
-    @FXML private ChoiceBox<User> cbAlumno;
+    @FXML
+    private ChoiceBox<User> cbAlumno;
 
-    /** Selector de tutores de empresa */
-    @FXML private ChoiceBox<User> cbTutor;
+    @FXML
+    private ChoiceBox<User> cbTutor;
 
-    /** Campo de texto para el nombre de la empresa */
-    @FXML private TextField txtEmpresa;
+    @FXML
+    private TextField txtEmpresa;
 
-    /** Fecha de inicio de la FE */
-    @FXML private DatePicker fechaInicio;
+    @FXML
+    private DatePicker fechaInicio;
 
-    /** Fecha de fin de la FE */
-    @FXML private DatePicker fechaFin;
+    @FXML
+    private DatePicker fechaFin;
 
-    /** Selector del estado de la FE */
-    @FXML private ChoiceBox<Estado> cbEstado;
+    @FXML
+    private ChoiceBox<Estado> cbEstado;
 
-    /** Servicio de gestión de usuarios */
-    @Autowired private UserService userService;
+    @FXML
+    private ChoiceBox<String> cbCurso;
 
-    /** Repositorio de FE */
-    @Autowired private FormacionEmpresaRepository formacionRepo;
+    @FXML
+    private ChoiceBox<String> cbCiclo;
 
-    /** Gestor de navegación entre vistas */
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private FormacionEmpresaRepository formacionRepo;
+
     @Lazy
     @Autowired
     private StageManager stageManager;
 
-    /**
-     * Inicializa la vista cargando los datos necesarios en los selectores.
-     * 
-     * Filtra los usuarios para obtener estudiantes y tutores de empresa,
-     * y configura la visualización de los ChoiceBox.
-     */
     @FXML
     public void initialize() {
 
         List<User> usuarios = userService.findAll();
 
+        // Filtrar alumnos
         List<User> alumnos = usuarios.stream()
                 .filter(u -> "ESTUDIANTE".equalsIgnoreCase(u.getPerfil()))
                 .collect(Collectors.toList());
 
         cbAlumno.setItems(FXCollections.observableArrayList(alumnos));
 
+        // Filtrar tutores
         List<User> tutores = usuarios.stream()
                 .filter(u -> "TUTOR_EMPRESA".equalsIgnoreCase(u.getPerfil()))
                 .collect(Collectors.toList());
 
         cbTutor.setItems(FXCollections.observableArrayList(tutores));
 
-        // Conversor para mostrar el nombre del usuario en los ChoiceBox
+        // Mostrar info completa del alumno
         cbAlumno.setConverter(new StringConverter<>() {
+
             @Override
             public String toString(User u) {
-                return u != null ? u.getNombre() : "";
+
+                if (u == null) {
+                    return "";
+                }
+
+                return u.getNombre() + " "
+                        + u.getApellidos()
+                        + " - "
+                        + u.getCiclo()
+                        + " "
+                        + u.getCurso();
             }
+
             @Override
-            public User fromString(String s) { return null; }
+            public User fromString(String s) {
+                return null;
+            }
         });
 
+        // Mostrar tutor
         cbTutor.setConverter(new StringConverter<>() {
+
             @Override
             public String toString(User u) {
-                return u != null ? u.getNombre() : "";
+
+                if (u == null) {
+                    return "";
+                }
+
+                return u.getNombre() + " " + u.getApellidos();
             }
+
             @Override
-            public User fromString(String s) { return null; }
+            public User fromString(String s) {
+                return null;
+            }
         });
 
-        // Carga los valores del enum Estado
+        cbCurso.getItems().addAll(
+        	    "PRIMERO",
+        	    "SEGUNDO"
+        	);
+
+        	cbCiclo.getItems().addAll(
+        	    "DAM",
+        	    "DAW"
+        	);
+
         cbEstado.getItems().addAll(Estado.values());
     }
 
-    /**
-     * Valida los datos introducidos y crea una nueva FE.
-     * 
-     * Si los datos son correctos, se guarda en la base de datos
-     * y se muestra un mensaje de confirmación.
-     */
     @FXML
     private void guardarFCT() {
 
@@ -132,7 +156,7 @@ public class CrearFCTController {
 
         FormacionEmpresa f = new FormacionEmpresa();
 
-        f.setEstudiante(cbAlumno.getValue()); 
+        f.setEstudiante(cbAlumno.getValue());
         f.setTutor(cbTutor.getValue());
 
         f.setEmpresa(txtEmpresa.getText());
@@ -145,27 +169,39 @@ public class CrearFCTController {
         formacionRepo.save(f);
 
         alerta("OK", "FCT creada correctamente");
+
+        limpiarCampos();
     }
 
-    /**
-     * Vuelve al panel del profesor.
-     */
+    private void limpiarCampos() {
+
+        cbAlumno.setValue(null);
+        cbTutor.setValue(null);
+
+        txtEmpresa.clear();
+
+        fechaInicio.setValue(null);
+        fechaFin.setValue(null);
+
+        cbEstado.setValue(null);
+
+        cbCurso.setValue(null);
+        cbCiclo.setValue(null);
+    }
+
     @FXML
     private void volver() {
         stageManager.switchScene(FxmlView.PROFESOR);
     }
 
-    /**
-     * Muestra un mensaje emergente al usuario.
-     * 
-     * @param t título de la alerta
-     * @param m mensaje a mostrar
-     */
     private void alerta(String t, String m) {
+
         Alert a = new Alert(Alert.AlertType.INFORMATION);
+
         a.setTitle(t);
         a.setHeaderText(null);
         a.setContentText(m);
+
         a.showAndWait();
     }
 }

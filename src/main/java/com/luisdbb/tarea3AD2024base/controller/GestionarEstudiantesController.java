@@ -21,91 +21,127 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * Controlador encargado de mostrar y gestionar el listado de estudiantes.
- * 
- * Permite visualizar en una tabla los usuarios con perfil de estudiante,
- * mostrando su información básica como nombre, apellidos, fecha de nacimiento,
- * género y teléfono.
+ * Controlador encargado de gestionar estudiantes.
  */
 @Controller
 public class GestionarEstudiantesController implements Initializable {
 
-    /** Tabla que muestra los estudiantes */
-    @FXML private TableView<User> tablaEstudiantes;
+    /** Tabla estudiantes */
+    @FXML
+    private TableView<User> tablaEstudiantes;
 
-    @FXML private TableColumn<User, String> colNombre;
-    @FXML private TableColumn<User, String> colApellidos;
-    @FXML private TableColumn<User, String> colFecha;
-    @FXML private TableColumn<User, String> colGenero;
-    @FXML private TableColumn<User, String> colTelefono;
+    @FXML
+    private TableColumn<User, String> colNombre;
 
-    /** Servicio de gestión de usuarios */
+    @FXML
+    private TableColumn<User, String> colApellidos;
+
+    @FXML
+    private TableColumn<User, String> colFecha;
+
+    @FXML
+    private TableColumn<User, String> colGenero;
+
+    @FXML
+    private TableColumn<User, String> colTelefono;
+
+    /** Servicio usuarios */
     @Autowired
     private UserService userService;
 
-    /** Gestor de navegación entre vistas */
+    /** Navegación */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
     /**
-     * Inicializa la tabla configurando las columnas
-     * y cargando los datos de los estudiantes.
+     * Inicializa la tabla.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        colNombre.setCellValueFactory(data ->
-            new SimpleStringProperty(data.getValue().getNombre())
+        tablaEstudiantes.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY
         );
 
+        // Nombre + curso + ciclo
+        colNombre.setCellValueFactory(data -> {
+
+            User u = data.getValue();
+
+            String texto = u.getNombre();
+
+            if (u.getCiclo() != null && u.getCurso() != null) {
+
+                texto += " - "
+                        + u.getCiclo()
+                        + " "
+                        + u.getCurso();
+            }
+
+            return new SimpleStringProperty(texto);
+        });
+
+        // Apellidos
         colApellidos.setCellValueFactory(data ->
-            new SimpleStringProperty(data.getValue().getApellidos())
+                new SimpleStringProperty(
+                        data.getValue().getApellidos()
+                )
         );
 
+        // Fecha nacimiento
         colFecha.setCellValueFactory(data ->
-            new SimpleStringProperty(
-                data.getValue().getFechaNacimiento() != null ?
-                data.getValue().getFechaNacimiento().toString() : "-"
-            )
+                new SimpleStringProperty(
+                        data.getValue().getFechaNacimiento() != null
+                                ? data.getValue()
+                                      .getFechaNacimiento()
+                                      .toString()
+                                : "-"
+                )
         );
 
+        // Género
         colGenero.setCellValueFactory(data ->
-            new SimpleStringProperty(data.getValue().getGenero())
+                new SimpleStringProperty(
+                        data.getValue().getGenero()
+                )
         );
 
+        // Teléfono
         colTelefono.setCellValueFactory(data ->
-            new SimpleStringProperty(
-                data.getValue().getTelefono() != null ?
-                data.getValue().getTelefono() : "-"
-            )
+                new SimpleStringProperty(
+                        data.getValue().getTelefono() != null
+                                ? data.getValue().getTelefono()
+                                : "-"
+                )
         );
-
-        tablaEstudiantes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         cargarDatos();
     }
 
     /**
-     * Carga los usuarios con perfil de estudiante desde la base de datos.
-     * 
-     * Filtra la lista de usuarios para obtener únicamente aquellos
-     * cuyo perfil es "ESTUDIANTE".
+     * Carga estudiantes.
      */
     private void cargarDatos() {
 
         List<User> estudiantes = userService.findAll()
                 .stream()
-                .filter(u -> "ESTUDIANTE".equalsIgnoreCase(u.getPerfil()))
+                .filter(u ->
+                        "ESTUDIANTE".equalsIgnoreCase(
+                                u.getPerfil()
+                        )
+                )
                 .toList();
 
         tablaEstudiantes.setItems(
-            FXCollections.observableArrayList(estudiantes)
+                FXCollections.observableArrayList(
+                        estudiantes
+                )
         );
     }
 
     /**
-     * Vuelve al panel principal del profesor.
+     * Vuelve al panel profesor.
      */
     @FXML
     private void volver() {

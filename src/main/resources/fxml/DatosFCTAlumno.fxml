@@ -4,39 +4,132 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0"
+<BorderPane prefHeight="550.0"
+            prefWidth="780.0"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.luisdbb.tarea3AD2024base.controller.DatosFCTAlumnoController"
             stylesheets="@/styles/app.css">
 
     <center>
+
         <StackPane alignment="CENTER">
 
             <VBox alignment="CENTER"
-		      spacing="15"
-		      prefWidth="350"
-		      maxWidth="350"
-		      maxHeight="250"
-		      styleClass="card"
-		      StackPane.alignment="CENTER">
+                  spacing="20"
+                  prefWidth="560"
+                  prefHeight="500"
+                  maxWidth="560"
+                  maxHeight="500"
+                  styleClass="card">
 
                 <Label text="Mi FCT">
                     <font>
-                        <Font size="18"/>
+                        <Font size="24"/>
                     </font>
                 </Label>
 
-                <Label fx:id="lblEmpresa"/>
-                <Label fx:id="lblTutor"/>
-                <Label fx:id="lblEmailTutor"/>
-                <Label fx:id="lblTelefonoTutor"/>
+                <Separator prefWidth="460"/>
 
-                <Button text="Volver" onAction="#volver"/>
+                <GridPane alignment="CENTER"
+                          hgap="20"
+                          vgap="18">
+
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT"
+                                           prefWidth="180"/>
+                        <ColumnConstraints prefWidth="280"/>
+                    </columnConstraints>
+
+                    <!-- Empresa -->
+                    <Label text="Empresa:"
+                           style="-fx-font-weight: bold;"
+                           GridPane.rowIndex="0"
+                           GridPane.columnIndex="0"/>
+
+                    <Label fx:id="lblEmpresa"
+                           wrapText="true"
+                           GridPane.rowIndex="0"
+                           GridPane.columnIndex="1"/>
+
+                    <!-- Tutor -->
+                    <Label text="Tutor:"
+                           style="-fx-font-weight: bold;"
+                           GridPane.rowIndex="1"
+                           GridPane.columnIndex="0"/>
+
+                    <Label fx:id="lblTutor"
+                           wrapText="true"
+                           GridPane.rowIndex="1"
+                           GridPane.columnIndex="1"/>
+
+                    <!-- Email -->
+                    <Label text="Email tutor:"
+                           style="-fx-font-weight: bold;"
+                           GridPane.rowIndex="2"
+                           GridPane.columnIndex="0"/>
+
+                    <Label fx:id="lblEmailTutor"
+                           wrapText="true"
+                           GridPane.rowIndex="2"
+                           GridPane.columnIndex="1"/>
+
+                    <!-- Teléfono -->
+                    <Label text="Teléfono tutor:"
+                           style="-fx-font-weight: bold;"
+                           GridPane.rowIndex="3"
+                           GridPane.columnIndex="0"/>
+
+                    <Label fx:id="lblTelefonoTutor"
+                           wrapText="true"
+                           GridPane.rowIndex="3"
+                           GridPane.columnIndex="1"/>
+
+                    <!-- Curso y ciclo -->
+                    <Label text="Curso/Ciclo:"
+                           style="-fx-font-weight: bold;"
+                           GridPane.rowIndex="4"
+                           GridPane.columnIndex="0"/>
+
+                    <Label fx:id="lblCursoCiclo"
+                           wrapText="true"
+                           GridPane.rowIndex="4"
+                           GridPane.columnIndex="1"/>
+
+                    <!-- Estado -->
+                    <Label text="Estado:"
+                           style="-fx-font-weight: bold;"
+                           GridPane.rowIndex="5"
+                           GridPane.columnIndex="0"/>
+
+                    <Label fx:id="lblEstado"
+                           wrapText="true"
+                           GridPane.rowIndex="5"
+                           GridPane.columnIndex="1"/>
+
+                    <!-- Fechas -->
+                    <Label text="Duración:"
+                           style="-fx-font-weight: bold;"
+                           GridPane.rowIndex="6"
+                           GridPane.columnIndex="0"/>
+
+                    <Label fx:id="lblFechas"
+                           wrapText="true"
+                           GridPane.rowIndex="6"
+                           GridPane.columnIndex="1"/>
+
+                </GridPane>
+
+                <Separator prefWidth="460"/>
+
+                <Button text="Volver"
+                        prefWidth="140"
+                        onAction="#volver"/>
 
             </VBox>
 
         </StackPane>
+
     </center>
 
 </BorderPane>

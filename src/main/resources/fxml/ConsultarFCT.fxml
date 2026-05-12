@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0"
+<BorderPane prefHeight="650.0" prefWidth="1200.0"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.luisdbb.tarea3AD2024base.controller.ConsultarFCTController"
@@ -14,34 +14,63 @@
         <StackPane alignment="CENTER">
 
             <VBox alignment="CENTER"
-                  spacing="15"
-                  prefWidth="520"
-                  maxWidth="520"
-                  maxHeight="400"
+                  spacing="20"
+                  prefWidth="1100"
+                  maxWidth="1100"
+                  prefHeight="560"
                   styleClass="card">
 
                 <Label text="Listado de FCT">
                     <font>
-                        <Font size="18"/>
+                        <Font size="22"/>
                     </font>
                 </Label>
 
                 <TableView fx:id="tablaFCT"
-                           prefHeight="250"
-                           prefWidth="500">
+                           prefHeight="430"
+                           prefWidth="1060">
 
                     <columns>
-                        <TableColumn fx:id="colAlumno" text="Alumno"/>
-                        <TableColumn fx:id="colTutor" text="Tutor"/>
-                        <TableColumn fx:id="colEmpresa" text="Empresa"/>
-                        <TableColumn fx:id="colInicio" text="Inicio"/>
-                        <TableColumn fx:id="colFin" text="Fin"/>
-                        <TableColumn fx:id="colEstado" text="Estado"/>
+
+                        <TableColumn fx:id="colAlumno"
+                                     text="Alumno"
+                                     prefWidth="140"/>
+
+                        <TableColumn fx:id="colCurso"
+                                     text="Curso"
+                                     prefWidth="90"/>
+
+                        <TableColumn fx:id="colCiclo"
+                                     text="Ciclo"
+                                     prefWidth="90"/>
+
+                        <TableColumn fx:id="colTutor"
+                                     text="Tutor"
+                                     prefWidth="140"/>
+
+                        <TableColumn fx:id="colEmpresa"
+                                     text="Empresa"
+                                     prefWidth="180"/>
+
+                        <TableColumn fx:id="colInicio"
+                                     text="Inicio"
+                                     prefWidth="110"/>
+
+                        <TableColumn fx:id="colFin"
+                                     text="Fin"
+                                     prefWidth="110"/>
+
+                        <TableColumn fx:id="colEstado"
+                                     text="Estado"
+                                     prefWidth="140"/>
+
                     </columns>
 
                 </TableView>
 
-                <Button text="Volver" onAction="#volver"/>
+                <Button text="Volver"
+                        onAction="#volver"
+                        prefWidth="120"/>
 
             </VBox>
 

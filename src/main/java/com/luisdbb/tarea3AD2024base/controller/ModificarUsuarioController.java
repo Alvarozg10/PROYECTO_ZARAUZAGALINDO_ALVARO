@@ -10,6 +10,8 @@ import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
+import com.luisdbb.tarea3AD2024base.modelo.Ciclo;
+import com.luisdbb.tarea3AD2024base.modelo.Curso;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -51,6 +53,8 @@ public class ModificarUsuarioController {
     @FXML private DatePicker dob;
     @FXML private RadioButton rbMale;
     @FXML private RadioButton rbFemale;
+    @FXML private ChoiceBox<Curso> cbCurso;
+    @FXML private ChoiceBox<Ciclo> cbCiclo;
 
     /** Grupo de selección para el género */
     private ToggleGroup gender;
@@ -88,6 +92,9 @@ public class ModificarUsuarioController {
         eleccionUsuario.getItems().addAll(
                 "PROFESOR", "ESTUDIANTE", "TUTOR_EMPRESA"
         );
+        
+        cbCurso.getItems().addAll(Curso.values());
+        cbCiclo.getItems().addAll(Ciclo.values());
 
         gender = new ToggleGroup();
         rbMale.setToggleGroup(gender);
@@ -134,6 +141,8 @@ public class ModificarUsuarioController {
         email.setText(user.getEmail() != null ? user.getEmail() : "");
         telefono.setText(user.getTelefono() != null ? user.getTelefono() : "");
         password.setText(user.getPassword() != null ? user.getPassword() : "");
+        cbCurso.setValue(user.getCurso());
+        cbCiclo.setValue(user.getCiclo());
 
         if (user.getFechaNacimiento() != null) {
             dob.setValue(user.getFechaNacimiento().toLocalDate());
@@ -162,11 +171,13 @@ public class ModificarUsuarioController {
         }
 
         if (firstName.getText().isEmpty() ||
-            lastName.getText().isEmpty() ||
-            email.getText().isEmpty() ||
-            telefono.getText().isEmpty() ||
-            password.getText().isEmpty() ||
-            dob.getValue() == null) {
+        	    lastName.getText().isEmpty() ||
+        	    email.getText().isEmpty() ||
+        	    telefono.getText().isEmpty() ||
+        	    password.getText().isEmpty() ||
+        	    dob.getValue() == null ||
+        	    cbCurso.getValue() == null ||
+        	    cbCiclo.getValue() == null) {
 
             alerta("Error", "Rellena todos los campos");
             return;
@@ -180,6 +191,8 @@ public class ModificarUsuarioController {
         usuario.setFechaNacimiento(Date.valueOf(dob.getValue()));
         usuario.setGenero(rbMale.isSelected() ? "Male" : "Female");
         usuario.setPerfil(eleccionUsuario.getValue());
+        usuario.setCurso(cbCurso.getValue());
+        usuario.setCiclo(cbCiclo.getValue());
 
         userService.save(usuario);
 

@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.Ciclo;
+import com.luisdbb.tarea3AD2024base.modelo.Curso;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
@@ -38,6 +40,8 @@ public class AnadirUsuarioController {
     @FXML private DatePicker dob;
     @FXML private RadioButton rbMale;
     @FXML private RadioButton rbFemale;
+    @FXML private ChoiceBox<Curso> cbCurso;
+    @FXML private ChoiceBox<Ciclo> cbCiclo;
 
     /** Servicio encargado de la gestión de usuarios */
     @Autowired
@@ -77,6 +81,9 @@ public class AnadirUsuarioController {
                 telefono.setText(newVal.replaceAll("[^\\d]", ""));
             }
         });
+        
+        cbCurso.getItems().addAll(Curso.values());
+        cbCiclo.getItems().addAll(Ciclo.values());
     }
 
     /**
@@ -85,16 +92,18 @@ public class AnadirUsuarioController {
     @FXML
     private void saveUser() {
 
-        if (firstName.getText().isEmpty() ||
-            lastName.getText().isEmpty() ||
-            email.getText().isEmpty() ||
-            telefono.getText().isEmpty() ||
-            password.getText().isEmpty() ||
-            dob.getValue() == null) {
+    	if (firstName.getText().isEmpty() ||
+    		    lastName.getText().isEmpty() ||
+    		    email.getText().isEmpty() ||
+    		    telefono.getText().isEmpty() ||
+    		    password.getText().isEmpty() ||
+    		    dob.getValue() == null ||
+    		    cbCurso.getValue() == null ||
+    		    cbCiclo.getValue() == null) {
 
-            alerta("Error", "Rellena todos los campos");
-            return;
-        }
+    		    alerta("Error", "Rellena todos los campos");
+    		    return;
+    		}
 
         User user = new User();
         user.setNombre(firstName.getText());
@@ -106,6 +115,9 @@ public class AnadirUsuarioController {
         user.setGenero(rbMale.isSelected() ? "Male" : "Female");
 
         user.setPerfil(eleccionUsuario.getValue());
+        
+        user.setCurso(cbCurso.getValue());
+        user.setCiclo(cbCiclo.getValue());
 
         userService.save(user);
 
@@ -133,6 +145,8 @@ public class AnadirUsuarioController {
         dob.setValue(null);
         rbMale.setSelected(true);
         eleccionUsuario.setValue("ESTUDIANTE");
+        cbCurso.setValue(null);
+        cbCiclo.setValue(null);
     }
 
     /**

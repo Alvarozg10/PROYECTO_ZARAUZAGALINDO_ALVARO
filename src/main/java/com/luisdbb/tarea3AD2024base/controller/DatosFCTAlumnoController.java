@@ -14,42 +14,51 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 /**
- * Controlador encargado de mostrar la información de la FCT
- * asignada al alumno logueado.
- * 
- * Permite visualizar los datos de la empresa, el tutor asignado
- * y su información de contacto.
+ * Controlador encargado de mostrar la información
+ * de la FCT del alumno logueado.
  */
 @Controller
 public class DatosFCTAlumnoController {
 
-    /** Etiqueta que muestra la empresa asignada */
-    @FXML private Label lblEmpresa;
+    /** Empresa */
+    @FXML
+    private Label lblEmpresa;
 
-    /** Etiqueta que muestra el nombre del tutor */
-    @FXML private Label lblTutor;
+    /** Tutor */
+    @FXML
+    private Label lblTutor;
 
-    /** Etiqueta que muestra el email del tutor */
-    @FXML private Label lblEmailTutor;
+    /** Email tutor */
+    @FXML
+    private Label lblEmailTutor;
 
-    /** Etiqueta que muestra el teléfono del tutor */
-    @FXML private Label lblTelefonoTutor;
+    /** Teléfono tutor */
+    @FXML
+    private Label lblTelefonoTutor;
 
-    /** Repositorio de formaciones FCT */
+    /** Curso y ciclo */
+    @FXML
+    private Label lblCursoCiclo;
+
+    /** Estado FCT */
+    @FXML
+    private Label lblEstado;
+
+    /** Fechas */
+    @FXML
+    private Label lblFechas;
+
+    /** Repositorio */
     @Autowired
     private FormacionEmpresaRepository formacionRepo;
 
-    /** Gestor de navegación entre vistas */
+    /** Navegación */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
     /**
-     * Inicializa la vista cargando la información de la FCT
-     * correspondiente al alumno logueado.
-     * 
-     * Busca la formación asociada al estudiante y muestra
-     * los datos de la empresa y del tutor.
+     * Inicializa la vista.
      */
     @FXML
     public void initialize() {
@@ -58,33 +67,96 @@ public class DatosFCTAlumnoController {
 
         FormacionEmpresa f = formacionRepo.findAll()
                 .stream()
-                .filter(x -> x.getEstudiante() != null &&
-                             x.getEstudiante().getIdUsuario().equals(alumno.getIdUsuario()))
+                .filter(x ->
+                        x.getEstudiante() != null &&
+                        x.getEstudiante()
+                         .getIdUsuario()
+                         .equals(alumno.getIdUsuario()))
                 .findFirst()
                 .orElse(null);
 
+        // Sin FCT
         if (f == null) {
+
             lblEmpresa.setText("Empresa: No asignada");
             lblTutor.setText("Tutor: No asignado");
+
+            lblEmailTutor.setText("Email: -");
+            lblTelefonoTutor.setText("Teléfono: -");
+
+            lblCursoCiclo.setText(
+                    "Curso: "
+                    + alumno.getCurso()
+                    + " - "
+                    + alumno.getCiclo()
+            );
+
+            lblEstado.setText("Estado: -");
+            lblFechas.setText("Fechas: -");
+
             return;
         }
 
-        lblEmpresa.setText("Empresa: " + f.getEmpresa());
+        // Empresa
+        lblEmpresa.setText(
+                "Empresa: " + f.getEmpresa()
+        );
 
+        // Curso y ciclo
+        lblCursoCiclo.setText(
+                "Curso: "
+                + alumno.getCurso()
+                + " - "
+                + alumno.getCiclo()
+        );
+
+        // Estado
+        lblEstado.setText(
+                "Estado: " + f.getEstado()
+        );
+
+        // Fechas
+        lblFechas.setText(
+                "Duración: "
+                + f.getFechaInicio()
+                + " → "
+                + f.getFechaFin()
+        );
+
+        // Tutor
         User tutor = f.getTutor();
 
         if (tutor != null) {
-            lblTutor.setText("Tutor: " + tutor.getNombre() + " " + tutor.getApellidos());
-            lblEmailTutor.setText("Email: " + tutor.getEmail());
-            lblTelefonoTutor.setText("Teléfono: " +
-                (tutor.getTelefono() != null ? tutor.getTelefono() : "-"));
+
+            lblTutor.setText(
+                    "Tutor: "
+                    + tutor.getNombre()
+                    + " "
+                    + tutor.getApellidos()
+            );
+
+            lblEmailTutor.setText(
+                    "Email: " + tutor.getEmail()
+            );
+
+            lblTelefonoTutor.setText(
+                    "Teléfono: "
+                    + (tutor.getTelefono() != null
+                            ? tutor.getTelefono()
+                            : "-")
+            );
+
         } else {
+
             lblTutor.setText("Tutor: No asignado");
+
+            lblEmailTutor.setText("Email: -");
+            lblTelefonoTutor.setText("Teléfono: -");
         }
     }
 
     /**
-     * Vuelve al panel principal del estudiante.
+     * Vuelve al panel del estudiante.
      */
     @FXML
     private void volver() {

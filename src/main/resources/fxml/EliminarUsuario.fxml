@@ -4,43 +4,74 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0"
+<BorderPane prefHeight="650.0"
+            prefWidth="900.0"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.luisdbb.tarea3AD2024base.controller.EliminarUsuarioController"
             stylesheets="@/styles/app.css">
 
     <center>
-        <StackPane>
+
+        <StackPane alignment="CENTER">
 
             <VBox alignment="CENTER"
-                  spacing="15"
-                  maxWidth="500"
-                  maxHeight="500"
+                  spacing="22"
+                  prefWidth="760"
+                  prefHeight="560"
+                  maxWidth="760"
+                  maxHeight="560"
                   styleClass="card">
 
                 <Label text="Eliminar Usuario">
                     <font>
-                        <Font size="18"/>
+                        <Font size="24"/>
                     </font>
                 </Label>
 
-                <TableView fx:id="tablaUsuarios" prefHeight="250" prefWidth="380">
+                <Separator prefWidth="680"/>
+
+                <TableView fx:id="tablaUsuarios"
+                           prefHeight="360"
+                           prefWidth="700">
+
                     <columns>
-                        <TableColumn fx:id="colNombre" text="Nombre" prefWidth="130"/>
-                        <TableColumn fx:id="colEmail" text="Email" prefWidth="180"/>
-                        <TableColumn fx:id="colPerfil" text="Perfil" prefWidth="90"/>
+
+                        <TableColumn fx:id="colNombre"
+                                     text="Nombre"
+                                     prefWidth="220"/>
+
+                        <TableColumn fx:id="colEmail"
+                                     text="Email"
+                                     prefWidth="320"/>
+
+                        <TableColumn fx:id="colPerfil"
+                                     text="Perfil"
+                                     prefWidth="160"/>
+
                     </columns>
+
                 </TableView>
 
-                <HBox spacing="15" alignment="CENTER">
-                    <Button text="Eliminar" onAction="#eliminarUsuario"/>
-                    <Button text="Volver" onAction="#volver"/>
+                <HBox spacing="20"
+                      alignment="CENTER">
+
+                    <Button text="Eliminar"
+                            prefWidth="150"
+                            prefHeight="35"
+                            onAction="#eliminarUsuario"/>
+
+                    <Button text="Volver"
+                            prefWidth="130"
+                            prefHeight="35"
+                            onAction="#volver"/>
+
                 </HBox>
 
             </VBox>
 
         </StackPane>
+
     </center>
 
 </BorderPane>

@@ -34,7 +34,16 @@
                   <TextField fx:id="telefono" promptText="Teléfono" prefWidth="250"/>
 
                   <ChoiceBox fx:id="eleccionUsuario" prefWidth="250"/>
-                  <DatePicker fx:id="dob" prefWidth="250"/>
+
+				  <Label text="Curso"/>
+				  <ChoiceBox fx:id="cbCurso"
+					           prefWidth="250"/>
+					
+				  <Label text="Ciclo"/>
+				  <ChoiceBox fx:id="cbCiclo"
+					           prefWidth="250"/>
+					
+					<DatePicker fx:id="dob" prefWidth="250"/>
 
                   <HBox spacing="15" alignment="CENTER">
                       <RadioButton fx:id="rbMale" text="Hombre"/>

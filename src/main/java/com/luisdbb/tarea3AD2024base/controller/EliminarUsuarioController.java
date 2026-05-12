@@ -9,101 +9,157 @@ import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
- * Controlador encargado de gestionar la eliminación de usuarios.
- * 
- * Permite visualizar los usuarios del sistema en una tabla y eliminar
- * el usuario seleccionado previa confirmación.
+ * Controlador encargado de eliminar usuarios.
  */
 @Controller
 public class EliminarUsuarioController {
 
-    /** Tabla que muestra los usuarios */
-    @FXML private TableView<User> tablaUsuarios;
+    /** Tabla usuarios */
+    @FXML
+    private TableView<User> tablaUsuarios;
 
-    @FXML private TableColumn<User, String> colNombre;
-    @FXML private TableColumn<User, String> colEmail;
-    @FXML private TableColumn<User, String> colPerfil;
+    @FXML
+    private TableColumn<User, String> colNombre;
 
-    /** Servicio de gestión de usuarios */
+    @FXML
+    private TableColumn<User, String> colEmail;
+
+    @FXML
+    private TableColumn<User, String> colPerfil;
+
+    /** Servicio usuarios */
     @Autowired
     private UserService userService;
 
-    /** Gestor de navegación entre vistas */
+    /** Navegación */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
     /**
-     * Inicializa la tabla configurando las columnas
-     * y cargando los usuarios del sistema.
+     * Inicializa la tabla.
      */
     @FXML
     public void initialize() {
 
-        tablaUsuarios.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tablaUsuarios.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY
+        );
 
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colPerfil.setCellValueFactory(new PropertyValueFactory<>("perfil"));
+        // Nombre + curso + ciclo
+        colNombre.setCellValueFactory(data -> {
+
+            User u = data.getValue();
+
+            String texto = u.getNombre()
+                    + " "
+                    + u.getApellidos();
+
+            if ("ESTUDIANTE".equalsIgnoreCase(u.getPerfil())) {
+
+                texto += " - "
+                        + u.getCiclo()
+                        + " "
+                        + u.getCurso();
+            }
+
+            return new SimpleStringProperty(texto);
+        });
+
+        // Email
+        colEmail.setCellValueFactory(data ->
+                new SimpleStringProperty(
+                        data.getValue().getEmail()
+                )
+        );
+
+        // Perfil
+        colPerfil.setCellValueFactory(data ->
+                new SimpleStringProperty(
+                        data.getValue().getPerfil()
+                )
+        );
 
         cargarUsuarios();
     }
 
     /**
-     * Carga todos los usuarios desde la base de datos
-     * y los muestra en la tabla.
+     * Carga usuarios.
      */
     private void cargarUsuarios() {
+
         tablaUsuarios.setItems(
-            FXCollections.observableArrayList(userService.findAll())
+                FXCollections.observableArrayList(
+                        userService.findAll()
+                )
         );
     }
 
     /**
-     * Elimina el usuario seleccionado tras confirmar la acción.
-     * 
-     * Muestra una ventana de confirmación antes de proceder
-     * a la eliminación del usuario.
+     * Elimina el usuario seleccionado.
      */
     @FXML
     private void eliminarUsuario() {
 
-        User usuario = tablaUsuarios.getSelectionModel().getSelectedItem();
+        User usuario = tablaUsuarios
+                .getSelectionModel()
+                .getSelectedItem();
 
         if (usuario == null) {
-            alerta("Error", "Selecciona un usuario");
+
+            alerta(
+                    "Error",
+                    "Selecciona un usuario"
+            );
+
             return;
         }
 
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert confirm = new Alert(
+                Alert.AlertType.CONFIRMATION
+        );
+
         confirm.setTitle("Confirmar eliminación");
-        confirm.setHeaderText("¿Seguro que quieres eliminar este usuario?");
-        confirm.setContentText(usuario.getNombre());
+
+        confirm.setHeaderText(
+                "¿Seguro que quieres eliminar este usuario?"
+        );
+
+        confirm.setContentText(
+                usuario.getNombre()
+                        + " "
+                        + usuario.getApellidos()
+        );
 
         confirm.showAndWait().ifPresent(response -> {
 
             if (response == ButtonType.OK) {
 
-                userService.delete(usuario.getIdUsuario());
+                userService.delete(
+                        usuario.getIdUsuario()
+                );
 
-                alerta("OK", "Usuario eliminado");
+                alerta(
+                        "OK",
+                        "Usuario eliminado"
+                );
 
-                cargarUsuarios(); 
+                cargarUsuarios();
             }
         });
     }
 
     /**
-     * Vuelve al panel de administrador.
+     * Vuelve al panel admin.
      */
     @FXML
     private void volver() {
@@ -111,16 +167,18 @@ public class EliminarUsuarioController {
     }
 
     /**
-     * Muestra una alerta informativa al usuario.
-     * 
-     * @param t título de la alerta
-     * @param m mensaje a mostrar
+     * Muestra alerta.
      */
     private void alerta(String t, String m) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
+
+        Alert a = new Alert(
+                Alert.AlertType.INFORMATION
+        );
+
         a.setTitle(t);
         a.setHeaderText(null);
         a.setContentText(m);
+
         a.showAndWait();
     }
 }
