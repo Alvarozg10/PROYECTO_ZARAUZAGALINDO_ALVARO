@@ -40,6 +40,8 @@ public class AlumnosTutorController implements Initializable {
     @FXML private TableColumn<User, String> colTelefono;
     @FXML private TableColumn<User, String> colCurso;
     @FXML private TableColumn<User, String> colCiclo;
+    @FXML private TableColumn<User, String> colFecha;
+    @FXML private TableColumn<User, String> colGenero;
 
     /** Repositorio de formaciones FCT */
     @Autowired
@@ -89,8 +91,22 @@ public class AlumnosTutorController implements Initializable {
                 data.getValue().getCiclo().toString() : "-"
             )
         );
+        
+        colFecha.setCellValueFactory(data ->
+        new SimpleStringProperty(
+            data.getValue().getFechaNacimiento() != null ?
+            data.getValue().getFechaNacimiento().toString() : "-"
+        )
+    );
 
-        tablaAlumnos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    colGenero.setCellValueFactory(data ->
+        new SimpleStringProperty(
+            data.getValue().getGenero() != null ?
+            data.getValue().getGenero().toString() : "-"
+        )
+    );
+    
+    tablaAlumnos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         cargarDatos();
     }

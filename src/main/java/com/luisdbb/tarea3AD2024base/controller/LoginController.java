@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
@@ -45,6 +46,12 @@ public class LoginController implements Initializable {
     @Lazy
     @Autowired
     private StageManager stageManager;
+    
+    @Value("${admin.username}")
+    private String adminUser;
+
+    @Value("${admin.password}")
+    private String adminPass;
 
     /**
      * Inicializa la vista limpiando los mensajes de error.
@@ -63,12 +70,32 @@ public class LoginController implements Initializable {
      * 
      * @param event evento de acción del botón de login
      */
+
     @FXML
     private void login(ActionEvent event) {
 
+        String userText = username.getText();
+        String passText = password.getText();
+
+        // LOGIN ADMIN DESDE application.properties
+        if (userText.equals(adminUser) && passText.equals(adminPass)) {
+
+            User admin = new User();
+
+            admin.setNombre("Administradr");;
+            admin.setPerfil("ADMIN");
+
+            stageManager.setLoggedUser(admin);
+
+            stageManager.switchScene(FxmlView.ADMIN);
+
+            return;
+        }
+
+        // LOGIN NORMAL DESDE BASE DE DATOS
         User user = userService.authenticate(
-                username.getText(),
-                password.getText()
+                userText,
+                passText
         );
 
         if (user == null) {

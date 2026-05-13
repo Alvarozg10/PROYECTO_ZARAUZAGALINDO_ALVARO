@@ -33,6 +33,8 @@
                     <columns>
                         <TableColumn fx:id="colNombre" text="Nombre"/>
                         <TableColumn fx:id="colApellidos" text="Apellidos"/>
+                        <TableColumn fx:id="colCurso" text="Curso"/>
+						<TableColumn fx:id="colCiclo" text="Ciclo"/>
                         <TableColumn fx:id="colFecha" text="Nacimiento"/>
                         <TableColumn fx:id="colGenero" text="Género"/>
                         <TableColumn fx:id="colTelefono" text="Teléfono"/>

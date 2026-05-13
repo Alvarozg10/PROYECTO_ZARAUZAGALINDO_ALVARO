@@ -44,6 +44,9 @@ public class GestionarEstudiantesController implements Initializable {
 
     @FXML
     private TableColumn<User, String> colTelefono;
+    
+    @FXML private TableColumn<User, String> colCurso;
+    @FXML private TableColumn<User, String> colCiclo;
 
     /** Servicio usuarios */
     @Autowired
@@ -64,23 +67,12 @@ public class GestionarEstudiantesController implements Initializable {
                 TableView.CONSTRAINED_RESIZE_POLICY
         );
 
-        // Nombre + curso + ciclo
-        colNombre.setCellValueFactory(data -> {
-
-            User u = data.getValue();
-
-            String texto = u.getNombre();
-
-            if (u.getCiclo() != null && u.getCurso() != null) {
-
-                texto += " - "
-                        + u.getCiclo()
-                        + " "
-                        + u.getCurso();
-            }
-
-            return new SimpleStringProperty(texto);
-        });
+        // Nombre
+        colNombre.setCellValueFactory(data ->
+        new SimpleStringProperty(
+            data.getValue().getNombre()
+        )
+    );
 
         // Apellidos
         colApellidos.setCellValueFactory(data ->
@@ -88,6 +80,22 @@ public class GestionarEstudiantesController implements Initializable {
                         data.getValue().getApellidos()
                 )
         );
+        
+        colCurso.setCellValueFactory(data ->
+        new SimpleStringProperty(
+            data.getValue().getCurso() != null
+                ? data.getValue().getCurso().toString()
+                : "-"
+        )
+    );
+
+    colCiclo.setCellValueFactory(data ->
+        new SimpleStringProperty(
+            data.getValue().getCiclo() != null
+                ? data.getValue().getCiclo().toString()
+                : "-"
+        )
+    );
 
         // Fecha nacimiento
         colFecha.setCellValueFactory(data ->

@@ -49,12 +49,6 @@ public class CrearFCTController {
     @FXML
     private ChoiceBox<Estado> cbEstado;
 
-    @FXML
-    private ChoiceBox<String> cbCurso;
-
-    @FXML
-    private ChoiceBox<String> cbCiclo;
-
     @Autowired
     private UserService userService;
 
@@ -127,16 +121,6 @@ public class CrearFCTController {
             }
         });
 
-        cbCurso.getItems().addAll(
-        	    "PRIMERO",
-        	    "SEGUNDO"
-        	);
-
-        	cbCiclo.getItems().addAll(
-        	    "DAM",
-        	    "DAW"
-        	);
-
         cbEstado.getItems().addAll(Estado.values());
     }
 
@@ -185,8 +169,6 @@ public class CrearFCTController {
 
         cbEstado.setValue(null);
 
-        cbCurso.setValue(null);
-        cbCiclo.setValue(null);
     }
 
     @FXML

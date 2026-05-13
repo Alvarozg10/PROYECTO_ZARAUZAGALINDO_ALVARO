@@ -112,7 +112,7 @@ public class AnadirUsuarioController {
         user.setTelefono(telefono.getText());
         user.setPassword(password.getText());
         user.setFechaNacimiento(Date.valueOf(dob.getValue()));
-        user.setGenero(rbMale.isSelected() ? "Male" : "Female");
+        user.setGenero(rbMale.isSelected() ? "Hombre" : "Mujer");
 
         user.setPerfil(eleccionUsuario.getValue());
         

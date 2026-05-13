@@ -78,13 +78,7 @@ public class ConsultarFCTController implements Initializable {
 
             var alumno = data.getValue().getEstudiante();
 
-            String texto = alumno.getNombre()
-                    + " "
-                    + alumno.getApellidos()
-                    + " - "
-                    + alumno.getCiclo()
-                    + " "
-                    + alumno.getCurso();
+            String texto = alumno.getNombre();
 
             return new SimpleStringProperty(texto);
         });

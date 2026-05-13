@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0"
+<BorderPane prefHeight="600.0" prefWidth="950.0"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.luisdbb.tarea3AD2024base.controller.AlumnosTutorController"
@@ -14,11 +14,11 @@
         <StackPane alignment="CENTER">
 
             <VBox alignment="CENTER"
-                  spacing="15"
-                  prefWidth="620"
-                  maxWidth="620"
-                  maxHeight="420"
-                  styleClass="card">
+			      spacing="15"
+			      prefWidth="800"
+			      maxWidth="800"
+			      maxHeight="500"
+			      styleClass="card">
 
                 <Label text="Alumnos asignados">
                     <font>
@@ -26,22 +26,47 @@
                     </font>
                 </Label>
 
-                <TableView fx:id="tablaAlumnos"
-                           prefHeight="260"
-                           prefWidth="600">
+         <TableView fx:id="tablaAlumnos"
+		           prefHeight="320"
+		           prefWidth="720">
 
-                    <columns>
-                        <TableColumn fx:id="colNombre" text="Nombre"/>
-                        <TableColumn fx:id="colApellidos" text="Apellidos"/>
-                        <TableColumn fx:id="colEmail" text="Email"/>
-                        <TableColumn fx:id="colTelefono" text="Teléfono"/>
-                        <TableColumn fx:id="colFecha" text="Nacimiento"/>
-                        <TableColumn fx:id="colGenero" text="Género"/>
-                        <TableColumn fx:id="colCurso" text="Curso"/>
-                        <TableColumn fx:id="colCiclo" text="Ciclo"/>
-                    </columns>
+			    <columns>
+			
+			    <TableColumn fx:id="colNombre"
+			                 text="Nombre"
+			                 prefWidth="90"/>
+			
+			    <TableColumn fx:id="colApellidos"
+			                 text="Apellidos"
+			                 prefWidth="120"/>
+			
+			    <TableColumn fx:id="colEmail"
+			                 text="Email"
+			                 prefWidth="180"/>
+			
+			    <TableColumn fx:id="colTelefono"
+			                 text="Teléfono"
+			                 prefWidth="90"/>
+			
+			    <TableColumn fx:id="colFecha"
+			                 text="Nacimiento"
+			                 prefWidth="100"/>
+			
+			    <TableColumn fx:id="colGenero"
+			                 text="Género"
+			                 prefWidth="80"/>
+			
+			    <TableColumn fx:id="colCurso"
+			                 text="Curso"
+			                 prefWidth="90"/>
+			
+			    <TableColumn fx:id="colCiclo"
+			                 text="Ciclo"
+			                 prefWidth="60"/>
+			
+			</columns>
 
-                </TableView>
+		</TableView>
 
                 <Button text="Volver" onAction="#volver"/>
 

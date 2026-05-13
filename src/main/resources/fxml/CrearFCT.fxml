@@ -49,74 +49,55 @@
                                GridPane.rowIndex="0"
                                GridPane.columnIndex="1"/>
 
-                    <Label text="Curso:"
-       				GridPane.rowIndex="1"
-       				GridPane.columnIndex="0"/>
-
-					<ChoiceBox fx:id="cbCurso"
-			           prefWidth="340"
-			           GridPane.rowIndex="1"
-			           GridPane.columnIndex="1"/>
-
-
-					<Label text="Ciclo:"
-				       GridPane.rowIndex="2"
-				       GridPane.columnIndex="0"/>
-
-					<ChoiceBox fx:id="cbCiclo"
-			           prefWidth="340"
-			           GridPane.rowIndex="2"
-			           GridPane.columnIndex="1"/>
-
                     <!-- Tutor -->
                     <Label text="Tutor Empresa:"
-                           GridPane.rowIndex="3"
+                           GridPane.rowIndex="1"
                            GridPane.columnIndex="0"/>
 
                     <ChoiceBox fx:id="cbTutor"
                                prefWidth="340"
-                               GridPane.rowIndex="3"
+                               GridPane.rowIndex="1"
                                GridPane.columnIndex="1"/>
 
                     <!-- Empresa -->
                     <Label text="Empresa:"
-                           GridPane.rowIndex="4"
+                           GridPane.rowIndex="2"
                            GridPane.columnIndex="0"/>
 
                     <TextField fx:id="txtEmpresa"
                                promptText="Nombre empresa"
                                prefWidth="340"
-                               GridPane.rowIndex="4"
+                               GridPane.rowIndex="2"
                                GridPane.columnIndex="1"/>
 
                     <!-- Fecha inicio -->
                     <Label text="Fecha inicio:"
-                           GridPane.rowIndex="5"
+                           GridPane.rowIndex="3"
                            GridPane.columnIndex="0"/>
 
                     <DatePicker fx:id="fechaInicio"
                                 prefWidth="340"
-                                GridPane.rowIndex="5"
+                                GridPane.rowIndex="3"
                                 GridPane.columnIndex="1"/>
 
                     <!-- Fecha fin -->
                     <Label text="Fecha fin:"
-                           GridPane.rowIndex="6"
+                           GridPane.rowIndex="4"
                            GridPane.columnIndex="0"/>
 
                     <DatePicker fx:id="fechaFin"
                                 prefWidth="340"
-                                GridPane.rowIndex="6"
+                                GridPane.rowIndex="4"
                                 GridPane.columnIndex="1"/>
 
                     <!-- Estado -->
                     <Label text="Estado:"
-                           GridPane.rowIndex="7"
+                           GridPane.rowIndex="5"
                            GridPane.columnIndex="0"/>
 
                     <ChoiceBox fx:id="cbEstado"
                                prefWidth="340"
-                               GridPane.rowIndex="7"
+                               GridPane.rowIndex="5"
                                GridPane.columnIndex="1"/>
 
                 </GridPane>
