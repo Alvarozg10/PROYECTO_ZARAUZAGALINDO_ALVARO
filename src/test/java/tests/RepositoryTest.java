@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.luisdbb.tarea3AD2024base.Tarea3Ad2024baseApplication;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.repositorios.UserRepository;
 
@@ -16,7 +17,9 @@ import com.luisdbb.tarea3AD2024base.repositorios.UserRepository;
  * 
  * Verifica consultas y acceso a datos.
  */
-@SpringBootTest
+@SpringBootTest(
+    classes = Tarea3Ad2024baseApplication.class
+)
 class RepositoryTest {
 
     /** Repositorio de usuarios */

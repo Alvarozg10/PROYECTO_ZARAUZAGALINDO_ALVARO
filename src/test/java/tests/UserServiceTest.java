@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.luisdbb.tarea3AD2024base.Tarea3Ad2024baseApplication;
 import com.luisdbb.tarea3AD2024base.modelo.User;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 
@@ -19,7 +20,9 @@ import com.luisdbb.tarea3AD2024base.services.UserService;
  *     <li>Validaciones básicas</li>
  * </ul>
  */
-@SpringBootTest
+@SpringBootTest(
+    classes = Tarea3Ad2024baseApplication.class
+)
 class UserServiceTest {
 
     /** Servicio de usuarios */
@@ -33,8 +36,8 @@ class UserServiceTest {
     void loginCorrecto() {
 
         User user = userService.authenticate(
-                "admin",
-                "admin"
+                "alvarozg10@educastur.es",
+                "alvaro"
         );
 
         assertNotNull(user);
