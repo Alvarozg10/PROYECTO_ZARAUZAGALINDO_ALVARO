@@ -50,13 +50,19 @@ public class SpringFXMLLoader {
      * @throws IOException si ocurre un error al cargar el archivo
      */
     public Parent load(String fxmlPath) throws IOException {
+
+        String path = "/fxml/" + fxmlPath;
+
+        System.out.println("Buscando: " + path);
+
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/fxml/" + fxmlPath), 
+                SpringFXMLLoader.class.getResource(path),
                 resourceBundle
         );
 
-        // Permite que Spring gestione los controladores
-        loader.setControllerFactory(context::getBean); 
+        System.out.println("URL FINAL: " + SpringFXMLLoader.class.getResource(path));
+
+        loader.setControllerFactory(context::getBean);
 
         return loader.load();
     }

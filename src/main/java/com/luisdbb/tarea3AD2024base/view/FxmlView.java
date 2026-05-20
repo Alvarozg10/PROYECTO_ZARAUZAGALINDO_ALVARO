@@ -11,7 +11,7 @@ package com.luisdbb.tarea3AD2024base.view;
  */
 public enum FxmlView {
 
-    LOGIN("Login", "login.fxml"),
+    LOGIN("Login", "Login.fxml"),
     ESTUDIANTE("Panel Estudiante", "Estudiante1.fxml"),
     PROFESOR("Panel Profesor", "Profesor1.fxml"),
     TUTOR_EMPRESA("Panel Tutor Empresa", "TutorEmpresa1.fxml"),

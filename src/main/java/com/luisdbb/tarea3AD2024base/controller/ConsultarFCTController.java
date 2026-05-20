@@ -1,5 +1,7 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -10,17 +12,23 @@ import org.springframework.stereotype.Controller;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
 import com.luisdbb.tarea3AD2024base.repositorios.FormacionEmpresaRepository;
+import com.luisdbb.tarea3AD2024base.services.InformeService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
 
 /**
- * Controlador encargado de mostrar las formaciones en empresa (FCT).
+ * Controlador encargado de mostrar las Formaciones en Empresa (FE).
+ * 
+ * Permite consultar todas las FE registradas y exportarlas
+ * a un informe PDF.
  */
 @Controller
 public class ConsultarFCTController implements Initializable {
@@ -46,21 +54,28 @@ public class ConsultarFCTController implements Initializable {
 
     @FXML
     private TableColumn<FormacionEmpresa, String> colEstado;
-    
-    @FXML private TableColumn<FormacionEmpresa, String> colCurso;
-    @FXML private TableColumn<FormacionEmpresa, String> colCiclo;
 
-    /** Repositorio FCT */
+    @FXML
+    private TableColumn<FormacionEmpresa, String> colCurso;
+
+    @FXML
+    private TableColumn<FormacionEmpresa, String> colCiclo;
+
+    /** Servicio de informes PDF */
+    @Autowired
+    private InformeService informeService;
+
+    /** Repositorio FE */
     @Autowired
     private FormacionEmpresaRepository formacionRepo;
 
-    /** Navegación */
+    /** Gestor de escenas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
     /**
-     * Inicializa la tabla.
+     * Inicializa la tabla configurando columnas y datos.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,11 +91,11 @@ public class ConsultarFCTController implements Initializable {
                 return new SimpleStringProperty("Sin alumno");
             }
 
-            var alumno = data.getValue().getEstudiante();
-
-            String texto = alumno.getNombre();
-
-            return new SimpleStringProperty(texto);
+            return new SimpleStringProperty(
+                    data.getValue()
+                        .getEstudiante()
+                        .getNombre()
+            );
         });
 
         // Tutor
@@ -93,7 +108,9 @@ public class ConsultarFCTController implements Initializable {
             var tutor = data.getValue().getTutor();
 
             return new SimpleStringProperty(
-                    tutor.getNombre() + " " + tutor.getApellidos()
+                    tutor.getNombre()
+                    + " "
+                    + tutor.getApellidos()
             );
         });
 
@@ -107,53 +124,74 @@ public class ConsultarFCTController implements Initializable {
         // Fecha inicio
         colInicio.setCellValueFactory(data ->
                 new SimpleStringProperty(
-                        data.getValue().getFechaInicio().toString()
+                        data.getValue()
+                            .getFechaInicio()
+                            .toString()
                 )
         );
 
         // Fecha fin
         colFin.setCellValueFactory(data ->
                 new SimpleStringProperty(
-                        data.getValue().getFechaFin().toString()
+                        data.getValue()
+                            .getFechaFin()
+                            .toString()
                 )
         );
 
         // Estado
         colEstado.setCellValueFactory(data ->
                 new SimpleStringProperty(
-                        data.getValue().getEstado().toString()
+                        data.getValue()
+                            .getEstado()
+                            .toString()
                 )
         );
-        
+
         // Curso
         colCurso.setCellValueFactory(data ->
-        new SimpleStringProperty(
-            data.getValue().getEstudiante() != null &&
-            data.getValue().getEstudiante().getCurso() != null
-                ? data.getValue().getEstudiante().getCurso().toString()
-                : "-"
-        )
-    );
-        
+                new SimpleStringProperty(
+
+                        data.getValue().getEstudiante() != null
+                        &&
+                        data.getValue().getEstudiante().getCurso() != null
+
+                        ? data.getValue()
+                              .getEstudiante()
+                              .getCurso()
+                              .toString()
+
+                        : "-"
+                )
+        );
+
         // Ciclo
-	    colCiclo.setCellValueFactory(data ->
-	        new SimpleStringProperty(
-	            data.getValue().getEstudiante() != null &&
-	            data.getValue().getEstudiante().getCiclo() != null
-	                ? data.getValue().getEstudiante().getCiclo().toString()
-	                : "-"
-	        )
-	    );
+        colCiclo.setCellValueFactory(data ->
+                new SimpleStringProperty(
+
+                        data.getValue().getEstudiante() != null
+                        &&
+                        data.getValue().getEstudiante().getCiclo() != null
+
+                        ? data.getValue()
+                              .getEstudiante()
+                              .getCiclo()
+                              .toString()
+
+                        : "-"
+                )
+        );
 
         cargarDatos();
     }
 
     /**
-     * Carga las FCT en la tabla.
+     * Carga todas las FE registradas.
      */
     private void cargarDatos() {
 
         tablaFCT.setItems(
+
                 FXCollections.observableArrayList(
                         formacionRepo.findAll()
                 )
@@ -161,10 +199,86 @@ public class ConsultarFCTController implements Initializable {
     }
 
     /**
+     * Exporta las FE a un informe PDF.
+     */
+    @FXML
+    private void exportarPDF() {
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.setTitle(
+                "Guardar informe PDF"
+        );
+
+        fileChooser.getExtensionFilters().add(
+
+                new FileChooser.ExtensionFilter(
+                        "PDF Files",
+                        "*.pdf"
+                )
+        );
+
+        fileChooser.setInitialFileName(
+                "informe_fe.pdf"
+        );
+
+        File archivo = fileChooser.showSaveDialog(
+                tablaFCT.getScene().getWindow()
+        );
+
+        if (archivo == null) {
+            return;
+        }
+
+        try {
+
+            informeService.exportarPDF(
+                    tablaFCT.getItems(),
+                    archivo
+            );
+
+            Alert alert = new Alert(
+                    Alert.AlertType.INFORMATION
+            );
+
+            alert.setTitle("Éxito");
+
+            alert.setHeaderText(null);
+
+            alert.setContentText(
+                    "Informe generado correctamente"
+            );
+
+            alert.showAndWait();
+
+        } catch (IOException e) {
+
+            Alert alert = new Alert(
+                    Alert.AlertType.ERROR
+            );
+
+            alert.setTitle("Error");
+
+            alert.setHeaderText(null);
+
+            alert.setContentText(
+                    "No se pudo generar el informe PDF"
+            );
+
+            alert.showAndWait();
+
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Vuelve al menú del profesor.
      */
     @FXML
     private void volver() {
-        stageManager.switchScene(FxmlView.PROFESOR);
+
+        stageManager.switchScene(
+                FxmlView.PROFESOR
+        );
     }
 }

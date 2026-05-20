@@ -19,7 +19,7 @@ import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
  *     <li>Datos obligatorios</li>
  * </ul>
  */
-class FormacionEmpresaTest {
+public class FormacionEmpresaTest {
 
     /**
      * Comprueba que la fecha de fin
@@ -70,5 +70,65 @@ class FormacionEmpresaTest {
         fct.setEmpresa("Mecalux");
 
         assertNotNull(fct.getEmpresa());
+    }
+    
+    @Test
+    void empresaCorrecta() {
+
+        FormacionEmpresa fe =
+                new FormacionEmpresa();
+
+        fe.setEmpresa("Amazon");
+
+        assertEquals(
+            "Amazon",
+            fe.getEmpresa()
+        );
+    }
+
+    @Test
+    void fechaInicioNoDebeSerNull() {
+
+        FormacionEmpresa fe =
+                new FormacionEmpresa();
+
+        fe.setFechaInicio(
+            Date.valueOf("2026-01-01")
+        );
+
+        assertNotNull(
+            fe.getFechaInicio()
+        );
+    }
+
+    @Test
+    void fechaFinNoDebeSerNull() {
+
+        FormacionEmpresa fe =
+                new FormacionEmpresa();
+
+        fe.setFechaFin(
+            Date.valueOf("2026-05-01")
+        );
+
+        assertNotNull(
+            fe.getFechaFin()
+        );
+    }
+
+    @Test
+    void estadoFinalizadoCorrecto() {
+
+        FormacionEmpresa fe =
+                new FormacionEmpresa();
+
+        fe.setEstado(
+            Estado.FINALIZADO
+        );
+
+        assertEquals(
+            Estado.FINALIZADO,
+            fe.getEstado()
+        );
     }
 }

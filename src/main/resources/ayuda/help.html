@@ -1,56 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
-<title>Ayuda - Gestión FCT</title>
+<title>Centro de Ayuda - Gestión FE</title>
 
 <style>
+
+/* ===== GENERAL ===== */
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #4f8edc, #2f6fb3);
+    color: white;
     display: flex;
 }
 
-/* Menú lateral */
+/* ===== MENÚ LATERAL ===== */
+
 nav {
-    width: 250px;
-    background: #2f6fb3;
-    color: white;
-    padding: 20px;
+    width: 260px;
+    background: rgba(0,0,0,0.15);
+    backdrop-filter: blur(5px);
+    padding: 25px;
     height: 100vh;
+
+    position: sticky;
+    top: 0;
+
+    overflow-y: auto;
+
+    box-sizing: border-box;
+    border-right: 1px solid rgba(255,255,255,0.1);
 }
 
 nav h2 {
     margin-top: 0;
+    font-size: 26px;
+    margin-bottom: 25px;
 }
 
 nav a {
     display: block;
     color: white;
     text-decoration: none;
-    margin: 10px 0;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    transition: 0.2s;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    background: rgba(255,255,255,0.15);
 }
 
-/* Contenido */
+nav a.active {
+    background: rgba(255,255,255,0.25);
+    font-weight: bold;
+}
+
+/* ===== CONTENIDO ===== */
+
 main {
-    padding: 30px;
     flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.card {
+    background: rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 25px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 h1 {
-    color: #2f6fb3;
+    margin-top: 0;
+    font-size: 34px;
 }
 
 h2 {
-    margin-top: 30px;
+    color: #ffffff;
+    margin-bottom: 15px;
 }
 
-.section {
-    margin-bottom: 25px;
+p {
+    line-height: 1.7;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* ===== TABLAS ===== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th {
+    background: rgba(255,255,255,0.2);
+    padding: 12px;
+    text-align: left;
+}
+
+table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ===== FOOTER ===== */
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.8;
+    font-size: 14px;
 }
 
 </style>
@@ -59,78 +137,223 @@ h2 {
 
 <body>
 
+<!-- ===== MENÚ ===== -->
+
 <nav>
-    <h2>Ayuda</h2>
-    <a href="#general">Inicio</a>
+
+    <h2>Centro de Ayuda</h2>
+
+    <a href="#inicio">Inicio</a>
     <a href="#admin">Administrador</a>
     <a href="#profesor">Profesor</a>
     <a href="#estudiante">Estudiante</a>
     <a href="#tutor">Tutor Empresa</a>
     <a href="#errores">Errores comunes</a>
+    <a href="#faq">Preguntas frecuentes</a>
+
 </nav>
+
+<!-- ===== CONTENIDO ===== -->
 
 <main>
 
-<h1 id="general">Sistema de Gestión FCT</h1>
-<p>
-Esta aplicación permite gestionar las prácticas en empresa (FCT), incluyendo
-usuarios, asignaciones y documentación.
-</p>
+    <!-- INTRODUCCIÓN -->
 
-<div class="section" id="admin">
-<h2>Administrador</h2>
-<p>El administrador puede gestionar los usuarios del sistema:</p>
-<ul>
-    <li>Crear nuevos usuarios</li>
-    <li>Modificar datos existentes</li>
-    <li>Eliminar usuarios</li>
-</ul>
-<p>Debe asegurarse de que los datos introducidos son correctos.</p>
-</div>
+    <div class="card" id="inicio">
 
-<div class="section" id="profesor">
-<h2>Profesor</h2>
-<p>El profesor puede:</p>
-<ul>
-    <li>Crear nuevas FCT</li>
-    <li>Consultar FCT existentes</li>
-    <li>Gestionar estudiantes</li>
-</ul>
-<p>Las fechas de inicio y fin deben ser coherentes.</p>
-</div>
+        <h1>Sistema de Gestión FE</h1>
 
-<div class="section" id="estudiante">
-<h2>Estudiante</h2>
-<p>El estudiante puede:</p>
-<ul>
-    <li>Consultar su empresa asignada</li>
-    <li>Ver datos del tutor</li>
-    <li>Descargar documentos</li>
-</ul>
-<p>Debe seleccionar un documento antes de descargarlo.</p>
-</div>
+        <p>
+            Esta aplicación permite gestionar las Formaciones en Empresa (FE)
+            de estudiantes pertenecientes a ciclos formativos DAM y DAW.
+        </p>
 
-<div class="section" id="tutor">
-<h2>Tutor Empresa</h2>
-<p>El tutor puede:</p>
-<ul>
-    <li>Ver alumnos asignados</li>
-    <li>Subir documentación en formato PDF</li>
-</ul>
-<p>Solo se permiten archivos PDF.</p>
-</div>
+        <p>
+            El sistema incorpora distintos perfiles de usuario con funcionalidades
+            específicas, permitiendo gestionar usuarios, asignaciones,
+            documentación y seguimiento de prácticas.
+        </p>
 
-<div class="section" id="errores">
-<h2>Errores comunes</h2>
-<ul>
-    <li>No rellenar todos los campos</li>
-    <li>No seleccionar elementos en tablas</li>
-    <li>Subir archivos no válidos</li>
-</ul>
-<p>El sistema mostrará mensajes de error en estos casos.</p>
-</div>
+    </div>
+
+    <!-- ADMIN -->
+
+    <div class="card" id="admin">
+
+        <h2>Administrador</h2>
+
+        <p>
+            El administrador dispone de acceso completo a la gestión del sistema.
+        </p>
+
+        <ul>
+            <li>Crear nuevos usuarios</li>
+            <li>Modificar usuarios existentes</li>
+            <li>Eliminar usuarios</li>
+            <li>Consultar registros del sistema</li>
+        </ul>
+
+        <p>
+            Se recomienda verificar cuidadosamente los datos antes de guardar cambios.
+        </p>
+
+    </div>
+
+    <!-- PROFESOR -->
+
+    <div class="card" id="profesor">
+
+        <h2>Profesor</h2>
+
+        <p>
+            El profesor es responsable de la gestión académica de las FE.
+        </p>
+
+        <ul>
+            <li>Crear nuevas FE</li>
+            <li>Consultar FE existentes</li>
+            <li>Asignar estudiantes y tutores</li>
+            <li>Gestionar información de seguimiento</li>
+        </ul>
+
+        <p>
+            Las fechas de inicio y finalización deben ser válidas y coherentes.
+        </p>
+
+    </div>
+
+    <!-- ESTUDIANTE -->
+
+    <div class="card" id="estudiante">
+
+        <h2>Estudiante</h2>
+
+        <p>
+            El estudiante puede consultar la información relacionada
+            con su formación en empresa.
+        </p>
+
+        <ul>
+            <li>Consultar empresa asignada</li>
+            <li>Visualizar tutor asignado</li>
+            <li>Descargar documentación</li>
+            <li>Consultar estado de la FE</li>
+        </ul>
+
+    </div>
+
+    <!-- TUTOR -->
+
+    <div class="card" id="tutor">
+
+        <h2>Tutor de Empresa</h2>
+
+        <p>
+            El tutor de empresa puede supervisar los alumnos asignados
+            y gestionar documentación relacionada.
+        </p>
+
+        <ul>
+            <li>Consultar alumnos asignados</li>
+            <li>Subir documentos PDF</li>
+            <li>Consultar información académica básica</li>
+        </ul>
+
+        <p>
+            Solo se permiten archivos PDF válidos.
+        </p>
+
+    </div>
+
+    <!-- ERRORES -->
+
+    <div class="card" id="errores">
+
+        <h2>Errores comunes</h2>
+
+        <table>
+
+            <tr>
+                <th>Problema</th>
+                <th>Solución</th>
+            </tr>
+
+            <tr>
+                <td>Campos vacíos</td>
+                <td>Completar todos los datos obligatorios</td>
+            </tr>
+
+            <tr>
+                <td>No seleccionar elementos</td>
+                <td>Seleccionar un registro antes de continuar</td>
+            </tr>
+
+            <tr>
+                <td>Archivo inválido</td>
+                <td>Subir únicamente archivos PDF</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- FAQ -->
+
+    <div class="card" id="faq">
+
+        <h2>Preguntas frecuentes</h2>
+
+        <p><strong>¿Qué perfiles existen?</strong></p>
+        <p>Administrador, Profesor, Estudiante y Tutor Empresa.</p>
+
+        <p><strong>¿Qué formatos de documento se permiten?</strong></p>
+        <p>Actualmente únicamente archivos PDF.</p>
+
+        <p><strong>¿Cómo se asigna una FE?</strong></p>
+        <p>Desde el panel del profesor mediante la opción Crear FE.</p>
+
+    </div>
+
+    <footer>
+        Sistema de Gestión FE - Proyecto Intermodular DAM
+    </footer>
 
 </main>
+
+<!-- ===== SCRIPT MENÚ ACTIVO ===== -->
+
+<script>
+
+const sections = document.querySelectorAll("main .card");
+const navLinks = document.querySelectorAll("nav a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop;
+
+        if (pageYOffset >= sectionTop - 150) {
+            current = section.getAttribute("id");
+        }
+
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+        }
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>

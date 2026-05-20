@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-05-2026 a las 17:51:47
+-- Tiempo de generación: 19-05-2026 a las 22:26:38
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -84,7 +84,14 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `apellidos`, `ciclo`, `curso`, `email`, `fecha_nacimiento`, `genero`, `nombre`, `password`, `perfil`, `telefono`) VALUES
 (1, 'Zarauza ', 'DAM', 'PRIMERO', 'alvarozg10@educastur.es', '2005-02-19', 'Hombre', 'Alvaro', 'alvaro', 'ESTUDIANTE', '650954189'),
 (2, 'de Blas', 'DAM', 'SEGUNDO', 'luisdbb@educastur.org', '1992-08-17', 'Hombre', 'Luis', 'luis', 'PROFESOR', '649306194'),
-(3, 'Rodriguez', 'DAM', 'SEGUNDO', 'marta@gmail.com', '1998-11-14', 'Mujer', 'Marta', 'marta', 'TUTOR_EMPRESA', '620597210');
+(3, 'Rodriguez', 'DAM', 'SEGUNDO', 'marta@gmail.com', '1998-11-14', 'Mujer', 'Marta', 'marta', 'TUTOR_EMPRESA', '620597210'),
+(4, 'JUnit', NULL, NULL, 'test@edu.com', NULL, 'Hombre', 'Test', '1234', 'ESTUDIANTE', '123456789'),
+(5, 'Test', NULL, NULL, 'mail@test.com', NULL, NULL, 'Mail', '1234', NULL, NULL),
+(6, 'JUnit', NULL, NULL, 'id@test.com', NULL, NULL, 'Test', '1234', NULL, NULL),
+(7, 'JUnit', NULL, NULL, 'test@edu.com', NULL, 'Hombre', 'Test', '1234', 'ESTUDIANTE', '123456789'),
+(8, 'Test', NULL, NULL, 'mail@test.com', NULL, NULL, 'Mail', '1234', NULL, NULL),
+(9, 'JUnit', NULL, NULL, 'id@test.com', NULL, NULL, 'Test', '1234', NULL, NULL),
+(10, 'JUnit', NULL, NULL, 'test@edu.com', NULL, 'Hombre', 'Test', '1234', 'ESTUDIANTE', '123456789');
 
 --
 -- Índices para tablas volcadas
@@ -131,7 +138,7 @@ ALTER TABLE `formacion_empresa`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

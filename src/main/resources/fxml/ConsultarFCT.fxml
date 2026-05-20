@@ -68,9 +68,15 @@
 
                 </TableView>
 
-                <Button text="Volver"
-                        onAction="#volver"
-                        prefWidth="120"/>
+                <HBox spacing="15" alignment="CENTER">
+
+			    <Button text="Exportar FE's"
+			            onAction="#exportarPDF"/>
+			
+			    <Button text="Volver"
+			            onAction="#volver"/>
+
+				</HBox>
 
             </VBox>
 

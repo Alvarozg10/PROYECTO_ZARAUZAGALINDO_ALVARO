@@ -23,7 +23,7 @@ import com.luisdbb.tarea3AD2024base.services.UserService;
 @SpringBootTest(
     classes = Tarea3Ad2024baseApplication.class
 )
-class UserServiceTest {
+public class UserServiceTest {
 
     /** Servicio de usuarios */
     @Autowired
@@ -103,5 +103,60 @@ class UserServiceTest {
         String telefono = "650954189";
 
         assertTrue(telefono.matches("\\d+"));
+    }
+    
+    @Test
+    void usuarioGuardadoTieneId() {
+
+        User user = new User();
+
+        user.setNombre("Test");
+
+        user.setApellidos("JUnit");
+
+        user.setEmail("id@test.com");
+
+        user.setPassword("1234");
+
+        User guardado =
+                userService.save(user);
+
+        assertTrue(
+            guardado.getIdUsuario() > 0
+        );
+    }
+
+    @Test
+    void passwordNoCoincide() {
+
+        User user =
+                userService.authenticate(
+                        "admin",
+                        "mal"
+                );
+
+        assertNull(user);
+    }
+
+    @Test
+    void emailUsuarioGuardadoCorrecto() {
+
+        User user = new User();
+
+        user.setNombre("Mail");
+
+        user.setApellidos("Test");
+
+        user.setEmail("mail@test.com");
+
+        user.setPassword("1234");
+
+        User guardado =
+                userService.save(user);
+
+        assertEquals(
+            "mail@test.com",
+            guardado.getEmail()
+        );
     }
 }

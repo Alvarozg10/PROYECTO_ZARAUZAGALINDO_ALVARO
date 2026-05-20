@@ -20,7 +20,7 @@ import com.luisdbb.tarea3AD2024base.repositorios.UserRepository;
 @SpringBootTest(
     classes = Tarea3Ad2024baseApplication.class
 )
-class RepositoryTest {
+public class RepositoryTest {
 
     /** Repositorio de usuarios */
     @Autowired
@@ -47,4 +47,19 @@ class RepositoryTest {
 
         assertFalse(users.isEmpty());
     }
+    
+    @Test
+    void repositorioNoDebeSerNull() {
+
+        assertNotNull(userRepository);
+    }
+
+    @Test
+    void listaUsuariosNoEsNull() {
+
+        assertNotNull(
+            userRepository.findAll()
+        );
+    }
+
 }
