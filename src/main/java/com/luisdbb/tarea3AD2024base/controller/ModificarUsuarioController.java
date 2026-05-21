@@ -189,7 +189,7 @@ public class ModificarUsuarioController {
         usuario.setTelefono(telefono.getText());
         usuario.setPassword(password.getText());
         usuario.setFechaNacimiento(Date.valueOf(dob.getValue()));
-        usuario.setGenero(rbMale.isSelected() ? "Male" : "Female");
+        usuario.setGenero(rbMale.isSelected() ? "Hombre" : "Mujer");
         usuario.setPerfil(eleccionUsuario.getValue());
         usuario.setCurso(cbCurso.getValue());
         usuario.setCiclo(cbCiclo.getValue());
