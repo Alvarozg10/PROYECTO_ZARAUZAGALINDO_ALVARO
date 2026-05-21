@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
- * Entidad que representa una Formación en Centro de Trabajo (FCT).
+ * Entidad que representa una Formación en Centro de Trabajo (FE).
  * 
  * Relaciona a un estudiante con un tutor de empresa, incluyendo la empresa,
  * fechas de inicio y fin, y el estado actual de la formación.
@@ -23,13 +23,13 @@ import jakarta.persistence.Table;
 @Table(name = "formacion_empresa")
 public class FormacionEmpresa {
 
-    /** Identificador único de la FCT */
+    /** Identificador único de la FE */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * Estudiante asignado a la FCT.
+     * Estudiante asignado a la FE.
      * Relación muchos a uno con la entidad User.
      */
     @ManyToOne
@@ -37,26 +37,26 @@ public class FormacionEmpresa {
     private User estudiante;
 
     /**
-     * Tutor de empresa responsable de la FCT.
+     * Tutor de empresa responsable de la FE.
      * Relación muchos a uno con la entidad User.
      */
     @ManyToOne
     @JoinColumn(name = "tutor_id", nullable = false)
     private User tutor;
 
-    /** Nombre de la empresa donde se realiza la FCT */
+    /** Nombre de la empresa donde se realiza la FE */
     @Column(nullable = false)
     private String empresa;
 
-    /** Fecha de inicio de la FCT */
+    /** Fecha de inicio de la FE */
     @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
 
-    /** Fecha de finalización de la FCT */
+    /** Fecha de finalización de la FE */
     @Column(name = "fecha_fin", nullable = false)
     private Date fechaFin;
 
-    /** Estado actual de la FCT (PENDIENTE, EN_CURSO, FINALIZADO) */
+    /** Estado actual de la FE (PENDIENTE, EN_CURSO, FINALIZADO) */
     @Enumerated(EnumType.STRING)
     private Estado estado;
 

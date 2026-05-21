@@ -50,11 +50,11 @@
 
             <Label text="¿Qué desea hacer?"/>
 
-            <Button text="Crear FCT"
+            <Button text="Crear FE"
                     prefWidth="250"
                     onAction="#crearFCT"/>
 
-            <Button text="Consultar FCTs"
+            <Button text="Consultar FE's"
                     prefWidth="250"
                     onAction="#abrirGestionFCT"/>
 

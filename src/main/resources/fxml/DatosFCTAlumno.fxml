@@ -23,7 +23,7 @@
                   maxHeight="500"
                   styleClass="card">
 
-                <Label text="Mi FCT">
+                <Label text="Mi FE">
                     <font>
                         <Font size="24"/>
                     </font>

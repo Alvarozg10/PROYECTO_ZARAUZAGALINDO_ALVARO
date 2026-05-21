@@ -20,7 +20,7 @@
                   prefHeight="560"
                   styleClass="card">
 
-                <Label text="Listado de FCT">
+                <Label text="Listado de FE">
                     <font>
                         <Font size="22"/>
                     </font>

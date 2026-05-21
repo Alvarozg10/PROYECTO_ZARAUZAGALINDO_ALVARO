@@ -51,7 +51,7 @@
                     prefWidth="250"
                     onAction="#verDocumentos"/>
 
-            <Button text="Consultar empresa y tutor"
+            <Button text="Ver mi FE"
                     prefWidth="250"
                     onAction="#verEmpresaYTutor"/>
 

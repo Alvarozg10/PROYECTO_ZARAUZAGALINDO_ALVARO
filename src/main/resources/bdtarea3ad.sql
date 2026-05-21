@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2026 a las 02:09:08
+-- Tiempo de generación: 21-05-2026 a las 12:59:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -34,6 +34,13 @@ CREATE TABLE `documento` (
   `estudiante_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `documento`
+--
+
+INSERT INTO `documento` (`id`, `nombre`, `ruta`, `estudiante_id`) VALUES
+(1, 'UT5 Documentar una Aplicación.pdf', 'C:\\Users\\USUARIO\\Desktop\\PROYECTO_ZARAUZAGALINDO_ALVARO\\PROYECTO_ZARAUZAGALINDO_ALVARO\\documentos\\64d369b4-c99b-4d97-b110-cec01adae00f_UT5 Documentar una Aplicación.pdf', 13);
+
 -- --------------------------------------------------------
 
 --
@@ -55,7 +62,8 @@ CREATE TABLE `formacion_empresa` (
 --
 
 INSERT INTO `formacion_empresa` (`id`, `empresa`, `estado`, `fecha_fin`, `fecha_inicio`, `estudiante_id`, `tutor_id`) VALUES
-(1, 'Mecalux', 'EN_CURSO', '2026-08-12', '2026-05-13', 1, 3);
+(1, 'Mecalux', 'EN_CURSO', '2026-08-12', '2026-05-13', 1, 3),
+(2, 'Capgemini', 'EN_CURSO', '2026-08-05', '2026-05-21', 13, 12);
 
 -- --------------------------------------------------------
 
@@ -82,9 +90,12 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `apellidos`, `ciclo`, `curso`, `email`, `fecha_nacimiento`, `genero`, `nombre`, `password`, `perfil`, `telefono`) VALUES
-(1, 'Zarauza ', 'DAM', 'PRIMERO', 'alvarozg10@educastur.es', '2005-02-19', 'Hombre', 'Alvaro', 'alvaro', 'ESTUDIANTE', '650954189'),
+(1, 'Zarauza ', 'DAM', 'SEGUNDO', 'alvarozg10@educastur.es', '2005-02-19', 'Male', 'Alvaro', 'alvaro', 'ESTUDIANTE', '650954189'),
 (2, 'de Blas', 'DAM', 'SEGUNDO', 'luisdbb@educastur.org', '1992-08-17', 'Hombre', 'Luis', 'luis', 'PROFESOR', '649306194'),
-(3, 'Rodriguez', 'DAM', 'SEGUNDO', 'marta@gmail.com', '1998-11-14', 'Mujer', 'Marta', 'marta', 'TUTOR_EMPRESA', '620597210');
+(3, 'Rodriguez', 'DAM', 'SEGUNDO', 'marta@gmail.com', '1998-11-14', 'Mujer', 'Marta', 'marta', 'TUTOR_EMPRESA', '620597210'),
+(11, 'Gonzalez', 'DAM', 'SEGUNDO', 'luisa@educastur.org', '1987-04-13', 'Female', 'Maria Luisa', 'luisa', 'PROFESOR', '643786313'),
+(12, 'Rodriguez', 'DAM', 'SEGUNDO', 'juan@gmail.com', '1977-05-05', 'Hombre', 'Juan', 'juan', 'TUTOR_EMPRESA', '620604130'),
+(13, 'Garcia', 'DAM', 'SEGUNDO', 'roberto@educastur.es', '2005-07-14', 'Hombre', 'Roberto', 'roberto', 'ESTUDIANTE', '630295683');
 
 --
 -- Índices para tablas volcadas
@@ -119,19 +130,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de la tabla `documento`
 --
 ALTER TABLE `documento`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `formacion_empresa`
 --
 ALTER TABLE `formacion_empresa`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas

@@ -26,7 +26,7 @@ import javafx.util.StringConverter;
 
 /**
  * Controlador encargado de gestionar la creación de una
- * Formación en Centro de Trabajo (FCT).
+ * Formación en Centro de Trabajo (FE).
  */
 @Controller
 public class CrearFCTController {

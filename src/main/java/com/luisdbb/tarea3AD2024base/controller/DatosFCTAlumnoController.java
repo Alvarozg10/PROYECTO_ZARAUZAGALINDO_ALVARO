@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
 
 /**
  * Controlador encargado de mostrar la información
- * de la FCT del alumno logueado.
+ * de la FE del alumno logueado.
  */
 @Controller
 public class DatosFCTAlumnoController {
@@ -75,7 +75,7 @@ public class DatosFCTAlumnoController {
                 .findFirst()
                 .orElse(null);
 
-        // Sin FCT
+        // Sin FE
         if (f == null) {
 
             lblEmpresa.setText("Empresa: No asignada");
