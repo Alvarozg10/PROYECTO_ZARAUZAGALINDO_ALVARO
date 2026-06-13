@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="550.0"
-            prefWidth="780.0"
+<BorderPane prefWidth="1000"
+            prefHeight="750"
             xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.luisdbb.tarea3AD2024base.controller.DatosFCTAlumnoController"
@@ -13,122 +14,175 @@
 
     <center>
 
-        <StackPane alignment="CENTER">
+        <ScrollPane fitToWidth="true">
 
             <VBox alignment="CENTER"
-                  spacing="20"
-                  prefWidth="560"
-                  prefHeight="500"
-                  maxWidth="560"
-                  maxHeight="500"
-                  styleClass="card">
+                  spacing="25">
 
-                <Label text="Mi FE">
-                    <font>
-                        <Font size="24"/>
-                    </font>
-                </Label>
+                <padding>
+                    <Insets top="20" bottom="20"/>
+                </padding>
 
-                <Separator prefWidth="460"/>
+                <VBox spacing="25"
+                      maxWidth="700"
+                      styleClass="card">
 
-                <GridPane alignment="CENTER"
-                          hgap="20"
-                          vgap="18">
+                    <padding>
+                        <Insets top="25" right="30"
+                                bottom="25" left="30"/>
+                    </padding>
 
-                    <columnConstraints>
-                        <ColumnConstraints halignment="RIGHT"
-                                           prefWidth="180"/>
-                        <ColumnConstraints prefWidth="280"/>
-                    </columnConstraints>
+                    <Label text="Mi Formación en Empresa">
+                        <font>
+                            <Font size="28"/>
+                        </font>
+                    </Label>
 
-                    <!-- Empresa -->
-                    <Label text="Empresa:"
-                           style="-fx-font-weight: bold;"
-                           GridPane.rowIndex="0"
-                           GridPane.columnIndex="0"/>
+                    <!-- DASHBOARD -->
 
-                    <Label fx:id="lblEmpresa"
-                           wrapText="true"
-                           GridPane.rowIndex="0"
-                           GridPane.columnIndex="1"/>
+                    <VBox spacing="10">
 
-                    <!-- Tutor -->
-                    <Label text="Tutor:"
-                           style="-fx-font-weight: bold;"
-                           GridPane.rowIndex="1"
-                           GridPane.columnIndex="0"/>
+                        <Label text="PROGRESO FE"
+                               style="-fx-font-size:16px;-fx-font-weight:bold;"/>
 
-                    <Label fx:id="lblTutor"
-                           wrapText="true"
-                           GridPane.rowIndex="1"
-                           GridPane.columnIndex="1"/>
+                        <ProgressBar fx:id="progressFE"
+                                     prefWidth="500"/>
 
-                    <!-- Email -->
-                    <Label text="Email tutor:"
-                           style="-fx-font-weight: bold;"
-                           GridPane.rowIndex="2"
-                           GridPane.columnIndex="0"/>
+                        <Label fx:id="lblPorcentaje"
+                               style="-fx-font-size:18px;-fx-font-weight:bold;"/>
 
-                    <Label fx:id="lblEmailTutor"
-                           wrapText="true"
-                           GridPane.rowIndex="2"
-                           GridPane.columnIndex="1"/>
+                        <GridPane hgap="30" vgap="10">
 
-                    <!-- Teléfono -->
-                    <Label text="Teléfono tutor:"
-                           style="-fx-font-weight: bold;"
-                           GridPane.rowIndex="3"
-                           GridPane.columnIndex="0"/>
+                            <Label text="Días realizados:"/>
+                            <Label fx:id="lblDiasRealizados"
+                                   GridPane.columnIndex="1"/>
 
-                    <Label fx:id="lblTelefonoTutor"
-                           wrapText="true"
-                           GridPane.rowIndex="3"
-                           GridPane.columnIndex="1"/>
+                            <Label text="Días restantes:"
+                                   GridPane.rowIndex="1"/>
 
-                    <!-- Curso y ciclo -->
-                    <Label text="Curso/Ciclo:"
-                           style="-fx-font-weight: bold;"
-                           GridPane.rowIndex="4"
-                           GridPane.columnIndex="0"/>
+                            <Label fx:id="lblDiasRestantes"
+                                   GridPane.rowIndex="1"
+                                   GridPane.columnIndex="1"/>
 
-                    <Label fx:id="lblCursoCiclo"
-                           wrapText="true"
-                           GridPane.rowIndex="4"
-                           GridPane.columnIndex="1"/>
+                            <Label text="Duración total:"
+                                   GridPane.rowIndex="2"/>
 
-                    <!-- Estado -->
-                    <Label text="Estado:"
-                           style="-fx-font-weight: bold;"
-                           GridPane.rowIndex="5"
-                           GridPane.columnIndex="0"/>
+                            <Label fx:id="lblDuracionTotal"
+                                   GridPane.rowIndex="2"
+                                   GridPane.columnIndex="1"/>
 
-                    <Label fx:id="lblEstado"
-                           wrapText="true"
-                           GridPane.rowIndex="5"
-                           GridPane.columnIndex="1"/>
+                        </GridPane>
 
-                    <!-- Fechas -->
-                    <Label text="Duración:"
-                           style="-fx-font-weight: bold;"
-                           GridPane.rowIndex="6"
-                           GridPane.columnIndex="0"/>
+                    </VBox>
 
-                    <Label fx:id="lblFechas"
-                           wrapText="true"
-                           GridPane.rowIndex="6"
-                           GridPane.columnIndex="1"/>
+                    <Separator/>
 
-                </GridPane>
+                    <!-- EMPRESA -->
 
-                <Separator prefWidth="460"/>
+                    <VBox spacing="10">
 
-                <Button text="Volver"
-                        prefWidth="140"
-                        onAction="#volver"/>
+                        <Label text="DATOS DE LA EMPRESA"
+                               style="-fx-font-size:16px;-fx-font-weight:bold;"/>
+
+                        <GridPane hgap="20" vgap="10">
+
+                            <Label text="Empresa:"/>
+                            <Label fx:id="lblEmpresa"
+                                   GridPane.columnIndex="1"/>
+
+                            <Label text="Dirección:"
+                                   GridPane.rowIndex="1"/>
+                            <Label fx:id="lblDireccion"
+                                   GridPane.rowIndex="1"
+                                   GridPane.columnIndex="1"/>
+
+                            <Label text="Teléfono:"
+                                   GridPane.rowIndex="2"/>
+                            <Label fx:id="lblTelefonoEmpresa"
+                                   GridPane.rowIndex="2"
+                                   GridPane.columnIndex="1"/>
+
+                            <Label text="Correo:"
+                                   GridPane.rowIndex="3"/>
+                            <Label fx:id="lblCorreoEmpresa"
+                                   GridPane.rowIndex="3"
+                                   GridPane.columnIndex="1"/>
+
+                        </GridPane>
+
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- TUTOR -->
+
+                    <VBox spacing="10">
+
+                        <Label text="TUTOR DE EMPRESA"
+                               style="-fx-font-size:16px;-fx-font-weight:bold;"/>
+
+                        <GridPane hgap="20" vgap="10">
+
+                            <Label text="Tutor:"/>
+                            <Label fx:id="lblTutor"
+                                   GridPane.columnIndex="1"/>
+
+                            <Label text="Correo:"
+                                   GridPane.rowIndex="1"/>
+                            <Label fx:id="lblCorreoTutor"
+                                   GridPane.rowIndex="1"
+                                   GridPane.columnIndex="1"/>
+
+                            <Label text="Teléfono:"
+                                   GridPane.rowIndex="2"/>
+                            <Label fx:id="lblTelefonoTutor"
+                                   GridPane.rowIndex="2"
+                                   GridPane.columnIndex="1"/>
+
+                        </GridPane>
+
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- FE -->
+
+                    <VBox spacing="10">
+
+                        <Label text="DATOS DE LA FE"
+                               style="-fx-font-size:16px;-fx-font-weight:bold;"/>
+
+                        <GridPane hgap="20" vgap="10">
+
+                            <Label text="Inicio:"/>
+                            <Label fx:id="lblInicio"
+                                   GridPane.columnIndex="1"/>
+
+                            <Label text="Fin:"
+                                   GridPane.rowIndex="1"/>
+                            <Label fx:id="lblFin"
+                                   GridPane.rowIndex="1"
+                                   GridPane.columnIndex="1"/>
+
+                            <Label text="Estado:"
+                                   GridPane.rowIndex="2"/>
+                            <Label fx:id="lblEstado"
+                                   GridPane.rowIndex="2"
+                                   GridPane.columnIndex="1"/>
+
+                        </GridPane>
+
+                    </VBox>
+
+                    <Button text="Volver"
+                            prefWidth="150"
+                            onAction="#volver"/>
+
+                </VBox>
 
             </VBox>
 
-        </StackPane>
+        </ScrollPane>
 
     </center>
 

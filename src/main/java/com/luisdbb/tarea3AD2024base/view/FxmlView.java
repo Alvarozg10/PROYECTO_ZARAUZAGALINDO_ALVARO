@@ -27,6 +27,10 @@ public enum FxmlView {
     DATOS_FCT_ALUMNO("Mi FCT", "DatosFCTAlumno.fxml"),
     SUBIR_DOCUMENTO("Subir Documento", "SubirDocumento.fxml"),
     DOCUMENTOS_ALUMNO("Documentos", "DocumentosAlumno.fxml"),
+    CREAR_EMPRESA("Crear Empresa", "CrearEmpresa.fxml"),
+    DASHBOARD_PROFESOR("Dashboard Profesor", "DashboardProfesor.fxml"),
+    EVALUAR_ALUMNO("Evaluar Alumno", "EvaluarAlumno.fxml"),
+    VER_EVALUACIONES("Ver Evaluaciones", "VerEvaluaciones.fxml"),
     AYUDA("Ayuda", "Ayuda.fxml");
 
     /** Título de la ventana */

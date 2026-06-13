@@ -49,10 +49,18 @@
             <Label fx:id="lblProfesor" text="Hola,"/>
 
             <Label text="¿Qué desea hacer?"/>
+            
+            <Button text="Dashboard FE"
+           			prefWidth="250"
+        			onAction="#dashboard"/>
 
             <Button text="Crear FE"
                     prefWidth="250"
                     onAction="#crearFCT"/>
+                    
+            <Button text="Crear Empresa"
+            		prefWidth="250"
+                    onAction="#abrirCrearEmpresa"/>
 
             <Button text="Consultar FE's"
                     prefWidth="250"
@@ -61,6 +69,10 @@
             <Button text="Gestionar estudiantes"
                     prefWidth="250"
                     onAction="#gestionarEstudiantes"/>
+                    
+            <Button text="Ver Evaluaciones"
+                    prefWidth="250"
+                    onAction="#verEvaluaciones"/>
 
             <Button text="Cerrar sesión"
                     prefWidth="250"

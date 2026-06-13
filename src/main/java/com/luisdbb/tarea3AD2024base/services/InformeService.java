@@ -92,19 +92,23 @@ public class InformeService {
 
         for (FormacionEmpresa fe : fes) {
 
-            String alumno =
-                    fe.getEstudiante() != null
-                    ? fe.getEstudiante().getNombre()
-                    : "Sin alumno";
+        	String alumno =
+        	        fe.getEstudiante() != null
+        	        ? fe.getEstudiante().getNombre()
+        	            + " "
+        	            + fe.getEstudiante().getApellidos()
+        	        : "Sin alumno";
 
             String tutor =
                     fe.getTutor() != null
                     ? fe.getTutor().getNombre()
+                        + " "
+                        + fe.getTutor().getApellidos()
                     : "Sin tutor";
 
             String empresa =
                     fe.getEmpresa() != null
-                    ? fe.getEmpresa()
+                    ? fe.getEmpresa().getNombre()
                     : "-";
 
             String estado =

@@ -60,19 +60,11 @@ public class EliminarUsuarioController {
 
             User u = data.getValue();
 
-            String texto = u.getNombre()
+            return new SimpleStringProperty(
+                    u.getNombre()
                     + " "
-                    + u.getApellidos();
-
-            if ("ESTUDIANTE".equalsIgnoreCase(u.getPerfil())) {
-
-                texto += " - "
-                        + u.getCiclo()
-                        + " "
-                        + u.getCurso();
-            }
-
-            return new SimpleStringProperty(texto);
+                    + u.getApellidos()
+            );
         });
 
         // Email

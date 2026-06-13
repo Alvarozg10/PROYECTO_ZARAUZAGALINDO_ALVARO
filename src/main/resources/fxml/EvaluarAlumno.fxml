@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefWidth="900"
+            prefHeight="700"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.EvaluarAlumnoController"
+            stylesheets="@/styles/app.css">
+
+    <center>
+
+        <StackPane alignment="CENTER">
+
+            <VBox alignment="CENTER"
+                  spacing="20"
+                  prefWidth="600"
+                  styleClass="card">
+
+                <Label text="Evaluar Alumno">
+                    <font>
+                        <Font size="26"/>
+                    </font>
+                </Label>
+
+                <ChoiceBox fx:id="cbAlumno"
+                           prefWidth="400"/>
+
+                <GridPane hgap="20"
+                          vgap="15">
+
+                    <Label text="Puntualidad:"/>
+                    <ChoiceBox fx:id="cbPuntualidad"
+                               GridPane.columnIndex="1"/>
+
+                    <Label text="Responsabilidad:"
+                           GridPane.rowIndex="1"/>
+                    <ChoiceBox fx:id="cbResponsabilidad"
+                               GridPane.rowIndex="1"
+                               GridPane.columnIndex="1"/>
+
+                    <Label text="Trabajo equipo:"
+                           GridPane.rowIndex="2"/>
+                    <ChoiceBox fx:id="cbTrabajoEquipo"
+                               GridPane.rowIndex="2"
+                               GridPane.columnIndex="1"/>
+
+                    <Label text="Iniciativa:"
+                           GridPane.rowIndex="3"/>
+                    <ChoiceBox fx:id="cbIniciativa"
+                               GridPane.rowIndex="3"
+                               GridPane.columnIndex="1"/>
+
+                </GridPane>
+
+                <TextArea fx:id="txtObservaciones"
+                          prefWidth="450"
+                          prefHeight="150"
+                          promptText="Observaciones del tutor"/>
+
+                <HBox spacing="20"
+                      alignment="CENTER">
+
+                    <Button text="Guardar evaluación"
+                            onAction="#guardarEvaluacion"/>
+
+                    <Button text="Volver"
+                            onAction="#volver"/>
+
+                </HBox>
+
+            </VBox>
+
+        </StackPane>
+
+    </center>
+
+</BorderPane>

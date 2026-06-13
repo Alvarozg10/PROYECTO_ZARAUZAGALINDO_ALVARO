@@ -15,50 +15,58 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
-/**
- * Controlador encargado de gestionar la creación de nuevos usuarios.
- * 
- * Permite introducir los datos personales del usuario, validar la información
- * y guardarla en el sistema.
- */
 @Controller
 public class AnadirUsuarioController {
 
-    @FXML private TextField firstName;
-    @FXML private TextField lastName;
-    @FXML private TextField email;
-    @FXML private TextField telefono;
-    @FXML private PasswordField password;
-    @FXML private ChoiceBox<String> eleccionUsuario;
-    @FXML private DatePicker dob;
-    @FXML private RadioButton rbMale;
-    @FXML private RadioButton rbFemale;
-    @FXML private ChoiceBox<Curso> cbCurso;
-    @FXML private ChoiceBox<Ciclo> cbCiclo;
+    @FXML
+    private TextField firstName;
 
-    /** Servicio encargado de la gestión de usuarios */
+    @FXML
+    private TextField lastName;
+
+    @FXML
+    private TextField email;
+
+    @FXML
+    private TextField telefono;
+
+    @FXML
+    private PasswordField password;
+
+    @FXML
+    private ComboBox<String> eleccionUsuario;
+
+    @FXML
+    private DatePicker dob;
+
+    @FXML
+    private RadioButton rbMale;
+
+    @FXML
+    private RadioButton rbFemale;
+
+    @FXML
+    private ComboBox<Curso> cbCurso;
+
+    @FXML
+    private ComboBox<Ciclo> cbCiclo;
+
     @Autowired
     private UserService userService;
 
-    /** Gestor de navegación entre vistas */
     @Lazy
     @Autowired
     private StageManager stageManager;
 
-    /** Grupo de selección para el género */
     private ToggleGroup gender;
 
-    /**
-     * Inicializa la vista configurando los valores por defecto
-     * y las validaciones de los campos.
-     */
     @FXML
     public void initialize() {
 
@@ -68,98 +76,187 @@ public class AnadirUsuarioController {
                 "TUTOR_EMPRESA"
         );
 
-        eleccionUsuario.setValue("ESTUDIANTE");
-
         gender = new ToggleGroup();
+
         rbMale.setToggleGroup(gender);
         rbFemale.setToggleGroup(gender);
+
         rbMale.setSelected(true);
 
-        // Solo permite números en el campo teléfono
         telefono.textProperty().addListener((obs, oldVal, newVal) -> {
+
             if (!newVal.matches("\\d*")) {
-                telefono.setText(newVal.replaceAll("[^\\d]", ""));
+
+                telefono.setText(
+                        newVal.replaceAll("[^\\d]", "")
+                );
             }
         });
-        
-        cbCurso.getItems().addAll(Curso.values());
-        cbCiclo.getItems().addAll(Ciclo.values());
+
+        cbCurso.getItems().addAll(
+                Curso.values()
+        );
+
+        cbCiclo.getItems().addAll(
+                Ciclo.values()
+        );
+
+        eleccionUsuario.valueProperty().addListener(
+                (obs, oldVal, newVal) -> {
+
+                    boolean esTutor =
+                            "TUTOR_EMPRESA"
+                                    .equalsIgnoreCase(newVal);
+
+                    cbCurso.setVisible(!esTutor);
+                    cbCurso.setManaged(!esTutor);
+
+                    cbCiclo.setVisible(!esTutor);
+                    cbCiclo.setManaged(!esTutor);
+
+                    if (esTutor) {
+
+                        cbCurso.setValue(null);
+                        cbCiclo.setValue(null);
+                    }
+                });
+
+        eleccionUsuario.setValue(
+                "ESTUDIANTE"
+        );
     }
 
-    /**
-     * Valida los datos introducidos y guarda un nuevo usuario en el sistema.
-     */
     @FXML
     private void saveUser() {
 
-    	if (firstName.getText().isEmpty() ||
-    		    lastName.getText().isEmpty() ||
-    		    email.getText().isEmpty() ||
-    		    telefono.getText().isEmpty() ||
-    		    password.getText().isEmpty() ||
-    		    dob.getValue() == null ||
-    		    cbCurso.getValue() == null ||
-    		    cbCiclo.getValue() == null) {
+        boolean esTutor =
+                "TUTOR_EMPRESA"
+                        .equalsIgnoreCase(
+                                eleccionUsuario.getValue()
+                        );
 
-    		    alerta("Error", "Rellena todos los campos");
-    		    return;
-    		}
+        if (firstName.getText().isEmpty()
+                || lastName.getText().isEmpty()
+                || email.getText().isEmpty()
+                || telefono.getText().isEmpty()
+                || password.getText().isEmpty()
+                || dob.getValue() == null
+                || (!esTutor && cbCurso.getValue() == null)
+                || (!esTutor && cbCiclo.getValue() == null)) {
+
+            alerta(
+                    "Error",
+                    "Rellena todos los campos"
+            );
+
+            return;
+        }
 
         User user = new User();
-        user.setNombre(firstName.getText());
-        user.setApellidos(lastName.getText());
-        user.setEmail(email.getText());
-        user.setTelefono(telefono.getText());
-        user.setPassword(password.getText());
-        user.setFechaNacimiento(Date.valueOf(dob.getValue()));
-        user.setGenero(rbMale.isSelected() ? "Hombre" : "Mujer");
 
-        user.setPerfil(eleccionUsuario.getValue());
-        
-        user.setCurso(cbCurso.getValue());
-        user.setCiclo(cbCiclo.getValue());
+        user.setNombre(
+                firstName.getText()
+        );
+
+        user.setApellidos(
+                lastName.getText()
+        );
+
+        user.setEmail(
+                email.getText()
+        );
+
+        user.setTelefono(
+                telefono.getText()
+        );
+
+        user.setPassword(
+                password.getText()
+        );
+
+        user.setFechaNacimiento(
+                Date.valueOf(
+                        dob.getValue()
+                )
+        );
+
+        user.setGenero(
+                rbMale.isSelected()
+                        ? "Hombre"
+                        : "Mujer"
+        );
+
+        user.setPerfil(
+                eleccionUsuario.getValue()
+        );
+
+        if (!esTutor) {
+
+            user.setCurso(
+                    cbCurso.getValue()
+            );
+
+            user.setCiclo(
+                    cbCiclo.getValue()
+            );
+        }
 
         userService.save(user);
 
-        alerta("OK", "Usuario creado correctamente");
+        alerta(
+                "OK",
+                "Usuario creado correctamente"
+        );
+
         limpiar();
     }
 
-    /**
-     * Vuelve al panel de administrador.
-     */
     @FXML
     private void volver() {
-        stageManager.switchScene(FxmlView.ADMIN);
+
+        stageManager.switchScene(
+                FxmlView.ADMIN
+        );
     }
 
-    /**
-     * Limpia los campos del formulario tras crear un usuario.
-     */
     private void limpiar() {
+
         firstName.clear();
         lastName.clear();
         email.clear();
         telefono.clear();
         password.clear();
+
         dob.setValue(null);
+
         rbMale.setSelected(true);
-        eleccionUsuario.setValue("ESTUDIANTE");
+
+        eleccionUsuario.setValue(
+                "ESTUDIANTE"
+        );
+
         cbCurso.setValue(null);
         cbCiclo.setValue(null);
+
+        cbCurso.setVisible(true);
+        cbCurso.setManaged(true);
+
+        cbCiclo.setVisible(true);
+        cbCiclo.setManaged(true);
     }
 
-    /**
-     * Muestra un mensaje emergente al usuario.
-     * 
-     * @param t título de la alerta
-     * @param m mensaje a mostrar
-     */
-    private void alerta(String t, String m) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setTitle(t);
+    private void alerta(
+            String titulo,
+            String mensaje) {
+
+        Alert a = new Alert(
+                Alert.AlertType.INFORMATION
+        );
+
+        a.setTitle(titulo);
         a.setHeaderText(null);
-        a.setContentText(m);
+        a.setContentText(mensaje);
+
         a.showAndWait();
     }
 }

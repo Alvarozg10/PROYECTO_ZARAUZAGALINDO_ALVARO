@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.modelo;
 
 import java.sql.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -44,9 +46,10 @@ public class FormacionEmpresa {
     @JoinColumn(name = "tutor_id", nullable = false)
     private User tutor;
 
-    /** Nombre de la empresa donde se realiza la FE */
-    @Column(nullable = false)
-    private String empresa;
+    /** Empresa donde se realiza la FE */
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    private Empresa empresa;
 
     /** Fecha de inicio de la FE */
     @Column(name = "fecha_inicio", nullable = false)
@@ -59,6 +62,10 @@ public class FormacionEmpresa {
     /** Estado actual de la FE (PENDIENTE, EN_CURSO, FINALIZADO) */
     @Enumerated(EnumType.STRING)
     private Estado estado;
+    
+    @OneToOne(mappedBy = "fe",
+            cascade = CascadeType.ALL)
+    private Evaluacion evaluacion;
 
 	public Long getId() {
 		return id;
@@ -84,11 +91,11 @@ public class FormacionEmpresa {
 		this.tutor = tutor;
 	}
 
-	public String getEmpresa() {
+	public Empresa getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(String empresa) {
+	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
 
@@ -114,6 +121,14 @@ public class FormacionEmpresa {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+	
+	public Evaluacion getEvaluacion() {
+	    return evaluacion;
+	}
+
+	public void setEvaluacion(Evaluacion evaluacion) {
+	    this.evaluacion = evaluacion;
 	}
 
 }

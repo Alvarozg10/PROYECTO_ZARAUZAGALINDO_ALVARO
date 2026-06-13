@@ -75,6 +75,30 @@ public class ProfesorController implements Initializable {
         stageManager.switchScene(FxmlView.CONSULTARFCT);
     }
     
+    @FXML
+    private void abrirCrearEmpresa() {
+
+        stageManager.switchScene(
+                FxmlView.CREAR_EMPRESA
+        );
+    }
+    
+    @FXML
+    private void dashboard() {
+
+        stageManager.switchScene(
+                FxmlView.DASHBOARD_PROFESOR
+        );
+    }
+    
+    @FXML
+    private void verEvaluaciones() {
+
+        stageManager.switchScene(
+                FxmlView.VER_EVALUACIONES
+        );
+    }
+    
     /**
      * Abre el sistema de ayuda en una ventana independiente.
      * 

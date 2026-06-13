@@ -51,6 +51,10 @@
             <Button text="Consultar alumnos asignados"
                     prefWidth="250"
                     onAction="#verAlumnoAsignado"/>
+                    
+            <Button text="Evaluar Alumno"
+                    prefWidth="250"
+                    onAction="#evaluarAlumno"/>
 
             <Button text="Subir documentación"
                     prefWidth="250"

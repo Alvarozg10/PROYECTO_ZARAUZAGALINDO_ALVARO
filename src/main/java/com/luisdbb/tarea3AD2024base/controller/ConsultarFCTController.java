@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
 import com.luisdbb.tarea3AD2024base.repositorios.FormacionEmpresaRepository;
+import com.luisdbb.tarea3AD2024base.services.FCTService;
 import com.luisdbb.tarea3AD2024base.services.InformeService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
@@ -64,6 +65,9 @@ public class ConsultarFCTController implements Initializable {
     /** Servicio de informes PDF */
     @Autowired
     private InformeService informeService;
+    
+    @Autowired
+    private FCTService fctService;
 
     /** Repositorio FE */
     @Autowired
@@ -79,6 +83,8 @@ public class ConsultarFCTController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	
+        fctService.actualizarEstadosAutomaticamente();
 
         tablaFCT.setColumnResizePolicy(
                 TableView.CONSTRAINED_RESIZE_POLICY
@@ -115,38 +121,63 @@ public class ConsultarFCTController implements Initializable {
         });
 
         // Empresa
-        colEmpresa.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue().getEmpresa()
-                )
-        );
+        colEmpresa.setCellValueFactory(data -> {
+
+            if (data.getValue().getEmpresa() == null) {
+                return new SimpleStringProperty("-");
+            }
+
+            return new SimpleStringProperty(
+                    data.getValue()
+                        .getEmpresa()
+                        .getNombre()
+            );
+        });
 
         // Fecha inicio
         colInicio.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue()
-                            .getFechaInicio()
-                            .toString()
-                )
-        );
+
+        new SimpleStringProperty(
+
+            data.getValue().getFechaInicio() != null
+
+            ? data.getValue()
+                  .getFechaInicio()
+                  .toString()
+
+            : "-"
+        )
+    );
 
         // Fecha fin
         colFin.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue()
-                            .getFechaFin()
-                            .toString()
-                )
-        );
+
+        new SimpleStringProperty(
+
+            data.getValue().getFechaFin() != null
+
+            ? data.getValue()
+                  .getFechaFin()
+                  .toString()
+
+            : "-"
+        )
+    );
 
         // Estado
         colEstado.setCellValueFactory(data ->
-                new SimpleStringProperty(
-                        data.getValue()
-                            .getEstado()
-                            .toString()
-                )
-        );
+
+        new SimpleStringProperty(
+
+            data.getValue().getEstado() != null
+
+            ? data.getValue()
+                  .getEstado()
+                  .toString()
+
+            : "-"
+        )
+    );
 
         // Curso
         colCurso.setCellValueFactory(data ->

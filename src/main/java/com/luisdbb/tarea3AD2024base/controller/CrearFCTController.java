@@ -9,9 +9,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.modelo.Empresa;
 import com.luisdbb.tarea3AD2024base.modelo.Estado;
 import com.luisdbb.tarea3AD2024base.modelo.FormacionEmpresa;
 import com.luisdbb.tarea3AD2024base.modelo.User;
+import com.luisdbb.tarea3AD2024base.repositorios.EmpresaRepository;
 import com.luisdbb.tarea3AD2024base.repositorios.FormacionEmpresaRepository;
 import com.luisdbb.tarea3AD2024base.services.UserService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
@@ -21,12 +23,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
 /**
  * Controlador encargado de gestionar la creación de una
- * Formación en Centro de Trabajo (FE).
+ * Formación en Empresa (FE).
  */
 @Controller
 public class CrearFCTController {
@@ -38,7 +39,7 @@ public class CrearFCTController {
     private ChoiceBox<User> cbTutor;
 
     @FXML
-    private TextField txtEmpresa;
+    private ChoiceBox<Empresa> cbEmpresa;
 
     @FXML
     private DatePicker fechaInicio;
@@ -55,6 +56,9 @@ public class CrearFCTController {
     @Autowired
     private FormacionEmpresaRepository formacionRepo;
 
+    @Autowired
+    private EmpresaRepository empresaRepository;
+
     @Lazy
     @Autowired
     private StageManager stageManager;
@@ -64,21 +68,35 @@ public class CrearFCTController {
 
         List<User> usuarios = userService.findAll();
 
-        // Filtrar alumnos
+        // Alumnos
         List<User> alumnos = usuarios.stream()
                 .filter(u -> "ESTUDIANTE".equalsIgnoreCase(u.getPerfil()))
                 .collect(Collectors.toList());
 
-        cbAlumno.setItems(FXCollections.observableArrayList(alumnos));
+        cbAlumno.setItems(
+                FXCollections.observableArrayList(alumnos)
+        );
 
-        // Filtrar tutores
+        // Tutores empresa
         List<User> tutores = usuarios.stream()
                 .filter(u -> "TUTOR_EMPRESA".equalsIgnoreCase(u.getPerfil()))
                 .collect(Collectors.toList());
 
-        cbTutor.setItems(FXCollections.observableArrayList(tutores));
+        cbTutor.setItems(
+                FXCollections.observableArrayList(tutores)
+        );
 
-        // Mostrar info completa del alumno
+        // Empresas
+        cbEmpresa.setItems(
+                FXCollections.observableArrayList(
+                        empresaRepository.findAll()
+                )
+        );
+
+        // Estados
+        cbEstado.getItems().addAll(Estado.values());
+
+        // Mostrar alumnos
         cbAlumno.setConverter(new StringConverter<>() {
 
             @Override
@@ -88,7 +106,8 @@ public class CrearFCTController {
                     return "";
                 }
 
-                return u.getNombre() + " "
+                return u.getNombre()
+                        + " "
                         + u.getApellidos()
                         + " - "
                         + u.getCiclo()
@@ -97,12 +116,12 @@ public class CrearFCTController {
             }
 
             @Override
-            public User fromString(String s) {
+            public User fromString(String string) {
                 return null;
             }
         });
 
-        // Mostrar tutor
+        // Mostrar tutores
         cbTutor.setConverter(new StringConverter<>() {
 
             @Override
@@ -112,27 +131,46 @@ public class CrearFCTController {
                     return "";
                 }
 
-                return u.getNombre() + " " + u.getApellidos();
+                return u.getNombre()
+                        + " "
+                        + u.getApellidos();
             }
 
             @Override
-            public User fromString(String s) {
+            public User fromString(String string) {
                 return null;
             }
         });
 
-        cbEstado.getItems().addAll(Estado.values());
+        // Mostrar empresas
+        cbEmpresa.setConverter(new StringConverter<>() {
+
+            @Override
+            public String toString(Empresa empresa) {
+
+                if (empresa == null) {
+                    return "";
+                }
+
+                return empresa.getNombre();
+            }
+
+            @Override
+            public Empresa fromString(String string) {
+                return null;
+            }
+        });
     }
 
     @FXML
     private void guardarFCT() {
 
-        if (cbAlumno.getValue() == null ||
-            cbTutor.getValue() == null ||
-            txtEmpresa.getText().isEmpty() ||
-            fechaInicio.getValue() == null ||
-            fechaFin.getValue() == null ||
-            cbEstado.getValue() == null) {
+        if (cbAlumno.getValue() == null
+                || cbTutor.getValue() == null
+                || cbEmpresa.getValue() == null
+                || fechaInicio.getValue() == null
+                || fechaFin.getValue() == null
+                || cbEstado.getValue() == null) {
 
             alerta("Error", "Rellena todos los campos");
             return;
@@ -142,17 +180,26 @@ public class CrearFCTController {
 
         f.setEstudiante(cbAlumno.getValue());
         f.setTutor(cbTutor.getValue());
+        f.setEmpresa(cbEmpresa.getValue());
 
-        f.setEmpresa(txtEmpresa.getText());
+        f.setFechaInicio(
+                Date.valueOf(fechaInicio.getValue())
+        );
 
-        f.setFechaInicio(Date.valueOf(fechaInicio.getValue()));
-        f.setFechaFin(Date.valueOf(fechaFin.getValue()));
+        f.setFechaFin(
+                Date.valueOf(fechaFin.getValue())
+        );
 
-        f.setEstado(cbEstado.getValue());
+        f.setEstado(
+                cbEstado.getValue()
+        );
 
         formacionRepo.save(f);
 
-        alerta("OK", "FCT creada correctamente");
+        alerta(
+                "Correcto",
+                "FE creada correctamente"
+        );
 
         limpiarCampos();
     }
@@ -161,28 +208,31 @@ public class CrearFCTController {
 
         cbAlumno.setValue(null);
         cbTutor.setValue(null);
-
-        txtEmpresa.clear();
+        cbEmpresa.setValue(null);
 
         fechaInicio.setValue(null);
         fechaFin.setValue(null);
 
         cbEstado.setValue(null);
-
     }
 
     @FXML
     private void volver() {
-        stageManager.switchScene(FxmlView.PROFESOR);
+
+        stageManager.switchScene(
+                FxmlView.PROFESOR
+        );
     }
 
-    private void alerta(String t, String m) {
+    private void alerta(String titulo, String mensaje) {
 
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        Alert a = new Alert(
+                Alert.AlertType.INFORMATION
+        );
 
-        a.setTitle(t);
+        a.setTitle(titulo);
         a.setHeaderText(null);
-        a.setContentText(m);
+        a.setContentText(mensaje);
 
         a.showAndWait();
     }

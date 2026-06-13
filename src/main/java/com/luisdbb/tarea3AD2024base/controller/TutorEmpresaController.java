@@ -72,6 +72,14 @@ public class TutorEmpresaController implements Initializable {
         stageManager.switchScene(FxmlView.SUBIR_DOCUMENTO);
     }
     
+    @FXML
+    private void evaluarAlumno() {
+
+        stageManager.switchScene(
+                FxmlView.EVALUAR_ALUMNO
+        );
+    }
+    
     /**
      * Abre el sistema de ayuda en una ventana independiente.
      * 
