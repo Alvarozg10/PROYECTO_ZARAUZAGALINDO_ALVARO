@@ -191,6 +191,14 @@ public class DashboardProfesorController {
                 "FE que terminan en 15 días: "
                 + terminanPronto);
     }
+    
+    @FXML
+    private void abrirSeguimiento() {
+
+        stageManager.switchScene(
+                FxmlView.SEGUIMIENTO_FCT
+        );
+    }
 
     @FXML
     private void volver() {

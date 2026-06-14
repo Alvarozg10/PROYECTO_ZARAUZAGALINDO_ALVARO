@@ -153,10 +153,18 @@
 
                 <!-- BOTÓN -->
 
-                <Button text="Volver"
-                        prefWidth="180"
-                        onAction="#volver"/>
+                <VBox spacing="10" alignment="CENTER">
 
+			    <Button text="Seguimiento FCT"
+			            prefWidth="220"
+			            onAction="#abrirSeguimiento"/>
+			
+			    <Button text="Volver"
+			            prefWidth="180"
+			            onAction="#volver"/>
+
+                </VBox>
+                
             </VBox>
 
         </StackPane>

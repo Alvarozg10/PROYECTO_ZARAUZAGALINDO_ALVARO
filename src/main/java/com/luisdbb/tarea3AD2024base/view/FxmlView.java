@@ -31,6 +31,7 @@ public enum FxmlView {
     DASHBOARD_PROFESOR("Dashboard Profesor", "DashboardProfesor.fxml"),
     EVALUAR_ALUMNO("Evaluar Alumno", "EvaluarAlumno.fxml"),
     VER_EVALUACIONES("Ver Evaluaciones", "VerEvaluaciones.fxml"),
+    SEGUIMIENTO_FCT("Seguimiento FCT", "SeguimientoFCT.fxml"),
     AYUDA("Ayuda", "Ayuda.fxml");
 
     /** Título de la ventana */
